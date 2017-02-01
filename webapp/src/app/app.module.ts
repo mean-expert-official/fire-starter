@@ -5,19 +5,22 @@ import { FormsModule } from '@angular/forms';
 import { SDKBrowserModule } from './shared/sdk/index';
 import { AppComponent } from './app.component';
 
+import { TodoModule } from './todo/todo.module'
 import { UiModule } from './ui/ui.module'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
   imports: [
     BrowserModule,
     FormsModule,
     SDKBrowserModule.forRoot(),
+
+    TodoModule,
     UiModule,
   ],
   providers: [
+  ],
+  declarations: [
+    AppComponent,
   ],
   bootstrap: [
     AppComponent,

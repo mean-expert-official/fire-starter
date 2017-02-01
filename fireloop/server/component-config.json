@@ -3,7 +3,7 @@
     "mountPath": "/explorer"
   },
   "@mean-expert/loopback-component-realtime": {
-    "auth": true,
+    "auth": false,
     "debug": false
   }
 }

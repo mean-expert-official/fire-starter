@@ -7,9 +7,7 @@ import { Component } from '@angular/core';
       <div class="py-3 my-3">
         <div class="card">
           <div class="card-block">
-            <h1 class="text-center py-3 my-3">
-              {{title}}
-            </h1>
+            <app-todo-list></app-todo-list>
           </div>
         </div>
       </div>
@@ -17,5 +15,4 @@ import { Component } from '@angular/core';
   `,
 })
 export class AppComponent {
-  title = 'app works!';
 }
