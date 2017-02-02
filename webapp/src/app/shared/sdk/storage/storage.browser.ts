@@ -1,67 +1,37 @@
 /* tslint:disable */
 import { Injectable } from '@angular/core';
 /**
-* @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@mean-expert-official>
 * @module StorageBrowser
+* @author Jonathan Casarrubias
 * @license MIT
 * @description
-* This module handle localStorage, it will be provided using DI Swapping according the
-* SDK Socket Driver Available currently supporting Angular 2 for web and NativeScript 2.
+* Stand-alone cookie service for browsers
 **/
 @Injectable()
 export class StorageBrowser {
-  /**
-   * @method get
-   * @param {string} key Storage key name
-   * @return {any}
-   * @description
-   * The getter will return any type of data persisted in localStorage.
-   **/
-  get(key: string): any {
-    let data: string = localStorage.getItem(key);
-    return this.parse(data);
-  }
-  /**
-   * @method set
-   * @param {string} key Storage key name
-   * @param {any} value Any value
-   * @return {void}
-   * @description
-   * The setter will return any type of data persisted in localStorage.
-   **/
-  set(key: string, value: any): void {
+  set(key: string, value: any) {
     localStorage.setItem(
       key,
       typeof value === 'object' ? JSON.stringify(value) : value
     );
   }
-  /**
-   * @method remove
-   * @param {string} key Storage key name
-   * @return {void}
-   * @description
-   * This method will remove a localStorage item from the client.
-   **/
-  remove(key: string): void {
+  get(key: string): any {
+    let data: string = localStorage.getItem(key);
+    return this.isJSON(data) ? JSON.parse(data) : data;
+  }
+  remove(key: string): any {
     if (localStorage[key]) {
       localStorage.removeItem(key);
     } else {
       console.log('Trying to remove unexisting key: ', key);
     }
   }
-  /**
-   * @method parse
-   * @param {any} value Input data expected to be JSON
-   * @return {void}
-   * @description
-   * This method will parse the string as JSON if possible, otherwise will
-   * return the value itself.
-   **/
-  private parse(value: any) {
+  private isJSON(data: string) {
     try {
-        return JSON.parse(value);
+      JSON.parse(data);
     } catch (e) {
-        return value;
+      return false;
     }
+    return true;
   }
 }

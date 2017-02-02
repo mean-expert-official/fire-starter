@@ -3,7 +3,7 @@
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "lib": ["es6", "dom"],
     "mapRoot": "./",
     "module": "es6",

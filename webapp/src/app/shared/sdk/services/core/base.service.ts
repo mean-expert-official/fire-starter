@@ -44,17 +44,14 @@ export abstract class BaseLoopBackApi {
     this.model = this.models.get(this.getModelName());
   }
   /**
-   * @method request
-   * @param {string}  method      Request method (GET, POST, PUT)
-   * @param {string}  url         Request url (my-host/my-url/:id)
-   * @param {any}     routeParams Values of url parameters
-   * @param {any}     urlParams   Parameters for building url (filter and other)
-   * @param {any}     postBody    Request postBody
-   * @return {Observable<any>}
-   * @description
-   * This is a core method, every HTTP Call will be done from here, every API Service will
-   * extend this class and use this method to get RESTful communication.
-   **/
+   * Process request
+   * @param string  method      Request method (GET, POST, PUT)
+   * @param string  url         Request url (my-host/my-url/:id)
+   * @param any     routeParams Values of url parameters
+   * @param any     urlParams   Parameters for building url (filter and other)
+   * @param any     postBody    Request postBody
+   * @param boolean isio        Request socket connection (When IO is enabled)
+   */
   public request(
     method      : string,
     url         : string,
@@ -86,11 +83,6 @@ export abstract class BaseLoopBackApi {
       headers.append('filter', JSON.stringify(urlParams.filter));
       delete urlParams.filter;
     }
-    // Separate where object from url params and add to search query
-    if (urlParams.where) {
-      headers.append('where', JSON.stringify(urlParams.where));
-      delete urlParams.where;
-    }
     this.searchParams.setJSON(urlParams);
     let request: Request = new Request({
       headers : headers,
@@ -108,9 +100,6 @@ export abstract class BaseLoopBackApi {
    * @method authenticate
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @param {string} url Server URL
-   * @param {Headers} headers HTTP Headers
-   * @return {void}
    * @description
    * This method will try to authenticate using either an access_token or basic http auth
    */
@@ -126,12 +115,10 @@ export abstract class BaseLoopBackApi {
    * @method create
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @param {T} data Generic data type
-   * @return {Observable<T>}
    * @description
    * Generic create method
    */
-  public create<T>(data: T): Observable<T> {
+  public create<T>(data: any = {}): Observable<T> {
     return this.request('POST', [
       LoopBackConfig.getPath(),
       LoopBackConfig.getApiVersion(),
@@ -142,12 +129,10 @@ export abstract class BaseLoopBackApi {
    * @method create
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @param {T[]} data Generic data type array
-   * @return {Observable<T[]>}
    * @description
-   * Generic create many method
+   * Generic create method
    */
-  public createMany<T>(data: T[]): Observable<T[]> {
+  public createMany<T>(data: any = {}): Observable<T[]> {
     return this.request('POST', [
       LoopBackConfig.getPath(),
       LoopBackConfig.getApiVersion(),
@@ -159,8 +144,6 @@ export abstract class BaseLoopBackApi {
    * @method findById
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @param {any} data Generic data type
-   * @return {Observable<T>}
    * @description
    * Generic findById method
    */
@@ -178,7 +161,6 @@ export abstract class BaseLoopBackApi {
    * @method find
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T[+>}
    * @description
    * Generic find method
    */
@@ -194,7 +176,6 @@ export abstract class BaseLoopBackApi {
    * @method exists
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T[]>}
    * @description
    * Generic exists method
    */
@@ -210,7 +191,6 @@ export abstract class BaseLoopBackApi {
    * @method findOne
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T>}
    * @description
    * Generic findOne method
    */
@@ -226,11 +206,10 @@ export abstract class BaseLoopBackApi {
    * @method updateAll
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T[]>}
    * @description
    * Generic updateAll method
    */
-  public updateAll<T>(where: any = {}, data: T): Observable<{ count: 'number' }> {
+  public updateAll<T>(where: any = {}, data: T): Observable<T[]> {
     let _urlParams: any = {};
     if (where) _urlParams.where = where;
     return this.request('POST', [
@@ -238,13 +217,13 @@ export abstract class BaseLoopBackApi {
       LoopBackConfig.getApiVersion(),
       this.model.getModelDefinition().plural,
       'update'
-    ].join('/'), undefined, _urlParams, { data });
+    ].join('/'), undefined, _urlParams, { data })
+    .map((datum: T[]) => datum.map((data: T) => this.model.factory(data)));
   }
   /**
    * @method deleteById
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T>}
    * @description
    * Generic deleteById method
    */
@@ -260,7 +239,6 @@ export abstract class BaseLoopBackApi {
    * @method count
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<{ count: number }>}
    * @description
    * Generic count method
    */
@@ -278,7 +256,6 @@ export abstract class BaseLoopBackApi {
    * @method updateAttributes
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T>}
    * @description
    * Generic updateAttributes method
    */
@@ -294,7 +271,6 @@ export abstract class BaseLoopBackApi {
    * @method upsert
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T>}
    * @description
    * Generic upsert method
    */
@@ -306,32 +282,16 @@ export abstract class BaseLoopBackApi {
     ].join('/'), undefined, undefined, { data }).map((data: T) => this.model.factory(data));
   }
   /**
-   * @method upsertPatch
-   * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
-   * @license MIT
-   * @return {Observable<T>}
-   * @description
-   * Generic upsert method using patch http method
-   */
-  public upsertPatch<T>(data: any = {}): Observable<T> {
-    return this.request('PATCH', [
-      LoopBackConfig.getPath(),
-      LoopBackConfig.getApiVersion(),
-      this.model.getModelDefinition().plural,
-    ].join('/'), undefined, undefined, { data }).map((data: T) => this.model.factory(data));
-  }
-  /**
    * @method upsertWithWhere
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T>}
    * @description
    * Generic upsertWithWhere method
    */
   public upsertWithWhere<T>(where: any = {}, data: any = {}): Observable<T> {
     let _urlParams: any = {};
     if (where) _urlParams.where = where;
-    return this.request('POST', [
+    return this.request('PUT', [
       LoopBackConfig.getPath(),
       LoopBackConfig.getApiVersion(),
       this.model.getModelDefinition().plural,
@@ -342,12 +302,11 @@ export abstract class BaseLoopBackApi {
    * @method replaceOrCreate
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T>}
    * @description
    * Generic replaceOrCreate method
    */
   public replaceOrCreate<T>(data: any = {}): Observable<T> {
-    return this.request('POST', [
+    return this.request('PUT', [
       LoopBackConfig.getPath(),
       LoopBackConfig.getApiVersion(),
       this.model.getModelDefinition().plural,
@@ -358,7 +317,6 @@ export abstract class BaseLoopBackApi {
    * @method replaceById
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<T>}
    * @description
    * Generic replaceById method
    */
@@ -374,7 +332,6 @@ export abstract class BaseLoopBackApi {
    * @method createChangeStream
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {Observable<any>}
    * @description
    * Generic createChangeStream method
    */
@@ -399,7 +356,6 @@ export abstract class BaseLoopBackApi {
    * @method getModelName
    * @author Jonathan Casarrubias <t: johncasarrubias, gh: mean-expert-official>
    * @license MIT
-   * @return {string}
    * @description
    * Abstract getModelName method
    */

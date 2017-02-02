@@ -6,13 +6,13 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { LoopBackConfig } from '../lb.config';
 /**
-* @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@mean-expert-official>
+* @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@johncasarrubias>
 * @module SocketConnection
 * @license MIT
 * @description
 * This module handle socket connections and return singleton instances for each
 * connection, it will use the SDK Socket Driver Available currently supporting
-* Angular 2 for web, NativeScript 2 and Angular Universal.
+* Angular 2 for web and NativeScript 2.
 **/
 @Injectable()
 export class SocketConnection {
@@ -37,12 +37,8 @@ export class SocketConnection {
   private unauthenticated: boolean = true;
   /**
    * @method constructor
-   * @param {SocketDriver} driver Socket IO Driver
-   * @param {NgZone} zone Angular 2 Zone
-   * @description
-   * The constructor will set references for the shared hot observables from
-   * the class subjects. Then it will subscribe each of these observables
-   * that will create a channel that later will be shared between subscribers.
+   * @param driver
+   * @param zone
    **/
   constructor(
     @Inject(SocketDriver) private driver: SocketDriver,
@@ -63,11 +59,10 @@ export class SocketConnection {
   }
   /**
    * @method connect
-   * @param {AccessToken} token AccesToken instance
-   * @return {void}
+   * @param url string
+   * @param token AccessToken
    * @description
-   * This method will create a new socket connection when not previously established.
-   * If there is a broken connection it will re-connect.
+   * This method will return a socket socket connection
    **/
   public connect(token: AccessToken = null): void {
     if (!this.socket) {
@@ -97,19 +92,14 @@ export class SocketConnection {
       // Listen for disconnections
       this.on('disconnect', (status: any) => this.subjects.onDisconnect.next(status));
     } else if (this.socket && !this.socket.connected){
-      if (typeof this.socket.off === 'function') {
-        this.socket.off();
-      }
-      if (typeof this.socket.destroy === 'function') {
-        this.socket.destroy();
-      }
+      this.socket.off();
+      this.socket.destroy();
       delete this.socket;
       this.connect(token);
     }
   }
   /**
    * @method isConnected
-   * @return {boolean}
    * @description
    * This method will return true or false depending on established connections
    **/
@@ -118,50 +108,32 @@ export class SocketConnection {
   }
   /**
    * @method on
-   * @param {string} event Event name
-   * @param {Function} handler Event listener handler
-   * @return {void}
    * @description
-   * This method listen for server events from the current WebSocket connection.
-   * This method is a facade that will wrap the original "on" method and run it
-   * within the Angular Zone to avoid update issues.
+   * This method will wrap the original "on" method and run it within the Angular Zone
    **/
   public on(event: string, handler: Function): void {
     this.socket.on(event, (data: any) => this.zone.run(() => handler(data)));
   }
   /**
    * @method emit
-   * @param {string} event Event name
-   * @param {any=} data Any type of data
-   * @return {void}
    * @description
-   * This method will send any type of data to the server according the event set.
+   * This method will wrap the original "on" method and run it within the Angular Zone
    **/
-  public emit(event: string, data?: any): void {
-    if (data) {
-      this.socket.emit(event, data);
-    } else {
-      this.socket.emit(event);
-    }
+  public emit(event: string, data: any): void {
+    this.socket.emit(event, data);
   }
   /**
    * @method removeListener
-   * @param {string} event Event name
-   * @param {Function} handler Event listener handler
-   * @return {void}
    * @description
    * This method will wrap the original "on" method and run it within the Angular Zone
    * Note: off is being used since the nativescript socket io client does not provide
-   * removeListener method, but only provides with off which is provided in any platform.
+   * removeListener method, but only provides with off.
    **/
   public removeListener(event: string, handler: Function): void {
-    if (typeof this.socket.off === 'function') {
-      this.socket.off(event, handler);
-    }
+    this.socket.off(event, handler);
   }
   /**
    * @method disconnect
-   * @return {void}
    * @description
    * This will disconnect the client from the server
    **/
@@ -170,14 +142,13 @@ export class SocketConnection {
   }
   /**
    * @method heartbeater
-   * @return {void}
    * @description
    * This will keep the connection as active, even when users are not sending
    * data, this avoids disconnection because of a connection not being used.
    **/
   private heartbeater(): void {
     let heartbeater: any = setInterval(() => {
-      if (this.isConnected()) {
+      if (this.socket && this.socket.connected) {
         this.socket.emit('lb-ping');
       } else {
         clearInterval(heartbeater);

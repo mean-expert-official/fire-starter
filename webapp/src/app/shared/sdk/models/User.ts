@@ -1,5 +1,6 @@
 /* tslint:disable */
 
+import { App } from './App'
 declare var Object: any;
 export interface UserInterface {
   realm?: string;
@@ -14,6 +15,7 @@ export interface UserInterface {
   lastUpdated?: Date;
   id?: number;
   organizationId?: number;
+  apps: Array<App>;
   accessTokens?: any[];
 }
 
@@ -30,6 +32,7 @@ export class User implements UserInterface {
   lastUpdated: Date;
   id: number;
   organizationId: number;
+  apps: Array<App>;
   accessTokens: any[];
   constructor(data?: UserInterface) {
     Object.assign(this, data);
@@ -49,7 +52,7 @@ export class User implements UserInterface {
   **/
   public static factory(data: UserInterface): User{
     return new User(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -120,6 +123,11 @@ export class User implements UserInterface {
           name: 'accessTokens',
           type: 'any[]',
           model: ''
+        },
+        apps: {
+          name: 'apps',
+          type: 'Array<App>',
+          model: 'App'
         },
       }
     }

@@ -1,20 +1,18 @@
 /* tslint:disable */
 import { Injectable } from '@angular/core';
-import { User } from '../../models/User';
-import { Todo } from '../../models/Todo';
-import { App } from '../../models/App';
 import { Organization } from '../../models/Organization';
+import { App } from '../../models/App';
+import { User } from '../../models/User';
 
-export interface Models { [name: string]: any }
+interface Models { [name: string]: any }
 
 @Injectable()
 export class SDKModels {
 
   private models: Models = {
-    User: User,
-    Todo: Todo,
-    App: App,
     Organization: Organization,
+    App: App,
+    User: User,
     
   };
 
