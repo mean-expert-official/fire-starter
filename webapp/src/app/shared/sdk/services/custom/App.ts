@@ -10,15 +10,17 @@ import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
-import { Todo } from '../../models/Todo';
+import { App } from '../../models/App';
 import { SocketConnection } from '../../sockets/socket.connections';
+import { User } from '../../models/User';
+import { Organization } from '../../models/Organization';
 
 
 /**
- * Api services for the `Todo` model.
+ * Api services for the `App` model.
  */
 @Injectable()
-export class TodoApi extends BaseLoopBackApi {
+export class AppApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
@@ -29,6 +31,66 @@ export class TodoApi extends BaseLoopBackApi {
     @Optional() @Inject(ErrorHandler) protected errorHandler: ErrorHandler
   ) {
     super(http,  connection,  models, auth, searchParams, errorHandler);
+  }
+
+  /**
+   * Fetches belongsTo relation user.
+   *
+   * @param {any} id App id
+   *
+   * @param {boolean} refresh 
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `App` object.)
+   * </em>
+   */
+  public getUser(id: any, refresh: any = {}): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Apps/:id/user";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (refresh) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    return result;
+  }
+
+  /**
+   * Fetches belongsTo relation organization.
+   *
+   * @param {any} id App id
+   *
+   * @param {boolean} refresh 
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `App` object.)
+   * </em>
+   */
+  public getOrganization(id: any, refresh: any = {}): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Apps/:id/organization";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (refresh) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    return result;
   }
 
   /**
@@ -47,7 +109,7 @@ export class TodoApi extends BaseLoopBackApi {
   public myRemote(): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/todos/my-remote";
+    "/Apps/my-remote";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -56,7 +118,7 @@ export class TodoApi extends BaseLoopBackApi {
   }
 
   /**
-   * Statistical information for Todo registers.
+   * Statistical information for App registers.
    *
    * @param {string} range hourly, daily, weekly, monthly, yearly, custom
    *
@@ -72,13 +134,13 @@ export class TodoApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Todo` object.)
+   * This usually means the response is a `App` object.)
    * </em>
    */
   public stats(range: any, custom: any = {}, where: any = {}, groupBy: any = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/todos/stats";
+    "/Apps/stats";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -92,9 +154,9 @@ export class TodoApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Todo`.
+   * i.e. `App`.
    */
   public getModelName() {
-    return "Todo";
+    return "App";
   }
 }

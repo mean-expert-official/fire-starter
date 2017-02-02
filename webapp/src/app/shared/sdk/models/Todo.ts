@@ -44,7 +44,7 @@ export class Todo implements TodoInterface {
   public static getModelDefinition() {
     return {
       name: 'Todo',
-      plural: 'Todos',
+      plural: 'todos',
       properties: {
         text: {
           name: 'text',

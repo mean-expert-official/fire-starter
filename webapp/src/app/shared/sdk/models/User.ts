@@ -13,6 +13,7 @@ export interface UserInterface {
   created?: Date;
   lastUpdated?: Date;
   id?: number;
+  organizationId?: number;
   accessTokens?: any[];
 }
 
@@ -28,6 +29,7 @@ export class User implements UserInterface {
   created: Date;
   lastUpdated: Date;
   id: number;
+  organizationId: number;
   accessTokens: any[];
   constructor(data?: UserInterface) {
     Object.assign(this, data);
@@ -106,6 +108,10 @@ export class User implements UserInterface {
         },
         id: {
           name: 'id',
+          type: 'number'
+        },
+        organizationId: {
+          name: 'organizationId',
           type: 'number'
         },
       },

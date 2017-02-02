@@ -50,6 +50,8 @@ import { SocketConnection } from './sockets/socket.connections';
 import { RealTime } from './services/core/real.time';
 import { UserApi } from './services/custom/User';
 import { TodoApi } from './services/custom/Todo';
+import { AppApi } from './services/custom/App';
+import { OrganizationApi } from './services/custom/Organization';
 /**
 * @module SDKBrowserModule
 * @description
@@ -83,6 +85,8 @@ export class SDKBrowserModule {
         RealTime,
         UserApi,
         TodoApi,
+        AppApi,
+        OrganizationApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }
