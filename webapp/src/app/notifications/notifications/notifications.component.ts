@@ -6,12 +6,12 @@ import { NotificationService } from '../notification.service'
   selector: 'app-notifications',
   template: `
     <app-card title="Notification Service">
-      <button *ngFor="let button of buttons" class="btn btn-{{button.type}} mx-1" (click)="onClickService(button)">
+      <button *ngFor="let button of buttons" class="btn btn-{{button.className}} mx-1" (click)="onClickService(button)">
         {{button.label}}
       </button>
     </app-card>
     <app-card title="Notification Effects">
-      <button *ngFor="let button of buttons" class="btn btn-{{button.type}} mx-1" (click)="onClickEffect(button)">
+      <button *ngFor="let button of buttons" class="btn btn-{{button.className}} mx-1" (click)="onClickEffect(button)">
         {{button.label}}
       </button>
     </app-card>
@@ -21,11 +21,11 @@ import { NotificationService } from '../notification.service'
 export class NotificationsComponent {
 
   public buttons = [
-    { label: 'Success', type: 'success' },
-    { label: 'Warning', type: 'warning' },
-    { label: 'Wait',    type: 'wait'    },
-    { label: 'Info',    type: 'info'    },
-    { label: 'Error',   type: 'error'   },
+    { label: 'Success', type: 'success',  className: 'success'},
+    { label: 'Warning', type: 'warning',  className: 'warning'},
+    { label: 'Wait',    type: 'wait',     className: 'primary'},
+    { label: 'Info',    type: 'info',     className: 'info'},
+    { label: 'Error',   type: 'error',    className: 'danger'},
   ]
 
   static getPayload(button) {
