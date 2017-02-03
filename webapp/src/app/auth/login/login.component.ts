@@ -1,19 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store'
+
+import { UserActions } from '../../shared/sdk/actions/user'
 
 @Component({
   selector: 'app-auth-login',
   template: `
-    <p>
-      login Works!
-    </p>
+    <form>
+      <div class="form-group">
+        <input
+          [(ngModel)]="credentials.email"
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Email">
+      </div>
+      <div class="form-group">
+        <input
+          [(ngModel)]="credentials.password"
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          placeholder="Password">
+      </div>
+      <button type="submit"  (click)="submit()" class="btn btn-primary">Login</button>
+    </form>
   `,
-  styles: []
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor() { }
-
-  ngOnInit() {
+  public credentials = {
+    email: null,
+    password: null,
   }
 
+  constructor(private store: Store<any>) {}
+
+  submit() {
+    this.store.dispatch(new UserActions.login({ credentials: this.credentials }))
+  }
 }

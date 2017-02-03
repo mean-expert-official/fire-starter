@@ -11,7 +11,7 @@ import { Todo } from '../../shared/sdk/models/Todo'
       <div class="form-group">
         <input class="form-control" required name="todo" type="date" [(ngModel)]="todo.dueAt" placeholder="Due Date" />
       </div>
-      <button class="btn btn-default">Add Todo</button>
+      <button class="btn btn-secondary">Add Todo</button>
     </form>
   `,
 })

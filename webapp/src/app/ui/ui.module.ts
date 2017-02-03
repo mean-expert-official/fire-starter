@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'
 
-import { LayoutComponent } from './layout/layout.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';
+import { BodyComponent } from './layout/body/body.component'
 import { CardComponent } from './card/card.component'
+import { FooterComponent } from './layout/footer/footer.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
   imports: [
@@ -13,10 +14,11 @@ import { CardComponent } from './card/card.component'
     RouterModule,
   ],
   declarations: [
+    BodyComponent,
     CardComponent,
-    LayoutComponent,
+    FooterComponent,
     HeaderComponent,
-    FooterComponent
+    LayoutComponent,
   ],
   exports: [
     CardComponent,

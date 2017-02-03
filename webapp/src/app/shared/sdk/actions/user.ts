@@ -44,6 +44,10 @@ Object.assign(BaseLoopbackActionTypesFactory('User'), {
   LOGIN_SUCCESS: type('[User] Login user success'),
   LOGIN_FAIL: type('[User] Login user fail'),
 
+  REGISTER: type('[User] Register user'),
+  REGISTER_SUCCESS: type('[User] Register user success'),
+  REGISTER_FAIL: type('[User] Register user fail'),
+
   LOGOUT: type('[User] Logout user'),
   LOGOUT_SUCCESS: type('[User] Logout user success'),
   LOGOUT_FAIL: type('[User] Logout user fail'),
@@ -170,19 +174,37 @@ Object.assign(BaseLoopbackActionsFactory<User>('User', UserActionTypes), {
    * User specific actions
    */
   login: class implements Action {
-    public readonly type = UserActionTypes.LOGIN;
+  public readonly type = UserActionTypes.LOGIN;
 
     constructor(public payload: any) { }
   },
 
   loginSuccess: class implements Action {
-    public readonly type = UserActionTypes.LOGIN_SUCCESS;
+  public readonly type = UserActionTypes.LOGIN_SUCCESS;
 
     constructor(public payload: SDKToken) { }
   },
 
   loginFail: class implements Action {
-    public readonly type = UserActionTypes.LOGIN_FAIL;
+  public readonly type = UserActionTypes.LOGIN_FAIL;
+
+    constructor(public payload: any) { }
+  },
+
+  register: class implements Action {
+  public readonly type = UserActionTypes.REGISTER;
+
+    constructor(public payload: any) { }
+  },
+
+  registerSuccess: class implements Action {
+  public readonly type = UserActionTypes.REGISTER_SUCCESS;
+
+    constructor(public payload: SDKToken) { }
+  },
+
+  registerFail: class implements Action {
+  public readonly type = UserActionTypes.REGISTER_FAIL;
 
     constructor(public payload: any) { }
   },

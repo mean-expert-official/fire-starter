@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-card',
   template: `
-    <div class="py-3 my-3">
+    <div class="my-2">
       <div class="card">
+        <div class="card-header" *ngIf="title">{{title}}</div>
         <div class="card-block">
           <ng-content></ng-content>
         </div>
@@ -13,5 +14,7 @@ import { Component } from '@angular/core';
   `,
 })
 export class CardComponent {
+
+  @Input() title;
 
 }

@@ -7,11 +7,11 @@ import { Todo } from '../../shared/sdk/models/Todo'
     <div class="row my-2">
       <div class="input-group">
         <span class="input-group-btn">
-          <button class="btn btn-default btn-sm" (click)="update.emit(todo)">Update</button>
+          <button class="btn btn-secondary btn-sm" (click)="update.emit(todo)">Update</button>
         </span>
         <input class="form-control" name="todo.id" [(ngModel)]="todo.text" />
         <span class="input-group-btn">
-          <button class="btn btn-default btn-sm" (click)="remove.emit(todo)">Remove</button>
+          <button class="btn btn-secondary btn-sm" (click)="remove.emit(todo)">Remove</button>
         </span>
       </div>
     </div>

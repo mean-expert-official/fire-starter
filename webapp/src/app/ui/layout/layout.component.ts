@@ -4,12 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-layout',
   template: `
     <app-header></app-header>
-    <div class="container">
-      <ng-content></ng-content>
-    </div>
+    <app-body></app-body>
     <app-footer></app-footer>
   `,
 })
-export class LayoutComponent {
-
-}
+export class LayoutComponent {}

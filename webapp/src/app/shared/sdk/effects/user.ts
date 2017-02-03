@@ -122,6 +122,19 @@ export class UserEffects extends BaseLoopbackEffects {
     );
 
   @Effect()
+  protected register: Observable<Action> = this.actions$
+    .ofType(UserActionTypes.REGISTER)
+    .map(toPayload)
+    .mergeMap((payload) => 
+      this.user.create(payload.credentials)
+        .map((response) => new UserActions.registerSuccess(response))
+        .catch((error) => concat(
+          of(new UserActions.registerFail(error)),
+          of(new LoopbackErrorActions.error(error))
+        ))
+    );
+
+  @Effect()
   protected logout: Observable<Action> = this.actions$
     .ofType(UserActionTypes.LOGOUT)
     .map(toPayload)

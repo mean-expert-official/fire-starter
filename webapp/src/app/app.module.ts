@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { SDKBrowserModule } from './shared/sdk/index';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { AppSoreModule } from './app.store'
 
 import { TodoModule } from './todo/todo.module'
 import { UiModule } from './ui/ui.module'
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module'
     SDKBrowserModule.forRoot(),
 
     AppRoutingModule,
+    AppSoreModule,
 
     TodoModule,
     AuthModule,
