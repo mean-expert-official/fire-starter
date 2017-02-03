@@ -1,24 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   template: `
     <nav class="navbar navbar-light bg-faded navbar-toggleable-md">
-      <a class="navbar-brand">FireLoop Demo App</a>
+      <a class="navbar-brand" [routerLink]="['/']">FireLoop Demo App</a>
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item" *ngFor="let link of links">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="link.link">{{link.label}}</a>
         </li>
       </ul>
     </nav>
   `,
   styles: []
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  public links = [
+    { label: 'Todos', link: ['/', 'todos'] },
+    { label: 'Authentication', link: ['/', 'auth'] },
+  ]
 
 }
