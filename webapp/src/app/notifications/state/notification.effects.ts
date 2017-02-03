@@ -8,13 +8,13 @@ import { NotificationService } from '../notification.service'
 @Injectable()
 export class NotificationEffects {
 
-  @Effect()
+  @Effect({ dispatch: false })
   protected notify: Observable<Action> = this.actions$
     .ofType('NOTIFY')
     .map(toPayload)
     .mergeMap((payload) => {
         this.notificationService.toast(payload)
-        return null
+        return Observable.of({})
       }
     );
 

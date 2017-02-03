@@ -5,13 +5,12 @@ import { Todo } from '../../shared/sdk/models/Todo'
   selector: 'app-todo-form',
   template: `
     <form (submit)="submit()">
-      <div class="form-group">
+      <div class="input-group">
         <input class="form-control" required name="todo" type="text" [(ngModel)]="todo.text" placeholder="Add Todo" />
+        <span class="input-group-btn">
+          <button class="btn btn-secondary">Add Todo</button>
+        </span>
       </div>
-      <div class="form-group">
-        <input class="form-control" required name="todo" type="date" [(ngModel)]="todo.dueAt" placeholder="Due Date" />
-      </div>
-      <button class="btn btn-secondary">Add Todo</button>
     </form>
   `,
 })

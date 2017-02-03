@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store'
   selector: 'app-auth-status',
   template: `
     <div *ngIf="loggedIn" class="alert alert-success mb-0" role="alert">
-      <strong>Success!</strong> You are logged in!
+      <strong>Success!</strong> You are logged in as {{user?.email}}!
     </div>
     <div *ngIf="!loggedIn" class="alert alert-info mb-0" role="alert">
       <strong>Hello!</strong> You are not logged in!
@@ -15,12 +15,16 @@ import { Store } from '@ngrx/store'
 export class StatusComponent {
 
   loggedIn: boolean = false
+  user: any = {}
 
   constructor(private store: Store<any>) {
     this.store
       .select('auth')
-      .subscribe(res => {
-        console.log('res', res)
+      .subscribe((res: any) => {
+        if (res.id) {
+          this.loggedIn = true
+          this.user = res.user
+        }
       })
   }
 }

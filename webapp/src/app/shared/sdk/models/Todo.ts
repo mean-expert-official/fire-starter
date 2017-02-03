@@ -4,6 +4,7 @@ declare var Object: any;
 export interface TodoInterface {
   text: string;
   dueAt: Date;
+  done: boolean;
   id?: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -12,6 +13,7 @@ export interface TodoInterface {
 export class Todo implements TodoInterface {
   text: string;
   dueAt: Date;
+  done: boolean;
   id: number;
   createdAt: Date;
   updatedAt: Date;
@@ -33,7 +35,7 @@ export class Todo implements TodoInterface {
   **/
   public static factory(data: TodoInterface): Todo{
     return new Todo(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -53,6 +55,10 @@ export class Todo implements TodoInterface {
         dueAt: {
           name: 'dueAt',
           type: 'Date'
+        },
+        done: {
+          name: 'done',
+          type: 'boolean'
         },
         id: {
           name: 'id',

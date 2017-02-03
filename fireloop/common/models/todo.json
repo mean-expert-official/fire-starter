@@ -30,7 +30,12 @@
     },
     "dueAt": {
       "type": "date",
-      "required": true
+      "required": false
+    },
+    "done": {
+      "type": "boolean",
+      "required": false,
+      "default": false
     }
   },
   "validations": [],

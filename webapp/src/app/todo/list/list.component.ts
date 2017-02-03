@@ -9,7 +9,10 @@ import { RealTime } from '../../shared/sdk/services/core/real.time'
     <app-todo-form (create)="create($event)"></app-todo-form>
     <ul *ngIf="todoRef" class="list-unstyled mb-0 mt-3 px-3">
       <li *ngFor="let todo of todos">
-        <app-todo-list-item (update)="update($event)" (remove)="remove($event)" [todo]="todo"></app-todo-list-item>
+        <app-todo-list-item
+          (done)="done($event)"
+          (update)="update($event)"
+          (remove)="remove($event)" [todo]="todo"></app-todo-list-item>
       </li>
     </ul>
   `,
@@ -37,6 +40,12 @@ export class ListComponent {
   }
 
   update(todo: Todo): void {
+    this.todoRef.upsert(todo).subscribe();
+  }
+
+  done(todo: Todo): void {
+    todo.done = !todo.done
+    console.log('done', todo)
     this.todoRef.upsert(todo).subscribe();
   }
 
