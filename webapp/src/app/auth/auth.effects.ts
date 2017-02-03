@@ -1,6 +1,6 @@
 /* tslint:disable */
 import { Inject, Injectable } from '@angular/core'
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable'
 import { of } from 'rxjs/observable/of';
@@ -16,16 +16,13 @@ export class AppAuthEffects {
   protected registerSuccess: Observable<Action> = this.actions$
     .ofType(UserActionTypes.REGISTER_SUCCESS)
     .map(toPayload)
-    .mergeMap((payload) => {
-        console.log('payload REGISTER_SUCCESS', payload)
-        return Observable.of({})
+    .mergeMap((payload: any) => {
+        this.store.dispatch({
+          type: 'NOTIFY',
+          payload: { type: 'success', title: 'Registered', msg: 'You are registered' }
+        })
+        return null
       }
-      // this.user.findByIdApps(payload.id, payload.fk)
-      //   .map((response) => new UserActions.findByIdAppsSuccess({id: payload.id, data: response}))
-      //   .catch((error) => concat(
-      //     of(new UserActions.findByIdAppsFail(error)),
-      //     of(new LoopbackErrorActions.error(error))
-      //   ))
     );
 
   @Effect()
@@ -33,16 +30,42 @@ export class AppAuthEffects {
     .ofType(UserActionTypes.REGISTER_FAIL)
     .map(toPayload)
     .mergeMap((payload) => {
-        console.log('payload REGISTER_FAIL', payload)
-        return Observable.of({})
+        this.store.dispatch({
+          type: 'NOTIFY',
+          payload: { type: 'error', title: 'Registration failed', msg: payload.message }
+        })
+        return null
       }
-      // this.user.findByIdApps(payload.id, payload.fk)
-      //   .map((response) => new UserActions.findByIdAppsSuccess({id: payload.id, data: response}))
-      //   .catch((error) => concat(
-      //     of(new UserActions.findByIdAppsFail(error)),
-      //     of(new LoopbackErrorActions.error(error))
-      //   ))
     );
 
-  constructor( @Inject(Actions) public actions$: Actions ) {}
+  @Effect()
+  protected loginSuccess: Observable<Action> = this.actions$
+    .ofType(UserActionTypes.LOGIN_SUCCESS)
+    .map(toPayload)
+    .mergeMap((payload: any) => {
+        this.store.dispatch({
+          type: 'NOTIFY',
+          payload: { type: 'success', title: 'Logged in', msg: 'You are logged in' }
+        })
+        return null
+      }
+    );
+
+  @Effect()
+  protected loginFail: Observable<Action> = this.actions$
+    .ofType(UserActionTypes.LOGIN_FAIL)
+    .map(toPayload)
+    .mergeMap((payload) => {
+        this.store.dispatch({
+          type: 'NOTIFY',
+          payload: { type: 'error', title: 'Login failed', msg: payload.message }
+        })
+        return null
+      }
+    );
+
+  constructor(
+    @Inject(Actions) public actions$: Actions,
+    private store: Store<any>,
+  ) {}
 }

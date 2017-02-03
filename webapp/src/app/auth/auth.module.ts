@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthComponent } from './auth.component'
 import { UiModule } from '../ui/ui.module'
 import { StatusComponent } from './status/status.component'
+import { AppAuthEffects } from './auth.effects'
 
 @NgModule({
   imports: [
@@ -22,6 +23,9 @@ import { StatusComponent } from './status/status.component'
   ],
   exports: [
     AuthComponent,
+  ],
+  providers: [
+    AppAuthEffects,
   ]
 })
 export class AuthModule { }

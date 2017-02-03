@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store'
 
 @Component({
   selector: 'app-auth-status',
@@ -15,4 +16,11 @@ export class StatusComponent {
 
   loggedIn: boolean = false
 
+  constructor(private store: Store<any>) {
+    this.store
+      .select('auth')
+      .subscribe(res => {
+        console.log('res', res)
+      })
+  }
 }

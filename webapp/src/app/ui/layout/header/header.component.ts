@@ -20,6 +20,7 @@ export class HeaderComponent {
   public links = [
     { label: 'Todos', link: ['/', 'todos'] },
     { label: 'Authentication', link: ['/', 'auth'] },
+    { label: 'Notifications', link: ['/', 'notifications'] },
   ]
 
 }
