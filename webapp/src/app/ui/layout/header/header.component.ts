@@ -19,8 +19,9 @@ export class HeaderComponent {
   public appName = 'FireLoop Demo App'
   public links = [
     { label: 'Todos', link: ['/', 'todos'] },
+    { label: 'Notes', link: ['/', 'notes'] },
     { label: 'Authentication', link: ['/', 'auth'] },
     { label: 'Notifications', link: ['/', 'notifications'] },
-  ]
+  ];
 
 }

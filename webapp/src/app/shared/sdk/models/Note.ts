@@ -1,40 +1,38 @@
 /* tslint:disable */
 
 declare var Object: any;
-export interface TodoInterface {
-  text: string;
-  dueAt?: Date;
-  done?: boolean;
+export interface NoteInterface {
+  title: string;
+  content?: string;
   id?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export class Todo implements TodoInterface {
-  text: string;
-  dueAt: Date;
-  done: boolean;
+export class Note implements NoteInterface {
+  title: string;
+  content: string;
   id: number;
   createdAt: Date;
   updatedAt: Date;
-  constructor(data?: TodoInterface) {
+  constructor(data?: NoteInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Todo`.
+   * i.e. `Note`.
    */
   public static getModelName() {
-    return "Todo";
+    return "Note";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of Todo for dynamic purposes.
+  * This method creates an instance of Note for dynamic purposes.
   **/
-  public static factory(data: TodoInterface): Todo{
-    return new Todo(data);
+  public static factory(data: NoteInterface): Note{
+    return new Note(data);
   }  
   /**
   * @method getModelDefinition
@@ -45,21 +43,16 @@ export class Todo implements TodoInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'Todo',
-      plural: 'todos',
+      name: 'Note',
+      plural: 'Notes',
       properties: {
-        text: {
-          name: 'text',
+        title: {
+          name: 'title',
           type: 'string'
         },
-        dueAt: {
-          name: 'dueAt',
-          type: 'Date'
-        },
-        done: {
-          name: 'done',
-          type: 'boolean',
-          default: false
+        content: {
+          name: 'content',
+          type: 'string'
         },
         id: {
           name: 'id',

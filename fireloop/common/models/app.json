@@ -24,39 +24,31 @@
   },
   "properties": {
     "id": {
-      "name": "id",
       "type": "string"
     },
     "name": {
-      "name": "name",
       "type": "string"
     },
     "organizationId": {
-      "name": "organizationId",
       "type": "string"
     },
     "createdAt": {
-      "name": "createdAt",
       "type": "Date"
     },
     "updatedAt": {
-      "name": "updatedAt",
       "type": "Date"
     },
     "userId": {
-      "name": "userId",
       "type": "any"
     }
   },
   "validations": [],
   "relations": {
     "organization": {
-      "name": "organization",
       "type": "belongsTo",
       "model": "Organization"
     },
     "user": {
-      "name": "user",
       "type": "belongsTo",
       "model": "User"
     }

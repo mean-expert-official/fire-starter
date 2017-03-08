@@ -5,7 +5,10 @@ import { Component, Input } from '@angular/core';
   template: `
     <div class="my-2">
       <div class="card">
-        <div class="card-header" *ngIf="title">{{title}}</div>
+        <div class="card-header" *ngIf="title">
+          <strong>{{title}}</strong>
+          <small *ngIf="subTitle">{{subTitle}}</small>
+        </div>
         <div class="card-block">
           <ng-content></ng-content>
         </div>
@@ -16,5 +19,6 @@ import { Component, Input } from '@angular/core';
 export class CardComponent {
 
   @Input() title;
+  @Input() subTitle;
 
 }

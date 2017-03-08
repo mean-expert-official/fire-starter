@@ -15,7 +15,7 @@
 * ============================================================================
 * import { NgModule }       from '@angular/core';
 * import { BrowserModule }  from '@angular/platform-browser';
-* // App Root
+* // App Root 
 * import { AppComponent }   from './app.component';
 * // Feature Modules
 * import { SDK[Browser|Node|Native]Module } from './shared/sdk/sdk.module';
@@ -52,6 +52,7 @@ import { UserApi } from './services/custom/User';
 import { TodoApi } from './services/custom/Todo';
 import { AppApi } from './services/custom/App';
 import { OrganizationApi } from './services/custom/Organization';
+import { NoteApi } from './services/custom/Note';
 /**
 * @module SDKBrowserModule
 * @description
@@ -87,6 +88,7 @@ export class SDKBrowserModule {
         TodoApi,
         AppApi,
         OrganizationApi,
+        NoteApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }
@@ -104,10 +106,3 @@ export * from './lb.config';
 export * from './storage/storage.swaps';
 export { CookieBrowser } from './storage/cookie.browser';
 export { StorageBrowser } from './storage/storage.browser';
-
-export * from './actions/index';
-export * from './effects/index';
-export * from './reducers/index';
-export * from './state';
-export * from './guards/index';
-export * from './resolvers/index';

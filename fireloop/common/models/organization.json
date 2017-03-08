@@ -5,43 +5,6 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {
-    "id": {
-      "name": "id",
-      "type": "string"
-    },
-    "name": {
-      "name": "name",
-      "type": "string"
-    },
-    "description": {
-      "name": "description",
-      "type": "string"
-    },
-    "createdAt": {
-      "name": "createdAt",
-      "type": "Date"
-    },
-    "updatedAt": {
-      "name": "updatedAt",
-      "type": "Date"
-    }
-  },
-  "validations": [],
-  "relations": {
-    "apps": {
-      "name": "apps",
-      "type": "hasMany",
-      "model": "App"
-    },
-    "users": {
-      "name": "users",
-      "type": "hasMany",
-      "model": "User"
-    }
-  },
-  "acls": [],
-  "methods": {},
   "mixins": {
     "TimeStamp": {
       "required": false
@@ -58,5 +21,35 @@
         }
       }
     ]
-  }
+  },
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "Date"
+    },
+    "updatedAt": {
+      "type": "Date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "apps": {
+      "type": "hasMany",
+      "model": "App"
+    },
+    "users": {
+      "type": "hasMany",
+      "model": "User"
+    }
+  },
+  "acls": [],
+  "methods": {}
 }
