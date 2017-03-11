@@ -10,7 +10,7 @@ import { LoopBackConfig } from './shared/sdk/index';
 })
 export class AppComponent {
   constructor() {
-    LoopBackConfig.setBaseURL('http://127.0.0.1:3000');
+    LoopBackConfig.setBaseURL('//127.0.0.1:3000');
     LoopBackConfig.setApiVersion('api');
   }
 }
