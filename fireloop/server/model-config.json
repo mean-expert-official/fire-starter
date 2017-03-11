@@ -17,38 +17,38 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "mongodb"
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": false
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": false
   },
   "Todo": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": true
   },
   "App": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": true
   },
   "Organization": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": true
   },
   "Note": {
-    "dataSource": "db",
+    "dataSource": "mongodb",
     "public": true
   }
 }
