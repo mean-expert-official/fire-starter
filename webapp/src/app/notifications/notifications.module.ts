@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NotificationsComponent } from './notifications/notifications.component';
-import { NotificationEffects } from './state/notification.effects'
-import { NotificationService } from './notification.service'
-import { UiModule } from '../ui/ui.module'
+import { NotificationEffects } from './state/notification.effects';
+import { UiModule } from '../ui/ui.module';
 
 @NgModule({
   imports: [
@@ -19,7 +18,6 @@ import { UiModule } from '../ui/ui.module'
   ],
   providers: [
     NotificationEffects,
-    NotificationService,
   ]
 })
 export class NotificationsModule { }

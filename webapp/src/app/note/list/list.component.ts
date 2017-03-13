@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NoteApi } from '../../shared/sdk/services/custom/Note';
 import { Note } from '../../shared/sdk/models/Note';
+import { UIService } from '../../ui/ui.service';
 
 @Component({
   selector: 'app-note-list',
@@ -21,6 +22,7 @@ export class ListComponent {
 
   constructor(
     private noteApi: NoteApi,
+    private uiService: UIService,
   ) {
     this.find();
   }
@@ -37,8 +39,7 @@ export class ListComponent {
       .subscribe(
         success => this.handleSuccess('create', success),
         error => this.handleError('create', error),
-      )
-      .add(() => this.find());
+      );
   }
 
   update(note: Note): void {
@@ -47,8 +48,7 @@ export class ListComponent {
       .subscribe(
         success => this.handleSuccess('update', success),
         error => this.handleError('update', error),
-      )
-      .add(() => this.find());
+      );
   }
 
   remove(note: Note): void {
@@ -57,16 +57,16 @@ export class ListComponent {
       .subscribe(
         success => this.handleSuccess('remove', success),
         error => this.handleError('remove', error),
-      )
-      .add(() => this.find());
+      );
   }
 
   handleSuccess(action, success) {
-    console.log(`${action} success`, success);
+    this.uiService.toastSuccess(`Note ${action} success`, '');
+    this.find();
   }
 
   handleError(action, error) {
-    console.log(`${action} error`, error);
+    this.uiService.toastError(`Note ${action} error`, error.message);
   }
 
 }

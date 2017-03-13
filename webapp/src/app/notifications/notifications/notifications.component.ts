@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store'
-import { NotificationService } from '../notification.service'
+import { Store } from '@ngrx/store';
+import { UIService } from '../../ui/ui.service';
 
 @Component({
   selector: 'app-notifications',
@@ -26,27 +26,27 @@ export class NotificationsComponent {
     { label: 'Wait',    type: 'wait',     className: 'primary'},
     { label: 'Info',    type: 'info',     className: 'info'},
     { label: 'Error',   type: 'error',    className: 'danger'},
-  ]
+  ];
 
   static getPayload(button) {
     return {
       type: button.type,
       title: button.label,
       text: `You clicked the ${button.type} button`,
-    }
+    };
   }
 
   onClickService(button) {
-    this.notificationService.toast(NotificationsComponent.getPayload(button))
+    this.uiService.toast(NotificationsComponent.getPayload(button));
   }
 
   onClickEffect(button) {
-    return this.store.dispatch({ type: 'NOTIFY', payload: NotificationsComponent.getPayload(button) })
+    return this.store.dispatch({ type: 'NOTIFY', payload: NotificationsComponent.getPayload(button) });
   }
 
 
   constructor(
     private store: Store<any>,
-    private notificationService: NotificationService,
+    private uiService: UIService,
   ) {}
 }
