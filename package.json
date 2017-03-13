@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup": "NODE_ENV=development npm run install && npm run build && npm run serve",
+    "setup": "NODE_ENV=development npm run install && npm run serve",
     "install": "cd fireloop/ && NODE_ENV=development npm install && cd ../webapp && NODE_ENV=development npm install && cd ..",
+    "postinstall": "npm run build",
     "build": "cd webapp && npm run build && cd ..",
     "serve": "cd fireloop/ node server/server.js"
   },
