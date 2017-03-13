@@ -38,9 +38,18 @@
       "paths": [
         "${restApiRoot}"
       ]
+    },
+    "./middleware/publish-config.js": {
+      "paths": [
+        "/config.js"
+      ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": {
+      "params": "$!../dist"
+    }
+  },
   "final": {
     "loopback#urlNotFound": {}
   },
