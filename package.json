@@ -1,0 +1,15 @@
+{
+  "name": "fireloop-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup":"npm run install && npm run build && npm run serve",
+    "install": "cd fireloop/ && npm install && cd ../webapp && npm install && cd..",
+    "build": "cd webapp && npm run build && cd ..",
+    "serve": "cd fireloop/ node server/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

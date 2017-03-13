@@ -13,6 +13,16 @@
     "@mean-expert/loopback-component-realtime": "^1.0.0-rc.4",
     "@mean-expert/loopback-stats-mixin": "^1.2.0",
     "@mean-expert/model": "^1.0.9",
+
+    "@mean-expert/loopback-sdk-builder": "^2.1.0-rc.8.3",
+    "@types/mocha": "^2.2.38",
+    "@types/node": "^7.0.4",
+    "eslint": "^2.13.1",
+    "eslint-config-loopback": "^4.0.0",
+    "nsp": "^2.1.0",
+    "ts-node": "^2.0.0",
+    "typescript": "^2.1.5",
+
     "chai": "^3.5.0",
     "compression": "^1.0.3",
     "cookie-parser": "^1.4.3",
@@ -30,14 +40,7 @@
     "supertest": "^3.0.0"
   },
   "devDependencies": {
-    "@mean-expert/loopback-sdk-builder": "^2.1.0-rc.8.3",
-    "@types/mocha": "^2.2.38",
-    "@types/node": "^7.0.4",
-    "eslint": "^2.13.1",
-    "eslint-config-loopback": "^4.0.0",
-    "nsp": "^2.1.0",
-    "ts-node": "^2.0.0",
-    "typescript": "^2.1.5"
+
   },
   "repository": {
     "type": "",
