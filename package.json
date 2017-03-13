@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "NODE_ENV=development npm run install && npm run serve",
+    "preinstall": "NODE_ENV=development npm install -g @angular/cli",
     "install": "cd fireloop/ && NODE_ENV=development npm install && cd ../webapp && NODE_ENV=development npm install && cd ..",
     "postinstall": "npm run build",
     "build": "cd webapp && npm run build && cd ..",
