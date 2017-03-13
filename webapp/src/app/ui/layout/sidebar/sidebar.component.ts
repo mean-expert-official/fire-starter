@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { UIService } from '../../ui.service';
 
 @Component({
-  selector: 'app-body',
-  templateUrl: './body.component.html',
-  styleUrls: ['./body.component.scss']
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
 })
-export class BodyComponent {
+export class SidebarComponent {
+
   constructor(private uiService: UIService) {
 
   }
+
 }

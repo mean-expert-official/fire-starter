@@ -1,0 +1,14 @@
+@import '../../styles/variables';
+@import '~bootstrap/scss/mixins';
+
+.main {
+  left    : 60px;
+  position: absolute;
+  width   : calc(100vw - 60px);
+  @include transition(all 0.3s ease);
+
+  &.sidebar-open {
+    left : 250px;
+    width: calc(100vw - 250px);
+  }
+}

@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+@import '~bootstrap/scss/mixins';
+
+.footer {
+  background : #212121;
+  left       : 60px;
+  height     : 40px;
+  line-height: 40px;
+  width      : calc(100vw - 60px);
+  @include transition(all 0.3s ease);
+
+  &.sidebar-open {
+    left : 250px;
+    width: calc(100vw - 250px);
+  }
+
+  a {
+    color: #fff;
+  }
+}
