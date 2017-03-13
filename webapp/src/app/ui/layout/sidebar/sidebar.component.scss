@@ -1,0 +1,140 @@
+@import '../../styles/variables';
+@import '~bootstrap/scss/mixins';
+
+.sidebar-wrapper {
+  background: darken($brand-primary, 5%);
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.3);
+  position  : fixed;
+  width     : 60px;
+  height    : 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  top       : 0;
+  z-index   : 1031;
+  @include transition(all 0.3s ease);
+
+  &.sidebar-open {
+    width: 250px;
+
+    .sidebar-nav {
+      padding: 0;
+    }
+
+    a {
+      padding: 0 0 0 20px;
+    }
+
+    .img-wrap {
+      width: 100%;
+
+      img {
+        width: 200px;
+      }
+    }
+  }
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.img-wrap {
+  box-shadow : inset 0 0 5px $brand-primary;
+  display    : block;
+  height     : 80px;
+  padding-top: 15px;
+  width      : 100%;
+  @include gradient-radial(lighten($brand-primary, 20%), $brand-primary);
+  @include transition(all 0.3s ease);
+
+  img {
+    border-radius: 30px;
+    height       : 50px;
+    margin       : auto;
+    width        : 50px;
+    @include transition(all 0.3s ease);
+  }
+}
+
+.sidebar-nav {
+  margin-top: 20px;
+  list-style: none;
+  padding   : 0;
+
+  li {
+    width  : 250px;
+    height : 46px;
+    padding: 0;
+  }
+
+  a {
+    color          : lighten($brand-primary, 25%);
+    cursor         : pointer;
+    display        : block;
+    font-weight    : 400;
+    height         : 40px;
+    padding        : 0 0 0 10px;
+    text-decoration: none;
+    width          : 250px;
+
+    .fa {
+      background  : darken($brand-primary, 20%);
+      color       : lighten($brand-primary, 25%);
+      display     : inline-block;
+      float       : left;
+      font-size   : 20px;
+      height      : 40px;
+      line-height : 40px;
+      margin-right: 40px;
+      outline     : none;
+      position    : relative;
+      text-align  : center;
+      width       : 40px;
+    }
+
+    .menu-name {
+      display       : inline-block;
+      font-family   : 'Segoe UI', sans-serif;
+      font-size     : 13px;
+      letter-spacing: 1px;
+      line-height   : 40px;
+      text-transform: uppercase;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color          : #fff;
+
+      .fa {
+        background: lighten($brand-primary, 25%);
+        color     : darken($brand-primary, 20%);
+      }
+    }
+
+    &.active {
+      text-decoration: none;
+      color          : #fff;
+      font-weight    : 600;
+
+      &:hover {
+        color: #fff;
+        //background: transparent;
+      }
+
+      .fa {
+        color      : #fff;
+        box-shadow : inset 0 0 3px 1px darken($brand-primary, 20%);
+        text-shadow: 0 3px 1px rgba(0,0,0,0.4), 1px 2px 1px rgba(0,0,0,0.2), -1px 3px 1px rgba(0,0,0,0.2);
+        @include gradient-radial(lighten($brand-primary, 20%), $brand-primary);
+      }
+
+      .menu-name {
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    &:focus {
+      text-decoration: none;
+    }
+  }
+}

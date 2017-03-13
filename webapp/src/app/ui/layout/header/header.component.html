@@ -1,0 +1,22 @@
+<nav class="navbar navbar-light bg-faded"
+  [class.sidebar-open]="uiService.sidebarOpen">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3 navbar-left float-left">
+        <a (click)="uiService.toggleSidebar()">
+          <i class="fa fa-2x "
+            [class.fa-bars]="!uiService.sidebarOpen"
+            [class.fa-times]="uiService.sidebarOpen"></i>
+        </a>
+      </div>
+      <div class="col-6 navbar-center align-self-center">
+        <h4 class="text-center">{{ appName }}</h4>
+      </div>
+      <div class="col-3 navbar-right float-right">
+        <a class="float-right">
+          <i class="fa fa-2x fa-ellipsis-v"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  </nav>
