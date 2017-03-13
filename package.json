@@ -4,7 +4,6 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"setup": "npm run install && npm run serve",
 		"preinstall": "npm install -g @angular/cli",
 		"install": "cd fireloop/ && npm install && cd ../webapp && npm install && cd ..",
 		"postinstall": "npm run build",
