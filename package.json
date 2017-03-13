@@ -1,17 +1,17 @@
 {
-  "name": "fireloop-starter",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "setup": "NODE_ENV=development npm run install && npm run serve",
-    "preinstall": "NODE_ENV=development npm install -g @angular/cli",
-    "install": "cd fireloop/ && NODE_ENV=development npm install && cd ../webapp && NODE_ENV=development npm install && cd ..",
-    "postinstall": "npm run build",
-    "build": "cd webapp && npm run build && cd ..",
-    "serve": "cd fireloop/ node server/server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+	"name": "fireloop-starter",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"setup": "npm run install && npm run serve",
+		"preinstall": "npm install -g @angular/cli",
+		"install": "cd fireloop/ && npm install && cd ../webapp && npm install && cd ..",
+		"postinstall": "npm run build",
+		"build": "cd webapp && npm run build && cd ..",
+		"serve": "cd fireloop/ && node server/server.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
 }
