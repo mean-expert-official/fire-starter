@@ -7,6 +7,9 @@ import { CardComponent } from './card/card.component'
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { LayoutComponent } from './layout/layout.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+
+import { UIService } from './ui.service';
 
 @NgModule({
   imports: [
@@ -19,10 +22,14 @@ import { LayoutComponent } from './layout/layout.component';
     FooterComponent,
     HeaderComponent,
     LayoutComponent,
+    SidebarComponent
   ],
   exports: [
     CardComponent,
     LayoutComponent
   ],
+  providers: [
+    UIService
+  ]
 })
 export class UiModule { }
