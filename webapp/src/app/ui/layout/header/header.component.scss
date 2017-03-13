@@ -1,0 +1,61 @@
+@import '../../styles/variables';
+@import '~bootstrap/scss/mixins';
+
+.navbar {
+  background : $brand-primary;
+  box-shadow : 0 2px 3px rgba(0, 0, 0, 0.3);
+  left       : 60px;
+  right      : 0;
+  line-height: 1;
+  margin     : 0;
+  max-height : 40px;
+  padding    : 0;
+  width      : calc(100vw - 60px);
+  @include transition(all 0.3s ease);
+
+  &.sidebar-open {
+    left : 250px;
+    width: calc(100vw - 250px);
+  }
+}
+
+.container-fluid {
+  margin: 0;
+}
+
+.navbar-left {
+  height      : 40px;
+  line-height : 1;
+  padding-left: 15px;
+  padding-top : 6px;
+
+  i {
+    color      : #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+}
+
+.navbar-center {
+  height     : 40px;
+  line-height: 1;
+  padding-top: 5px;
+
+  h4 {
+    color        : #fff;
+    line-height  : 1;
+    margin-bottom: 0;
+    text-shadow  : 0 1px 1px rgba(0,0,0,0.2);
+  }
+}
+
+.navbar-right {
+  height       : 40px;
+  line-height  : 1;
+  padding-right: 15px;
+  padding-top  : 6px;
+
+  i {
+    color      : #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+}
