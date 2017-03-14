@@ -1,0 +1,20 @@
+api:
+  baseUrl: http://127.0.0.1:3000
+  version: api/v1
+
+mongodb:
+  url: false
+
+settings:
+  registrationEnabled: true
+  multiDomain: true
+
+smtp:
+  host: false
+  port: false
+
+storage:
+  path: './storage'
+
+system:
+  initdb: false
