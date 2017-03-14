@@ -1,0 +1,38 @@
+{
+  "projectName": "fireloop-starter",
+  "projectOwner": "beeman",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "beeman",
+      "name": "Bram Borggreve",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/36491?v=3",
+      "profile": "http://colmena.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "brannon-darby",
+      "name": "Brannon N. Darby II",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6089253?v=3",
+      "profile": "https://github.com/brannon-darby",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "kattsushi",
+      "name": "Andres David Jimenez",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/12107518?v=3",
+      "profile": "https://plus.google.com/+AndresJimenezS/posts",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}

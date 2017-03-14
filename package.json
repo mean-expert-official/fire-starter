@@ -1,0 +1,21 @@
+{
+  "name": "fireloop-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npm install -g @angular/cli",
+    "install": "cd fireloop/ && npm install && cd ../webapp && npm install && cd ..",
+    "postinstall": "npm run build",
+    "build": "cd webapp && npm run build && cd ..",
+    "serve": "cd fireloop/ && node server/server.js",
+    "contributor-add": "all-contributors add",
+    "contributor-generate": "all-contributors generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "all-contributors-cli": "^4.0.1"
+  }
+}
