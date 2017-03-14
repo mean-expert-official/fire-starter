@@ -1,0 +1,3 @@
+api:
+  baseUrl: API_BASE_URL
+  version: API_VERSION
