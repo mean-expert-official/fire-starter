@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { createSelector } from 'reselect';
 import { Action } from '@ngrx/store';
 import { BaseReducerFactory } from './base';
-import { User } from '../models/User';
+import { User } from '../models/user';
 import { UserActionTypes } from '../actions/user';
 
 export interface State {
@@ -28,60 +28,60 @@ function ReducerFactory() {
    * Apps relation reducer methods
    */
   cases[UserActionTypes.FIND_BY_ID_APPS] =
-    (state = initialState, action: Action) => {
-      state.entities[action.payload.id].apps =
-        Array.from(new Set([...state.entities[action.payload.id].apps, action.payload.data]));
+  (state = initialState, action: Action) => {
+    state.entities[action.payload.id].apps =
+      Array.from(new Set([ ...state.entities[action.payload.id].apps, action.payload.data]));
 
-      return Object.assign({}, state, {
-        entities: state.entities,
-        selectedAppsIds: action.payload.data.id,
-      });
-    };
+    return Object.assign({}, state, {
+      entities: state.entities,
+      selectedAppsIds: action.payload.data.id,
+    });
+  };
 
   cases[UserActionTypes.DESTROY_BY_ID_APPS] =
-    (state = initialState, action: Action) => {
-      state.entities[action.payload.id].apps =
-        state.entities[action.payload.id].apps.filter((item) => item.id !== action.payload.fk);
+  (state = initialState, action: Action) => {
+    state.entities[action.payload.id].apps =
+      state.entities[action.payload.id].apps.filter((item) => item.id !== action.payload.fk);
 
-      return Object.assign({}, state, { entities: state.entities });
-    };
+    return Object.assign({}, state, {entities: state.entities});
+  };
 
   cases[UserActionTypes.UPDATE_BY_ID_APPS] =
-    (state = initialState, action: Action) => {
-      state.entities[action.payload.id].apps =
-        state.entities[action.payload.id].apps.map((item) => {
-          if (item.id === action.payload.data.id) {
-            return action.payload.data;
-          } else {
-            return item;
-          }
-        });
+  (state = initialState, action: Action) => {
+    state.entities[action.payload.id].apps =
+      state.entities[action.payload.id].apps.map((item) => {
+        if (item.id === action.payload.data.id) {
+          return action.payload.data;
+        } else {
+          return item;
+        }
+      });
 
-      return Object.assign({}, state, { entities: state.entities });
-    };
+    return Object.assign({}, state, {entities: state.entities});
+  };
 
   cases[UserActionTypes.CREATE_APPS] =
-    (state = initialState, action: Action) => {
-      state.entities[action.payload.id].apps =
-        Array.from(new Set([...state.entities[action.payload.id].apps, ...action.payload.data]));
+  (state = initialState, action: Action) => {
+    state.entities[action.payload.id].apps =
+      Array.from(new Set([ ...state.entities[action.payload.id].apps, ...action.payload.data]));
 
-      return Object.assign({}, state, { entities: state.entities });
-    };
+    return Object.assign({}, state, {entities: state.entities});
+  };
 
   cases[UserActionTypes.DELETE_APPS] =
-    (state = initialState, action: Action) => {
-      state.entities[action.payload.id].apps = [];
+  (state = initialState, action: Action) => {
+    state.entities[action.payload.id].apps = [];
 
-      return Object.assign({}, state, { entities: state.entities });
-    };
+    return Object.assign({}, state, {entities: state.entities});
+  };
 
   cases[UserActionTypes.CREATE_MANY_APPS] =
-    (state = initialState, action: Action) => {
-      state.entities[action.payload.id].apps =
-        Array.from(new Set([...state.entities[action.payload.id].apps, ...action.payload.data]));
+  (state = initialState, action: Action) => {
+    state.entities[action.payload.id].apps =
+      Array.from(new Set([ ...state.entities[action.payload.id].apps, ...action.payload.data]));
 
-      return Object.assign({}, state, { entities: state.entities });
-    };
+    return Object.assign({}, state, {entities: state.entities});
+  };
 
   return cases;
 };

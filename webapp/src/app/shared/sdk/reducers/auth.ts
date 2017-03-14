@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { createSelector } from 'reselect';
 import { Action } from '@ngrx/store';
 import { SDKToken } from '../models/BaseModels';
-import { User } from '../models/User';
+import { User } from '../models/user';
 import { LoopbackAuthActionTypes } from '../actions/auth';
 import { UserActionTypes } from '../actions/user';
 
