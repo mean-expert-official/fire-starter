@@ -40,7 +40,16 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": {
+      "params": "$!../dist"
+    },
+    "./middleware/publish-config.js": {
+      "paths": [
+        "/config.js"
+      ]
+    }
+  },
   "final": {
     "loopback#urlNotFound": {}
   },

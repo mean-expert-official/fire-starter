@@ -35,8 +35,11 @@ export class AppComponent {
   ];
 
   constructor(private uiService: UIService) {
-    LoopBackConfig.setBaseURL('//127.0.0.1:3000');
-    LoopBackConfig.setApiVersion('api');
+
+    const apiConfig = JSON.parse(window.localStorage.getItem('apiConfig'));
+
+    LoopBackConfig.setBaseURL(apiConfig.baseUrl);
+    LoopBackConfig.setApiVersion(apiConfig.version);
 
     this.uiService.setSidebarNav(this.sidebarNav);
   }
