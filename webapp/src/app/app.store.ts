@@ -21,4 +21,4 @@ import { LoopbackAuthReducer } from './shared/sdk/reducers/auth'
     EffectsModule.run(NotificationEffects),
   ],
 })
-export class AppSoreModule { }
+export class AppStoreModule { }

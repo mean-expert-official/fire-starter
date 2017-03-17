@@ -7,7 +7,7 @@ import { ToastyModule } from 'ng2-toasty';
 import { SDKBrowserModule } from './shared/sdk/index';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
-import { AppSoreModule } from './app.store';
+import { AppStoreModule } from './app.store';
 
 import { TodoModule } from './todo/todo.module';
 import { UiModule } from './ui/ui.module';
@@ -23,7 +23,7 @@ import { NoteModule } from './note/note.module';
     ToastyModule.forRoot(),
 
     AppRoutingModule,
-    AppSoreModule,
+    AppStoreModule,
 
     NoteModule,
     TodoModule,
