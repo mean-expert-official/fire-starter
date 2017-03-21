@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FormlyModule, FormlyBootstrapModule } from 'ng-formly';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BodyComponent } from './layout/body/body.component';
@@ -24,7 +23,7 @@ import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
     ReactiveFormsModule,
     FormlyModule,
     FormlyBootstrapModule,
-    NgbModule
+    NgbModule,
   ],
   declarations: [
     BodyComponent,
@@ -45,8 +44,6 @@ import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
   ],
   providers: [
 
-  ],
-  entryComponents: [
   ]
 })
 export class UiModule { }

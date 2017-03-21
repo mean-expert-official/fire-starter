@@ -14,6 +14,7 @@ const routes: Routes = [
       { path: 'notes', component: NoteComponent },
       { path: 'auth', component: AuthComponent },
       { path: 'notifications', component: NotificationsComponent },
+      { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule' },
     ]
   }
 ];

@@ -3,8 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ToastyModule } from 'ng2-toasty';
+<<<<<<< HEAD
 import { FormlyModule, FormlyBootstrapModule } from 'ng-formly';
 import { FormlyConfig } from './ui/form/formly.config';
+=======
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+>>>>>>> base of admin module
 
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,8 +18,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AppStoreModule } from './app.store';
 
-import { TodoModule } from './todo/todo.module';
 import { UiModule } from './ui/ui.module';
+import { UIService } from './ui/ui.service';
+
+import { TodoModule } from './todo/todo.module';
 import { AuthModule } from './auth/auth.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NoteModule } from './note/note.module';
@@ -34,8 +40,8 @@ import { UIService } from './ui/ui.service';
     NgbModule.forRoot(),
     SDKBrowserModule.forRoot(),
     ToastyModule.forRoot(),
+    NgbModule.forRoot(),
 
-    AppRoutingModule,
     AppStoreModule,
 
     NoteModule,
@@ -43,14 +49,20 @@ import { UIService } from './ui/ui.service';
     AuthModule,
     NotificationsModule,
     UiModule,
+
+    AppRoutingModule,
   ],
   exports: [
     ToastyModule,
   ],
   providers: [
+<<<<<<< HEAD
     FormService,
     UIService,
     NgbActiveModal
+=======
+    UIService
+>>>>>>> base of admin module
   ],
   declarations: [
     AppComponent,
