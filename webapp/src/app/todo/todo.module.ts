@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { UiModule } from '../ui/ui.module';
 
-import { ListComponent } from './list/list.component';
-import { FormComponent } from './form/form.component';
-import { ListItemComponent } from './list-item/list-item.component';
 import { TodoComponent } from './todo.component';
+import { TodoFormComponent } from './todo-form.component';
+
+import { TodoService } from './todo.service';
 
 @NgModule({
   imports: [
@@ -16,13 +16,17 @@ import { TodoComponent } from './todo.component';
     UiModule,
   ],
   declarations: [
-    ListComponent,
-    FormComponent,
-    ListItemComponent,
     TodoComponent,
+    TodoFormComponent,
+  ],
+  entryComponents: [
+    TodoFormComponent,
   ],
   exports: [
     TodoComponent,
   ],
+  providers: [
+    TodoService
+  ]
 })
 export class TodoModule { }
