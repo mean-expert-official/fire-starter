@@ -11,13 +11,11 @@
         <td>{{ todo.dueAt | date: 'longDate' }}</td>
         <td><i *ngIf="todo.done" class="fa fa-fw fa-check"></i></td>
         <td>
-          <button type="button" class="btn btn-secondary btn-sm" placement="bottom"
-                  ngbTooltip="Update" (click)="update(todo)">
+          <button type="button" class="btn btn-secondary btn-sm" placement="bottom" ngbTooltip="Update" (click)="update(todo)">
             <i class="fa fa-fw fa-edit"></i>
           </button>
-          <button type="button" class="btn btn-danger btn-sm" placement="bottom"
-                  ngbTooltip="Delete" (click)="delete(todo)">
-            <i class="fa fa-fw fa-trash"></i>
+          <button type="button" class="btn btn-danger btn-sm" placement="bottom" ngbTooltip="Delete" (click)="delete(todo)">
+            <i class="fa fa-fw fa-trash-o"></i>
           </button>
         </td>
       </tr>

@@ -4,10 +4,10 @@
 .footer {
   background : #212121;
   font-size  : 14px;
-  left       : 60px;
+  left       : 64px;
   height     : 40px;
   line-height: 40px;
-  width      : calc(100vw - 60px);
+  width      : calc(100vw - 64px);
   @include transition(all 0.3s ease);
 
   &.sidebar-open {

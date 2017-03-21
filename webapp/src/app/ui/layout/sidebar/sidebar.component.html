@@ -1,16 +1,10 @@
-<aside *ngIf="uiService.sidebarActive"
-  class="sidebar-wrapper"
-  [class.sidebar-open]="uiService.sidebarOpen">
+<aside *ngIf="uiService.sidebarActive" class="sidebar-wrapper" [class.sidebar-open]="uiService.sidebarOpen">
   <div class="container-fluid">
     <div class="row align-items-center">
       <div class="col-12">
         <div class="img-wrap">
-          <img *ngIf="uiService.sidebarOpen"
-            class="img-fluid d-flex align-self-center"
-            src="/assets/img/logo-wide.svg" />
-          <img *ngIf="!uiService.sidebarOpen"
-            class="img-fluid d-flex align-self-center"
-            src="/assets/img/favicon.png" />
+          <img *ngIf="uiService.sidebarOpen" class="img-fluid d-flex align-self-center" src="/assets/img/logo-wide.svg" />
+          <img *ngIf="!uiService.sidebarOpen" class="img-fluid d-flex align-self-center" src="/assets/img/favicon.png" />
         </div>
       </div>
     </div>
@@ -18,18 +12,15 @@
       <div class="col-12">
         <ul class="sidebar-nav">
           <li *ngFor="let item of uiService.sidebarNav">
-            <a class="nav-link"
-              [routerLink]="item.link"
-              routerLinkActive="active">
-              <span [class]="'fa fa-' + item.icon"
-                aria-hidden="true"> </span>
-                <span class="menu-name">
-                  {{ item.name }}
-                  </span>
-                </a>
+            <a class="nav-link" [routerLink]="item.link" routerLinkActive="active">
+              <span [class]="'fa fa-' + item.icon" aria-hidden="true"> </span>
+              <span class="menu-name">
+                {{ item.name }}
+              </span>
+            </a>
           </li>
         </ul>
       </div>
     </div>
   </div>
-  </aside>
+</aside>

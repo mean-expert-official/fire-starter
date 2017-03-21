@@ -3,13 +3,13 @@
 
 .navbar {
   box-shadow : 0 2px 3px rgba(0, 0, 0, 0.3);
-  left       : 60px;
+  left       : 64px;
   right      : 0;
   line-height: 1;
   margin     : 0;
   height     : 50px;
   padding    : 0;
-  width      : calc(100vw - 60px);
+  width      : calc(100vw - 64px);
   @include gradient-radial(lighten($brand-primary, 7%), $brand-primary);
   @include transition(all 0.3s ease);
 
@@ -23,52 +23,53 @@
   margin: 0;
 }
 
-.navbar-left {
+.navbar-left,
+.navbar-right {
   height      : 50px;
   line-height : 1;
   padding-left: 15px;
-  padding-top : 12px;
-
-  i {
-    color      : #fff;
-    text-align : center;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
-  }
+  padding-top : 11px;
 }
 
 .navbar-center {
   height     : 50px;
   line-height: 1;
-  padding-top: 11px;
+  padding-top: 10px;
 
   h4 {
     color        : #fff;
     line-height  : 1;
     margin-bottom: 0;
-    text-shadow  : 0 1px 1px rgba(0,0,0,0.2);
-  }
-}
-
-.navbar-right {
-  height       : 50px;
-  line-height  : 1;
-  padding-right: 15px;
-  padding-top  : 12px;
-
-  i {
-    color      : #fff;
-    text-align : center;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    text-shadow  : 0 2px 3px rgba(0,0,0,0.7);
   }
 }
 
 .navbar-btn {
   i {
-    width: 30px;
+    color      : #fff;
+    text-align : center;
+    text-shadow: 0 2px 3px rgba(0,0,0,0.7);
+    width      : 30px;
   }
 }
 
 .dropdown-menu {
-  top    : 34px;
+  top    : 40px;
   z-index: 1033;
+
+  .dropdown-item {
+    font-size: 14px;
+    padding  : 10px 20px;
+
+    i {
+      color      : $brand-primary;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    &.active {
+      i {
+        color: #fff;
+      }
+    }
+  }
 }

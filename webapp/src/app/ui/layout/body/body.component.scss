@@ -2,9 +2,9 @@
 @import '~bootstrap/scss/mixins';
 
 .main {
-  left    : 60px;
+  left    : 64px;
   position: absolute;
-  width   : calc(100vw - 60px);
+  width   : calc(100vw - 64px);
   @include transition(all 0.3s ease);
 
   &.sidebar-open {

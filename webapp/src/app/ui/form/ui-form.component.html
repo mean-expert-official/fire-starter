@@ -1,10 +1,18 @@
 <form class="formly" role="form" novalidate [formGroup]="form" (ngSubmit)="action.emit({ type: config.action || 'create', payload: item })">
-  <formly-form [model]="item" [fields]="config.fields" [form]="form"></formly-form>
-  <button type="submit" class="btn btn-primary btn-block">
-    {{ config.submitButtonText || 'Save' }}
-  </button>
-  <button *ngIf="config.showCancel" type="button" class="btn btn-secondary btn-block" (click)="action.emit({ type: 'cancel' })">
-    Cancel
-  </button>
+  <div class="row">
+    <div class="col-12">
+      <formly-form class="row" [model]="item" [fields]="config.fields" [form]="form"></formly-form>
+    </div>
+    <div class="col-12 col-lg-6">
+      <button type="submit" class="btn btn-primary btn-block">
+        {{ config.submitButtonText || 'Save' }}
+      </button>
+    </div>
+    <div class="col-12 col-lg-6">
+      <button *ngIf="config.showCancel" type="button" class="btn btn-secondary btn-block" (click)="action.emit({ type: 'cancel' })">
+        Cancel
+      </button>
+    </div>
+  </div>
 </form>
 <pre>{{ item | json }}</pre>

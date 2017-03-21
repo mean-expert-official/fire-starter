@@ -29,7 +29,7 @@ export class AdminComponent {
     {
       'name': 'Roles',
       'link': '/admin/roles',
-      'icon': 'unlock'
+      'icon': 'tags'
     },
   ];
 

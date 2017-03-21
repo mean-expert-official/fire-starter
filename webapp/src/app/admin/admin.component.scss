@@ -1,9 +1,8 @@
 @import '../ui/styles/variables';
-@import '~bootstrap/scss/mixins';
+@import '../ui/styles/mixins';
 
 .admin-header {
-  background   : lighten($brand-primary, 20%);
-  box-shadow   : 0 2px 3px #ddd;
+  box-shadow   : 0 2px 7px #ccc;
   margin-bottom: 15px;
   margin-left  : -15px;
   margin-top   : -16px;
@@ -11,16 +10,47 @@
   line-height  : 1;
   height       : 40px;
   padding      : 7px 0 0;
-  width        : calc(100vw - 60px);
+  width        : calc(100vw - 64px);
+  @include gradient-radial(lighten($brand-primary, 30%), lighten($brand-primary, 20%));
   @include transition(all 0.3s ease);
 
   h5 {
     color      : darken($brand-primary, 25%);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
   }
 
   &.sidebar-open {
     left : 250px;
     width: calc(100vw - 250px);
+  }
+}
+
+.dash-card {
+  text-decoration: none;
+
+  .card {
+    @include ripple($brand-primary);
+  }
+
+  .card-header {
+    background    : $brand-primary;
+    letter-spacing: 0.5px;
+  }
+
+  i {
+    color        : darken($brand-primary, 25%);
+    margin-bottom: 25px;
+    text-shadow  : 1px 1px 3px $brand-primary;
+  }
+
+  &:hover {
+    .card-header {
+      color: darken($brand-primary, 25%) !important;
+    }
+
+    .card,
+    .card-header {
+      background: lighten($brand-primary, 20%);
+    }
   }
 }

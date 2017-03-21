@@ -3,26 +3,26 @@
 import { App } from './App'
 declare var Object: any;
 export interface UserInterface {
-  "realm"?: any;
-  "username"?: any;
-  "password": any;
-  "email": any;
-  "emailVerified"?: any;
-  "verificationToken"?: any;
-  "id"?: any;
+  realm?: any;
+  username?: any;
+  password: any;
+  email: any;
+  emailVerified?: any;
+  verificationToken?: any;
+  id?: any;
   organizationId?: number;
   apps: Array<App>;
   accessTokens?: any[];
 }
 
 export class User implements UserInterface {
-  "realm": any;
-  "username": any;
-  "password": any;
-  "email": any;
-  "emailVerified": any;
-  "verificationToken": any;
-  "id": any;
+  realm: any;
+  username: any;
+  password: any;
+  email: any;
+  emailVerified: any;
+  verificationToken: any;
+  id: any;
   organizationId: number;
   apps: Array<App>;
   accessTokens: any[];
@@ -42,7 +42,7 @@ export class User implements UserInterface {
   * @license MIT
   * This method creates an instance of User for dynamic purposes.
   **/
-  public static factory(data: UserInterface): User{
+  public static factory(data: UserInterface): User {
     return new User(data);
   }
   /**
@@ -57,31 +57,31 @@ export class User implements UserInterface {
       name: 'User',
       plural: 'Users',
       properties: {
-        "realm": {
+        realm: {
           name: 'realm',
           type: 'any'
         },
-        "username": {
+        username: {
           name: 'username',
           type: 'any'
         },
-        "password": {
+        password: {
           name: 'password',
           type: 'any'
         },
-        "email": {
+        email: {
           name: 'email',
           type: 'any'
         },
-        "emailVerified": {
+        emailVerified: {
           name: 'emailVerified',
           type: 'any'
         },
-        "verificationToken": {
+        verificationToken: {
           name: 'verificationToken',
           type: 'any'
         },
-        "id": {
+        id: {
           name: 'id',
           type: 'any'
         },

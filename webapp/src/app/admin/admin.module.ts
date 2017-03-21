@@ -1,34 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AdminComponent } from './admin.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminRoutingModule } from './admin.routing';
 import { UiModule } from '../ui/ui.module';
 
-import { DashboardModule } from './dashboard/dashboard.module';
-import { UsersModule } from './users/users.module';
-import { RolesModule } from './roles/roles.module';
+import { UserModule } from './users/user.module';
+import { RoleModule } from './roles/role.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    // NgbModule,
     UiModule,
-    DashboardModule,
-    UsersModule,
-    RolesModule,
+    UserModule,
+    RoleModule,
     AdminRoutingModule
   ],
   exports: [
+
   ],
   providers: [
 
   ],
   declarations: [
-    AdminComponent
+    AdminComponent,
+    DashboardComponent
   ],
 })
 

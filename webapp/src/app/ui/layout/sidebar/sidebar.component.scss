@@ -2,26 +2,22 @@
 @import '~bootstrap/scss/mixins';
 
 .sidebar-wrapper {
-  background: darken($brand-primary, 5%);
   box-shadow: 2px 0 3px rgba(0, 0, 0, 0.3);
   position  : fixed;
-  width     : 60px;
+  width     : 64px;
   height    : 100%;
   overflow-x: hidden;
   overflow-y: auto;
   top       : 0;
   z-index   : 1031;
   @include transition(all 0.3s ease);
+  @include gradient-radial(lighten($brand-primary, 3%), darken($brand-primary, 5%));
 
   &.sidebar-open {
     width: 250px;
 
     .sidebar-nav {
       padding: 0;
-    }
-
-    a {
-      padding: 0 0 0 20px;
     }
 
     .img-wrap {
@@ -39,12 +35,12 @@
 }
 
 .img-wrap {
-  box-shadow : inset 0 1px 3px $brand-primary;
+  box-shadow : inset 0 1px 5px $brand-primary;
   display    : block;
-  height     : 80px;
-  padding-top: 15px;
+  height     : 90px;
+  padding-top: 20px;
   width      : 100%;
-  @include gradient-radial(lighten($brand-primary, 25%), $brand-primary);
+  @include gradient-radial(lighten($brand-primary, 20%), $brand-primary);
   @include transition(all 0.3s ease);
 
   img {
@@ -57,13 +53,13 @@
 }
 
 .sidebar-nav {
-  margin-top: 20px;
+  margin-top: 10px;
   list-style: none;
   padding   : 0;
 
   li {
     width  : 250px;
-    height : 46px;
+    height : 51px;
     padding: 0;
   }
 
@@ -72,10 +68,11 @@
     cursor         : pointer;
     display        : block;
     font-weight    : 400;
-    height         : 40px;
+    height         : 44px;
     padding        : 0 0 0 10px;
     text-decoration: none;
     width          : 250px;
+    @include transition(all 0.0s ease);
 
     .fa {
       background  : darken($brand-primary, 25%);
@@ -83,21 +80,21 @@
       display     : inline-block;
       float       : left;
       font-size   : 20px;
-      height      : 40px;
-      line-height : 40px;
+      height      : 44px;
+      line-height : 44px;
       margin-right: 30px;
       outline     : none;
       position    : relative;
       text-align  : center;
-      width       : 40px;
+      width       : 44px;
     }
 
     .menu-name {
       display       : inline-block;
       font-family   : 'Segoe UI', sans-serif;
       font-size     : 13px;
-      letter-spacing: 1px;
-      line-height   : 40px;
+      letter-spacing: 1.5px;
+      line-height   : 44px;
       text-transform: uppercase;
     }
 
@@ -114,7 +111,7 @@
     &.active {
       text-decoration: none;
       color          : #fff;
-      font-weight    : 600;
+      font-weight    : 700;
 
       &:hover {
         color: #fff;
@@ -129,8 +126,7 @@
       }
 
       .menu-name {
-        font-weight: 700;
-        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        text-shadow: 0 0 3px #000;
       }
     }
 

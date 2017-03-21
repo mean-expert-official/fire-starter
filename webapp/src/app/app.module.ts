@@ -3,13 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ToastyModule } from 'ng2-toasty';
-<<<<<<< HEAD
 import { FormlyModule, FormlyBootstrapModule } from 'ng-formly';
 import { FormlyConfig } from './ui/form/formly.config';
-=======
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
->>>>>>> base of admin module
-
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoopBackConfig } from './shared/sdk/index';
@@ -27,8 +22,6 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { NoteModule } from './note/note.module';
 
 import { FormService } from './ui/form/ui-form.service';
-import { UIService } from './ui/ui.service';
-
 
 @NgModule({
   imports: [
@@ -40,7 +33,6 @@ import { UIService } from './ui/ui.service';
     NgbModule.forRoot(),
     SDKBrowserModule.forRoot(),
     ToastyModule.forRoot(),
-    NgbModule.forRoot(),
 
     AppStoreModule,
 
@@ -56,13 +48,9 @@ import { UIService } from './ui/ui.service';
     ToastyModule,
   ],
   providers: [
-<<<<<<< HEAD
     FormService,
     UIService,
-    NgbActiveModal
-=======
-    UIService
->>>>>>> base of admin module
+    NgbActiveModal,
   ],
   declarations: [
     AppComponent,

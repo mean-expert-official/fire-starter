@@ -9,17 +9,21 @@ import { AdminRoutingModule } from './admin.routing';
 import { UiModule } from '../ui/ui.module';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { DashboardModule } from './dashboard/dashboard.module';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 
 >>>>>>> base of admin module
+=======
+>>>>>>> fix missing modules and karma config for testing
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     // NgbModule,
+<<<<<<< HEAD
 <<<<<<< HEAD
     SDKBrowserModule,
     UiModule,
@@ -30,6 +34,10 @@ import { RolesModule } from './roles/roles.module';
     UsersModule,
     RolesModule,
 >>>>>>> base of admin module
+=======
+    SDKBrowserModule,
+    UiModule,
+>>>>>>> fix missing modules and karma config for testing
     AdminRoutingModule
   ],
   exports: [
