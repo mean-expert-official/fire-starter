@@ -2,15 +2,15 @@
 @import '~bootstrap/scss/mixins';
 
 .navbar {
-  background : $brand-primary;
   box-shadow : 0 2px 3px rgba(0, 0, 0, 0.3);
   left       : 60px;
   right      : 0;
   line-height: 1;
   margin     : 0;
-  max-height : 40px;
+  height     : 50px;
   padding    : 0;
   width      : calc(100vw - 60px);
+  @include gradient-radial(lighten($brand-primary, 7%), $brand-primary);
   @include transition(all 0.3s ease);
 
   &.sidebar-open {
@@ -24,10 +24,10 @@
 }
 
 .navbar-left {
-  height      : 40px;
+  height      : 50px;
   line-height : 1;
   padding-left: 15px;
-  padding-top : 6px;
+  padding-top : 12px;
 
   i {
     color      : #fff;
@@ -36,9 +36,9 @@
 }
 
 .navbar-center {
-  height     : 40px;
+  height     : 50px;
   line-height: 1;
-  padding-top: 5px;
+  padding-top: 11px;
 
   h4 {
     color        : #fff;
@@ -49,10 +49,10 @@
 }
 
 .navbar-right {
-  height       : 40px;
+  height       : 50px;
   line-height  : 1;
   padding-right: 15px;
-  padding-top  : 6px;
+  padding-top  : 12px;
 
   i {
     color      : #fff;

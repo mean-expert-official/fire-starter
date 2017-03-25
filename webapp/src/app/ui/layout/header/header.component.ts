@@ -12,6 +12,6 @@ export class HeaderComponent {
 
   }
 
-  public appName = 'Fireloop Demo App'
+  public appName = 'Fireloop Starter'
 
 }

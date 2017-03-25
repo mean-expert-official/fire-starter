@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -6,8 +6,23 @@ import { Component, Input } from '@angular/core';
     <div class="my-2">
       <div class="card">
         <div class="card-header" *ngIf="title">
-          <h4 class="card-title">{{title}}</h4>
-          <h6 *ngIf="subTitle" class="card-subtitle">{{subTitle}}</h6>
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h4 class="card-title text-uppercase" [class.mb-0]="!subTitle">
+                {{ title }}
+              </h4>
+              <p *ngIf="subTitle" class="card-subtitle lead">
+                {{ subTitle }}
+              </p>
+            </div>
+            <div *ngIf="createButton" class="col-4">
+              <button [class]="createButton.class"
+                (click)="action.emit($event)">
+                <i [class]="'fa fa-' + createButton.icon"></i>
+                &nbsp; {{ createButton.text }}
+              </button>
+            </div>
+          </div>
         </div>
         <div class="card-block">
           <ng-content></ng-content>
@@ -20,5 +35,12 @@ export class CardComponent {
 
   @Input() title;
   @Input() subTitle;
+  @Input() createButton;
+  @Input() modalTemplate;
+  @Output() action = new EventEmitter();
+
+  constructor() {
+
+  }
 
 }

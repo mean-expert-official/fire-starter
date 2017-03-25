@@ -13,6 +13,11 @@ import { UIService } from './ui/ui.service';
 export class AppComponent {
   private sidebarNav: any = [
     {
+      'name': 'Authentication',
+      'link': '/auth',
+      'icon': 'lock'
+    },
+    {
       'name': 'Todos',
       'link': '/todos',
       'icon': 'check-square-o'
@@ -23,23 +28,14 @@ export class AppComponent {
       'icon': 'sticky-note-o'
     },
     {
-      'name': 'Authentication',
-      'link': '/auth',
-      'icon': 'unlock'
-    },
-    {
       'name': 'Notifications',
       'link': '/notifications',
-      'icon': 'rss'
+      'icon': 'comments-o'
     },
   ];
 
   constructor(private uiService: UIService) {
-    const apiConfig = window['apiConfig'];
-
-    LoopBackConfig.setBaseURL(apiConfig.baseUrl);
-    LoopBackConfig.setApiVersion(apiConfig.version);
-
     this.uiService.setSidebarNav(this.sidebarNav);
   }
+
 }

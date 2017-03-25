@@ -1,8 +1,10 @@
 $fa-font-path: '~font-awesome/fonts';
+$web-font-path: "https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed";
 @import './app/ui/styles/variables';
+@import './app/ui/styles/toasty';
+@import './app/ui/styles/sweetalert2';
 @import '~font-awesome/scss/font-awesome';
-@import "~bootstrap/scss/bootstrap";
-@import "~ng2-toasty/style-bootstrap";
+@import '~bootstrap/scss/bootstrap';
 @import './app/ui/styles/bootswatch';
 
 body {
@@ -13,9 +15,9 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6 {
-  font-weight: 500;
+h5 {
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
 a {
@@ -23,10 +25,47 @@ a {
   @include ripple(#eee);
 }
 
+.btn {
+  cursor     : pointer;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 700;
+}
+
 .card {
   box-shadow: 0 1px 2px rgba(151,151,151,0.58);
 }
 
-.card-title {
-  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+.btn,
+.card-title,
+.modal-header {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.alert {
+  border-color: transparent;
+}
+
+.modal-title {
+  color: #fff;
+}
+
+.close {
+  outline: none !important;
+}
+
+.lead {
+  font-size: 18px;
+}
+
+.form-control {
+  line-height: 1.5 !important;
+  width      : 100% !important;
+}
+
+label {
+  font-weight: 700;
+}
+
+.custom-control {
+  line-height: 24px;
 }
