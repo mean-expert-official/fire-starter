@@ -12,15 +12,10 @@ import { SDKBrowserModule } from './shared/sdk/index';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AppStoreModule } from './app.store';
+import { AuthModule } from './auth/auth.module';
 
 import { UiModule } from './ui/ui.module';
 import { UIService } from './ui/ui.service';
-
-import { TodoModule } from './todo/todo.module';
-import { AuthModule } from './auth/auth.module';
-import { NotificationsModule } from './notifications/notifications.module';
-import { NoteModule } from './note/note.module';
-
 import { FormService } from './ui/form/ui-form.service';
 
 @NgModule({
@@ -33,15 +28,9 @@ import { FormService } from './ui/form/ui-form.service';
     NgbModule.forRoot(),
     SDKBrowserModule.forRoot(),
     ToastyModule.forRoot(),
-
     AppStoreModule,
-
-    NoteModule,
-    TodoModule,
     AuthModule,
-    NotificationsModule,
     UiModule,
-
     AppRoutingModule,
   ],
   exports: [

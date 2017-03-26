@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs/Subscription';
 export class RoleComponent implements OnDestroy {
 
   private modalRef;
-  // subscriptions
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
@@ -60,9 +59,7 @@ export class RoleComponent implements OnDestroy {
     switch (event.type) {
       case 'create':
         this.subscriptions.push(this.roleService
-          .upsert(event.payload)
-          .subscribe(
-          () => {
+          .upsert(event.payload).subscribe(() => {
             this.modalRef.close();
             this.uiService.toastSuccess('Role Created', 'The Role was created successfully.');
           },
@@ -74,9 +71,7 @@ export class RoleComponent implements OnDestroy {
         break;
       case 'update':
         this.subscriptions.push(this.roleService
-          .upsert(event.payload)
-          .subscribe(
-          () => {
+          .upsert(event.payload).subscribe(() => {
             this.modalRef.close();
             this.uiService.toastSuccess('Role Updated', 'The Role was updated successfully.');
           },
@@ -88,9 +83,7 @@ export class RoleComponent implements OnDestroy {
         break;
       case 'delete':
         this.subscriptions.push(this.roleService
-          .delete(event.payload)
-          .subscribe(
-          () => {
+          .delete(event.payload).subscribe(() => {
             this.uiService.toastSuccess('Role Deleted', 'The Role was deleted successfully.');
           },
           (err) => {

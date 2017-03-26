@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UIService } from '../../ui/ui.service';
+import { UIService } from '../../../ui/ui.service';
 
 @Component({
   selector: 'app-notifications',
@@ -21,11 +21,11 @@ import { UIService } from '../../ui/ui.service';
 export class NotificationsComponent {
 
   public buttons = [
-    { label: 'Success', type: 'success',  className: 'success'},
-    { label: 'Warning', type: 'warning',  className: 'warning'},
-    { label: 'Wait',    type: 'wait',     className: 'primary'},
-    { label: 'Info',    type: 'info',     className: 'info'},
-    { label: 'Error',   type: 'error',    className: 'danger'},
+    { label: 'Success', type: 'success', className: 'success' },
+    { label: 'Warning', type: 'warning', className: 'warning' },
+    { label: 'Wait', type: 'wait', className: 'primary' },
+    { label: 'Info', type: 'info', className: 'info' },
+    { label: 'Error', type: 'error', className: 'danger' },
   ];
 
   static getPayload(button) {
@@ -48,5 +48,5 @@ export class NotificationsComponent {
   constructor(
     private store: Store<any>,
     private uiService: UIService,
-  ) {}
+  ) { }
 }

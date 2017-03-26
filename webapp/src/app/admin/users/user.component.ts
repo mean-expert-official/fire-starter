@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs/Subscription';
 export class UserComponent implements OnDestroy {
 
   private modalRef;
-  // subscriptions
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
@@ -55,18 +54,14 @@ export class UserComponent implements OnDestroy {
     this.uiService.alertError(question, () => this.handleAction({ type: 'delete', payload: user }), () => { });
   }
 
-
   handleAction(event) {
     switch (event.type) {
       case 'create':
         this.subscriptions.push(this.userService
-          .upsert(event.payload)
-          .subscribe(
-          () => {
+          .upsert(event.payload).subscribe(() => {
             this.modalRef.close();
             this.uiService.toastSuccess('User Created', 'The User was created successfully.');
-          },
-          (err) => {
+          }, (err) => {
             this.modalRef.close();
             this.uiService.toastError('Create User Failed', err.message || err.error.message);
           },
@@ -74,13 +69,10 @@ export class UserComponent implements OnDestroy {
         break;
       case 'update':
         this.subscriptions.push(this.userService
-          .upsert(event.payload)
-          .subscribe(
-          () => {
+          .upsert(event.payload).subscribe(() => {
             this.modalRef.close();
             this.uiService.toastSuccess('User Updated', 'The User was updated successfully.');
-          },
-          (err) => {
+          }, (err) => {
             this.modalRef.close();
             this.uiService.toastError('Update User Failed', err.message || err.error.message);
           },
@@ -88,9 +80,7 @@ export class UserComponent implements OnDestroy {
         break;
       case 'delete':
         this.subscriptions.push(this.userService
-          .delete(event.payload)
-          .subscribe(
-          () => {
+          .delete(event.payload).subscribe(() => {
             this.uiService.toastSuccess('User Deleted', 'The User was deleted successfully.');
           },
           (err) => {

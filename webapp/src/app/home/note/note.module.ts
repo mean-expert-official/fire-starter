@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { UiModule } from '../ui/ui.module';
+import { UiModule } from '../../ui/ui.module';
 
 import { NoteComponent } from './note.component';
 import { FormComponent } from './form/form.component';

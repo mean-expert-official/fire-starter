@@ -1,18 +1,15 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { FireLoopRef, Todo } from '../shared/sdk/models';
-import { RealTime } from '../shared/sdk/services/core/real.time';
+import { FireLoopRef, Todo } from '../../shared/sdk/models';
+import { RealTime } from '../../shared/sdk/services/core/real.time';
 import { Subscription } from 'rxjs/Subscription';
-import { FormService } from '../ui/form/ui-form.service';
+import { FormService } from '../../ui/form/ui-form.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class TodoService implements OnDestroy {
 
-  // todos
   private todos: Todo[] = new Array<Todo>();
   private todoRef: FireLoopRef<Todo>;
-
-  // subscriptions
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(

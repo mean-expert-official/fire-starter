@@ -8,11 +8,8 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class RoleService implements OnDestroy {
 
-  // roles
   public roles: Role[] = new Array<Role>();
   private roleRef: FireLoopRef<Role>;
-
-  // subscriptions
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
@@ -92,7 +89,6 @@ export class RoleService implements OnDestroy {
         }
       }),
     ];
-    // console.log(fields);
     return fields;
   }
 

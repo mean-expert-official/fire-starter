@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NoteApi } from '../../shared/sdk/services/custom/Note';
-import { Note } from '../../shared/sdk/models/Note';
-import { UIService } from '../../ui/ui.service';
+import { NoteApi } from '../../../shared/sdk/services/custom/Note';
+import { Note } from '../../../shared/sdk/models/Note';
+import { UIService } from '../../../ui/ui.service';
 
 @Component({
   selector: 'app-note-list',

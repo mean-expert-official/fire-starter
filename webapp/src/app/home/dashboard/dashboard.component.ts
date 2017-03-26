@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../users/user.service';
-import { RoleService } from '../roles/role.service';
+import { RealTime } from '../../shared/sdk/services/core/real.time';
+import { FireLoopRef } from '../../shared/sdk/models';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'app-home-dashboard',
   template: `
     <app-card icon="tachometer" title="Dashboard">
       <div class="row">
-        <div *ngFor="let item of dashCards" class="col-12 col-lg-6">
+        <div *ngFor="let item of dashCards" class="col-12 col-lg-4">
           <a class="dash-card" [routerLink]="item.link">
             <div class="card">
               <h5 class="card-header text-center" [style.color]="'#fff'">{{ item.title }}</h5>
@@ -21,34 +22,37 @@ import { RoleService } from '../roles/role.service';
       </div>
     </app-card>
   `,
-  styleUrls: ['../admin.component.scss']
+  styleUrls: ['../home.component.scss']
 })
 
 export class DashboardComponent implements OnInit {
 
   dashCards: any = [];
 
-  constructor(
-    private userService: UserService,
-    private roleService: RoleService,
-  ) {
+  constructor() {
 
   }
 
   ngOnInit() {
     this.dashCards = [
       {
-        icon: 'users',
-        title: 'Users',
-        data: this.userService.users.length,
-        link: '/admin/users'
+        'title': 'Todos',
+        'link': '/home/todos',
+        'icon': 'check-square-o',
+        'data': 0
       },
       {
-        icon: 'tags',
-        title: 'Roles',
-        data: this.roleService.roles.length,
-        link: '/admin/roles'
-      }
+        'title': 'Notes',
+        'link': '/home/notes',
+        'icon': 'sticky-note-o',
+        'data': 0
+      },
+      {
+        'title': 'Notifications',
+        'link': '/home/notifications',
+        'icon': 'comments-o',
+        'data': 0
+      },
     ]
   }
 

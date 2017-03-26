@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NotificationEffects } from './state/notification.effects';
-import { UiModule } from '../ui/ui.module';
+import { UiModule } from '../../ui/ui.module';
 
 @NgModule({
   imports: [
