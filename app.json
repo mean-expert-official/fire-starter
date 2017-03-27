@@ -1,7 +1,14 @@
 {
   "name": "FireLoop Starter",
   "description": "Modern Real-Time Framework by MEAN Expert",
-  "repository": "https://github.com/beeman/fireloop-demo-app",
+  "repository": "https://github.com/mean-expert-official/fireloop-starter.git",
   "logo": "http://docs.fireloop.io/img/avatar.png",
-  "keywords": ["node", "express", "static", "loopback", "fireloop", "real-time", "angular"]
+  "keywords": [
+      "node",
+      "express",
+      "static",
+      "loopback",
+      "fireloop",
+      "realtime"
+   ]
 }
