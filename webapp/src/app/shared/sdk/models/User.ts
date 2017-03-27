@@ -3,34 +3,26 @@
 import { App } from './App'
 declare var Object: any;
 export interface UserInterface {
-  realm?: string;
-  username?: string;
-  password: string;
-  challenges?: any;
-  email: string;
-  emailVerified?: boolean;
-  verificationToken?: string;
-  status?: string;
-  created?: Date;
-  lastUpdated?: Date;
-  id?: number;
+  "realm"?: any;
+  "username"?: any;
+  "password": any;
+  "email": any;
+  "emailVerified"?: any;
+  "verificationToken"?: any;
+  "id"?: any;
   organizationId?: number;
   apps: Array<App>;
   accessTokens?: any[];
 }
 
 export class User implements UserInterface {
-  realm: string;
-  username: string;
-  password: string;
-  challenges: any;
-  email: string;
-  emailVerified: boolean;
-  verificationToken: string;
-  status: string;
-  created: Date;
-  lastUpdated: Date;
-  id: number;
+  "realm": any;
+  "username": any;
+  "password": any;
+  "email": any;
+  "emailVerified": any;
+  "verificationToken": any;
+  "id": any;
   organizationId: number;
   apps: Array<App>;
   accessTokens: any[];
@@ -65,53 +57,33 @@ export class User implements UserInterface {
       name: 'User',
       plural: 'Users',
       properties: {
-        realm: {
+        "realm": {
           name: 'realm',
-          type: 'string'
+          type: 'any'
         },
-        username: {
+        "username": {
           name: 'username',
-          type: 'string'
+          type: 'any'
         },
-        password: {
+        "password": {
           name: 'password',
-          type: 'string'
-        },
-        credentials: {
-          name: 'credentials',
           type: 'any'
         },
-        challenges: {
-          name: 'challenges',
-          type: 'any'
-        },
-        email: {
+        "email": {
           name: 'email',
-          type: 'string'
+          type: 'any'
         },
-        emailVerified: {
+        "emailVerified": {
           name: 'emailVerified',
-          type: 'boolean'
+          type: 'any'
         },
-        verificationToken: {
+        "verificationToken": {
           name: 'verificationToken',
-          type: 'string'
+          type: 'any'
         },
-        status: {
-          name: 'status',
-          type: 'string'
-        },
-        created: {
-          name: 'created',
-          type: 'Date'
-        },
-        lastUpdated: {
-          name: 'lastUpdated',
-          type: 'Date'
-        },
-        id: {
+        "id": {
           name: 'id',
-          type: 'number'
+          type: 'any'
         },
         organizationId: {
           name: 'organizationId',

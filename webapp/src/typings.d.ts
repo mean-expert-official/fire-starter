@@ -4,6 +4,7 @@
 declare var System: any;
 declare var require: any;
 /* SystemJS module definition */
-declare var module: {
+declare var module: NodeModule;
+interface NodeModule {
   id: string;
-};
+}
