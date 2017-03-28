@@ -1,11 +1,16 @@
-# ![FireLoop](https://storage.googleapis.com/fireloop/fireloop-gh-header.svg)
+![FireLoop](https://storage.googleapis.com/fireloop/fireloop-gh-header.svg)
 
+---
+
+<br>
 <p align="center">
-	:boom: &nbsp; <b>fireloop-starter</b> &nbsp; :boom:
+<b><i>fireloop-starter</i></b>
 </p>
 <br>
 
----
+#
+
+> Starter kit for the <a href="http://fireloop.io"><b>fireloop.io</b></a> platform
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 &nbsp; <a href="https://heroku.com/deploy"><img src="https://img.shields.io/badge/deploy_to-heroku-79589F.svg" alt="Deploy" data-canonical-src="https://www.herokucdn.com/deploy/button.svg" style="max-width:100%;"></a>
