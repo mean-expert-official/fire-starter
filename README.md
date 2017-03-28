@@ -2,14 +2,7 @@
 
 ---
 
-<br>
-<p align="center">
-<b><i>fireloop-starter</i></b>
-</p>
-<br>
-
-#
-
+<h1 align="center" font-size="40px">fireloop-starter</h1>
 <br>
 
 > Starter kit for the <a href="http://fireloop.io"><b>fireloop.io</b></a> platform
