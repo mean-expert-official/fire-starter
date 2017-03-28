@@ -2,6 +2,8 @@
 
 ---
 
+<script async defer src="http://now-examples-slackin-wbyiluuxds.now.sh/slackin.js"></script>
+
 <h1 align="center" font-size="40px">fireloop-starter</h1>
 <br>
 
