@@ -1,30 +1,31 @@
 /* tslint:disable */
 
-import { App } from './App'
 declare var Object: any;
 export interface UserInterface {
-  realm?: any;
-  username?: any;
-  password: any;
-  email: any;
-  emailVerified?: any;
-  verificationToken?: any;
-  id?: any;
+  realm?: string;
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  password: string;
+  email: string;
+  emailVerified?: boolean;
+  verificationToken?: string;
+  id?: number;
   organizationId?: number;
-  apps: Array<App>;
   accessTokens?: any[];
 }
 
 export class User implements UserInterface {
-  realm: any;
-  username: any;
-  password: any;
-  email: any;
-  emailVerified: any;
-  verificationToken: any;
-  id: any;
+  realm: string;
+  username: string;
+  firstName?: string;
+  lastName?: string;
+  password: string;
+  email: string;
+  emailVerified: boolean;
+  verificationToken: string;
+  id: number;
   organizationId: number;
-  apps: Array<App>;
   accessTokens: any[];
   constructor(data?: UserInterface) {
     Object.assign(this, data);
@@ -42,7 +43,7 @@ export class User implements UserInterface {
   * @license MIT
   * This method creates an instance of User for dynamic purposes.
   **/
-  public static factory(data: UserInterface): User {
+  public static factory(data: UserInterface): User{
     return new User(data);
   }
   /**
@@ -59,31 +60,31 @@ export class User implements UserInterface {
       properties: {
         realm: {
           name: 'realm',
-          type: 'any'
+          type: 'string'
         },
         username: {
           name: 'username',
-          type: 'any'
+          type: 'string'
         },
         password: {
           name: 'password',
-          type: 'any'
+          type: 'string'
         },
         email: {
           name: 'email',
-          type: 'any'
+          type: 'string'
         },
         emailVerified: {
           name: 'emailVerified',
-          type: 'any'
+          type: 'boolean'
         },
         verificationToken: {
           name: 'verificationToken',
-          type: 'any'
+          type: 'string'
         },
         id: {
           name: 'id',
-          type: 'any'
+          type: 'number'
         },
         organizationId: {
           name: 'organizationId',
@@ -95,11 +96,6 @@ export class User implements UserInterface {
           name: 'accessTokens',
           type: 'any[]',
           model: ''
-        },
-        apps: {
-          name: 'apps',
-          type: 'Array<App>',
-          model: 'App'
         },
       }
     }

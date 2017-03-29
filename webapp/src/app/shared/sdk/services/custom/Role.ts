@@ -248,8 +248,6 @@ export class RoleApi extends BaseLoopBackApi {
    *
    *  - `data` – `{object}` - Model instance data
    *
-   *  - `options` – `{object}` - 
-   *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
@@ -259,7 +257,7 @@ export class RoleApi extends BaseLoopBackApi {
    * This usually means the response is a `Role` object.)
    * </em>
    */
-  public patchOrCreate(data: any = {}, options: any = {}): Observable<any> {
+  public patchOrCreate(data: any = {}): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Roles";
@@ -279,7 +277,7 @@ export class RoleApi extends BaseLoopBackApi {
    *
    * @param {object} data Request data.
    *
-   * This method expects a subset of model properties as request parameters.
+   *  - `data` – `{object}` - An object of model property name/value pairs
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned

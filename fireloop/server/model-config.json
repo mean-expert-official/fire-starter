@@ -39,14 +39,6 @@
     "dataSource": "db",
     "public": true
   },
-  "App": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Organization": {
-    "dataSource": "db",
-    "public": true
-  },
   "Note": {
     "dataSource": "db",
     "public": true

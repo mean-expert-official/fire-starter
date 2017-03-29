@@ -9,84 +9,15 @@ export interface State {
   ids: string[];
   entities: { [id: string]: User };
   selectedIds: string | string[];
-  selectedAppsIds: string | string[];
 };
 
 const initialState: State = {
   ids: [],
   entities: {},
   selectedIds: [],
-  selectedAppsIds: [],
 };
 
-function ReducerFactory() {
-  let cases = {};
-
-  /**
-   * @author João Ribeiro <@JonnyBGod> <github:JonnyBGod>
-   * @description
-   * Apps relation reducer methods
-   */
-  cases[UserActionTypes.FIND_BY_ID_APPS] =
-  (state = initialState, action: Action) => {
-    state.entities[action.payload.id].apps =
-      Array.from(new Set([ ...state.entities[action.payload.id].apps, action.payload.data]));
-
-    return Object.assign({}, state, {
-      entities: state.entities,
-      selectedAppsIds: action.payload.data.id,
-    });
-  };
-
-  cases[UserActionTypes.DESTROY_BY_ID_APPS] =
-  (state = initialState, action: Action) => {
-    state.entities[action.payload.id].apps =
-      state.entities[action.payload.id].apps.filter((item) => item.id !== action.payload.fk);
-
-    return Object.assign({}, state, {entities: state.entities});
-  };
-
-  cases[UserActionTypes.UPDATE_BY_ID_APPS] =
-  (state = initialState, action: Action) => {
-    state.entities[action.payload.id].apps =
-      state.entities[action.payload.id].apps.map((item) => {
-        if (item.id === action.payload.data.id) {
-          return action.payload.data;
-        } else {
-          return item;
-        }
-      });
-
-    return Object.assign({}, state, {entities: state.entities});
-  };
-
-  cases[UserActionTypes.CREATE_APPS] =
-  (state = initialState, action: Action) => {
-    state.entities[action.payload.id].apps =
-      Array.from(new Set([ ...state.entities[action.payload.id].apps, ...action.payload.data]));
-
-    return Object.assign({}, state, {entities: state.entities});
-  };
-
-  cases[UserActionTypes.DELETE_APPS] =
-  (state = initialState, action: Action) => {
-    state.entities[action.payload.id].apps = [];
-
-    return Object.assign({}, state, {entities: state.entities});
-  };
-
-  cases[UserActionTypes.CREATE_MANY_APPS] =
-  (state = initialState, action: Action) => {
-    state.entities[action.payload.id].apps =
-      Array.from(new Set([ ...state.entities[action.payload.id].apps, ...action.payload.data]));
-
-    return Object.assign({}, state, {entities: state.entities});
-  };
-
-  return cases;
-};
-
-const cases = Object.assign(BaseReducerFactory<State, User>(UserActionTypes), ReducerFactory());
+const cases = Object.assign(BaseReducerFactory<State, User>(UserActionTypes));
 
 /**
  * @module UsersReducer

@@ -28,7 +28,7 @@ export class UserApi extends BaseLoopBackApi {
     @Inject(JSONSearchParams) protected searchParams: JSONSearchParams,
     @Optional() @Inject(ErrorHandler) protected errorHandler: ErrorHandler
   ) {
-    super(http, connection, models, auth, searchParams, errorHandler);
+    super(http,  connection,  models, auth, searchParams, errorHandler);
   }
 
   /**
@@ -50,7 +50,7 @@ export class UserApi extends BaseLoopBackApi {
   public findByIdAccessTokens(id: any, fk: any): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/accessTokens/:fk";
+    "/Users/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -77,7 +77,7 @@ export class UserApi extends BaseLoopBackApi {
   public destroyByIdAccessTokens(id: any, fk: any): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/accessTokens/:fk";
+    "/Users/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -111,7 +111,7 @@ export class UserApi extends BaseLoopBackApi {
   public updateByIdAccessTokens(id: any, fk: any, data: any = {}): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/accessTokens/:fk";
+    "/Users/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -129,7 +129,7 @@ export class UserApi extends BaseLoopBackApi {
    *
    * @param {any} id User id
    *
-   * @param {object} filter
+   * @param {object} filter 
    *
    * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -143,7 +143,7 @@ export class UserApi extends BaseLoopBackApi {
   public getAccessTokens(id: any, filter: LoopBackFilter = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/accessTokens";
+    "/Users/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -175,7 +175,7 @@ export class UserApi extends BaseLoopBackApi {
   public createAccessTokens(id: any, data: any = {}): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/accessTokens";
+    "/Users/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -201,7 +201,7 @@ export class UserApi extends BaseLoopBackApi {
   public deleteAccessTokens(id: any): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/accessTokens";
+    "/Users/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -224,12 +224,12 @@ export class UserApi extends BaseLoopBackApi {
    *
    * Data properties:
    *
-   *  - `count` – `{number}` -
+   *  - `count` – `{number}` - 
    */
   public countAccessTokens(id: any, where: any = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/accessTokens/count";
+    "/Users/:id/accessTokens/count";
     let _routeParams: any = {
       id: id
     };
@@ -259,7 +259,7 @@ export class UserApi extends BaseLoopBackApi {
   public patchOrCreate(data: any = {}): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users";
+    "/Users";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -290,7 +290,7 @@ export class UserApi extends BaseLoopBackApi {
   public patchAttributes(id: any, data: any = {}): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id";
+    "/Users/:id";
     let _routeParams: any = {
       id: id
     };
@@ -322,15 +322,15 @@ export class UserApi extends BaseLoopBackApi {
    *
    * The response body contains properties of the AccessToken created on login.
    * Depending on the value of `include` parameter, the body may contain additional properties:
-   *
+   * 
    *   - `user` - `U+007BUserU+007D` - Data of the currently logged in user. (`include=user`)
-   *
+   * 
    *
    */
   public login(credentials: any, include: any = 'user', rememberMe: boolean = true): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/login";
+    "/Users/login";
     let _routeParams: any = {};
     let _postBody: any = {
       credentials: credentials
@@ -339,15 +339,15 @@ export class UserApi extends BaseLoopBackApi {
     if (include) _urlParams.include = include;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody)
       .map(
-      (response: any) => {
-        response.ttl = parseInt(response.ttl);
-        response.rememberMe = rememberMe;
-        this.auth.setToken(response);
-        return response;
-      }
+        (response: any) => {
+          response.ttl = parseInt(response.ttl);
+          response.rememberMe = rememberMe;
+          this.auth.setToken(response);
+          return response;
+        }
       );
-    return result;
-
+      return result;
+      
   }
 
   /**
@@ -366,12 +366,12 @@ export class UserApi extends BaseLoopBackApi {
   public logout(): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/logout";
+    "/Users/logout";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
-    _urlParams.access_token = this.auth.getAccessTokenId();
-    this.auth.clear();
+       _urlParams.access_token = this.auth.getAccessTokenId();
+    this.auth.clear(); 
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
     return result;
   }
@@ -379,11 +379,11 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Confirm a user registration with email verification token.
    *
-   * @param {string} uid
+   * @param {string} uid 
    *
-   * @param {string} token
+   * @param {string} token 
    *
-   * @param {string} redirect
+   * @param {string} redirect 
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -394,7 +394,7 @@ export class UserApi extends BaseLoopBackApi {
   public confirm(uid: any, token: any, redirect: any = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/confirm";
+    "/Users/confirm";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -421,7 +421,7 @@ export class UserApi extends BaseLoopBackApi {
   public resetPassword(options: any): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/reset";
+    "/Users/reset";
     let _routeParams: any = {};
     let _postBody: any = {
       options: options
@@ -452,7 +452,7 @@ export class UserApi extends BaseLoopBackApi {
   public createManyAccessTokens(id: any, data: any[] = []): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/accessTokens";
+    "/Users/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -482,7 +482,7 @@ export class UserApi extends BaseLoopBackApi {
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() + "/Users" + "/:id";
     let id: any = this.auth.getCurrentUserId();
     if (id == null)
-      id = '__anonymous__';
+    id = '__anonymous__';
     let _routeParams: any = { id: id };
     let _urlParams: any = {};
     let _postBody: any = {};
@@ -525,248 +525,6 @@ export class UserApi extends BaseLoopBackApi {
    */
   public getCurrentId() {
     return this.auth.getCurrentUserId();
-  }
-
-  /**
- * Find a related item by id for apps.
- *
- * @param any id OAuthUser id
- *
- * @param any fk Foreign key for apps
- *
- * @returns object An empty reference that will be
- *   populated with the actual data once the response is returned
- *   from the server.
- *
- * <em>
- * (The remote method definition does not provide any description.
- * This usually means the response is a `User` object.)
- * </em>
- */
-  public findByIdApps(id: any, fk: any): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/apps/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
-    return result;
-  }
-
-  /**
-   * Delete a related item by id for apps.
-   *
-   * @param any id OAuthUser id
-   *
-   * @param any fk Foreign key for apps
-   *
-   * @returns object An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public destroyByIdApps(id: any, fk: any): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/apps/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
-    return result;
-  }
-
-  /**
-   * Update a related item by id for apps.
-   *
-   * @param any id OAuthUser id
-   *
-   * @param any fk Foreign key for apps
-   *
-   * @param object data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns object An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `User` object.)
-   * </em>
-   */
-  public updateByIdApps(id: any, fk: any, data: any = {}): Observable<any> {
-    let _method: string = "PUT";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/apps/:fk";
-    let _routeParams: any = {
-      id: id,
-      fk: fk
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
-    return result;
-  }
-
-  /**
- * Queries apps of user.
- *
- * @param any id OAuthUser id
- *
- * @param object filter
- *
- * @returns object[] An empty reference that will be
- *   populated with the actual data once the response is returned
- *   from the server.
- *
- * <em>
- * (The remote method definition does not provide any description.
- * This usually means the response is a `User` object.)
- * </em>
- */
-  public getApps(id: any, filter: LoopBackFilter = {}): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/apps";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (filter) _urlParams.filter = filter;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
-    return result;
-  }
-
-  /**
-   * Creates a new instance in apps of this model.
-   *
-   * @param any id OAuthUser id
-   *
-   * @param object data Request data.
-   *
-   * This method expects a subset of model properties as request parameters.
-   *
-   * @returns object An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * <em>
-   * (The remote method definition does not provide any description.
-   * This usually means the response is a `User` object.)
-   * </em>
-   */
-  public createApps(id: any, data: any = {}): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/apps";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
-    return result;
-  }
-
-  /**
-   * Deletes all apps of this model.
-   *
-   * @param any id OAuthUser id
-   *
-   * @returns object An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * This method returns no data.
-   */
-  public deleteApps(id: any): Observable<any> {
-    let _method: string = "DELETE";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/apps";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
-    return result;
-  }
-
-  /**
-   * Counts apps of user.
-   *
-   * @param any id OAuthUser id
-   *
-   * @param object where Criteria to match model instances
-   *
-   * @returns object An empty reference that will be
-   *   populated with the actual data once the response is returned
-   *   from the server.
-   *
-   * Data properties:
-   *
-   *  - `count` – `{number}` -
-   */
-  public countApps(id: any, where: any = {}): Observable<any> {
-    let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/Users/:id/apps/count";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {};
-    let _urlParams: any = {};
-    if (where) _urlParams.where = where;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
-    return result;
-  }
-
-  /**
- * Creates a new instance in apps of this model.
- *
- * @param any id OAuthUser id
- *
- * @param object data Request data.
- *
- * This method expects a subset of model properties as request parameters.
- *
- * @returns object[] An empty reference that will be
- *   populated with the actual data once the response is returned
- *   from the server.
- *
- * <em>
- * (The remote method definition does not provide any description.
- * This usually means the response is a `User` object.)
- * </em>
- */
-  public createManyApps(id: any, data: any[] = []): Observable<any> {
-    let _method: string = "POST";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/users/:id/apps";
-    let _routeParams: any = {
-      id: id
-    };
-    let _postBody: any = {
-      data: data
-    };
-    let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
-    return result;
   }
 
   /**

@@ -2,21 +2,21 @@
 
 declare var Object: any;
 export interface TodoInterface {
-  text: string;
-  dueAt?: Date;
-  done?: boolean;
-  id?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+  "text": any;
+  "dueAt"?: any;
+  "done"?: any;
+  "id"?: any;
+  "createdAt"?: any;
+  "updatedAt"?: any;
 }
 
 export class Todo implements TodoInterface {
-  text: string;
-  dueAt: Date;
-  done: boolean;
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  "text": any;
+  "dueAt": any;
+  "done": any;
+  "id": any;
+  "createdAt": any;
+  "updatedAt": any;
   constructor(data?: TodoInterface) {
     Object.assign(this, data);
   }
@@ -35,7 +35,7 @@ export class Todo implements TodoInterface {
   **/
   public static factory(data: TodoInterface): Todo{
     return new Todo(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -48,30 +48,30 @@ export class Todo implements TodoInterface {
       name: 'Todo',
       plural: 'todos',
       properties: {
-        text: {
+        "text": {
           name: 'text',
-          type: 'string'
+          type: 'any'
         },
-        dueAt: {
+        "dueAt": {
           name: 'dueAt',
-          type: 'Date'
+          type: 'any'
         },
-        done: {
+        "done": {
           name: 'done',
-          type: 'boolean',
+          type: 'any',
           default: false
         },
-        id: {
+        "id": {
           name: 'id',
-          type: 'number'
+          type: 'any'
         },
-        createdAt: {
+        "createdAt": {
           name: 'createdAt',
-          type: 'Date'
+          type: 'any'
         },
-        updatedAt: {
+        "updatedAt": {
           name: 'updatedAt',
-          type: 'Date'
+          type: 'any'
         },
       },
       relations: {

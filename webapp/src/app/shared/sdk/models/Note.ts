@@ -2,19 +2,19 @@
 
 declare var Object: any;
 export interface NoteInterface {
-  title: string;
-  content?: string;
-  id?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+  "title": any;
+  "content"?: any;
+  "id"?: any;
+  "createdAt"?: any;
+  "updatedAt"?: any;
 }
 
 export class Note implements NoteInterface {
-  title: string;
-  content: string;
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  "title": any;
+  "content": any;
+  "id": any;
+  "createdAt": any;
+  "updatedAt": any;
   constructor(data?: NoteInterface) {
     Object.assign(this, data);
   }
@@ -33,7 +33,7 @@ export class Note implements NoteInterface {
   **/
   public static factory(data: NoteInterface): Note{
     return new Note(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -46,25 +46,25 @@ export class Note implements NoteInterface {
       name: 'Note',
       plural: 'Notes',
       properties: {
-        title: {
+        "title": {
           name: 'title',
-          type: 'string'
+          type: 'any'
         },
-        content: {
+        "content": {
           name: 'content',
-          type: 'string'
+          type: 'any'
         },
-        id: {
+        "id": {
           name: 'id',
-          type: 'number'
+          type: 'any'
         },
-        createdAt: {
+        "createdAt": {
           name: 'createdAt',
-          type: 'Date'
+          type: 'any'
         },
-        updatedAt: {
+        "updatedAt": {
           name: 'updatedAt',
-          type: 'Date'
+          type: 'any'
         },
       },
       relations: {
