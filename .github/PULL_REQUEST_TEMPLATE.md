@@ -5,10 +5,8 @@
 - [ ] Enhancement
 - [ ] Documentation
 
+### Detailed description of changes:
+
 ### How many unit test did you write for this pull request?
 
-
-####Write a reason if none (e.g just fixed a typo):
-
-
-#### Please add a description for your pull request:
+##### Write a reason if none (i.e. just fixed a typo):
