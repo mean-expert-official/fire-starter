@@ -8,9 +8,9 @@ import { Subscription } from 'rxjs/Subscription';
   template: `
     <app-card icon="tachometer" title="Dashboard">
       <div class="row">
-        <div *ngFor="let item of dashCards" class="col-12 col-lg-4">
+        <div *ngFor="let item of dashCards" class="col-12 col-lg-6">
           <a class="dash-card" [routerLink]="item.link">
-            <div class="card">
+            <div class="card mb-3">
               <h5 class="card-header text-center" [style.color]="'#fff'">{{ item.title }}</h5>
               <div class="card-block text-center">
                 <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>
@@ -51,6 +51,12 @@ export class DashboardComponent implements OnInit {
         'title': 'Notifications',
         'link': '/home/notifications',
         'icon': 'comments-o',
+        'data': 0
+      },
+      {
+        'title': 'Files',
+        'link': '/home/files',
+        'icon': 'files-o',
         'data': 0
       },
     ]

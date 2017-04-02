@@ -1,0 +1,25 @@
+@import '../ui/styles/variables';
+@import '../ui/styles/mixins';
+
+.drop-zone {
+  border    : dashed 3px #ccc;
+  padding   : 30px;
+  text-align: center;
+}
+
+.file-over {
+  border: dashed 3px $brand-success;
+}
+
+.alert {
+  padding: 3px 10px !important;
+}
+
+.close {
+  color     : $brand-danger;
+  font-size : 33px;
+  padding   : 0;
+  top       : -2px;
+  right     : 0;
+  text-align: center;
+}

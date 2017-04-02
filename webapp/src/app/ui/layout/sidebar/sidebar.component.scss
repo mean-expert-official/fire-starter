@@ -2,6 +2,7 @@
 @import '~bootstrap/scss/mixins';
 
 .sidebar-wrapper {
+  background: transparent radial-gradient(circle farthest-side at right bottom, #ff9d4d 5%, #eb5d2d 25%, #dd5122 80%, #a32900 98%) repeat scroll 0 0;
   box-shadow: 2px 0 3px rgba(0, 0, 0, 0.3);
   position  : fixed;
   width     : 64px;
@@ -11,7 +12,6 @@
   top       : 0;
   z-index   : 1031;
   @include transition(all 0.3s ease);
-  @include gradient-radial(lighten($brand-primary, 3%), darken($brand-primary, 5%));
 
   &.sidebar-open {
     width: 250px;
@@ -35,12 +35,11 @@
 }
 
 .img-wrap {
-  box-shadow : inset 0 1px 5px $brand-primary;
   display    : block;
-  height     : 90px;
-  padding-top: 20px;
+  height     : 100px;
+  padding-top: 25px;
   width      : 100%;
-  @include gradient-radial(lighten($brand-primary, 20%), $brand-primary);
+  // @include gradient-radial(lighten($brand-primary, 15%), $brand-primary);
   @include transition(all 0.3s ease);
 
   img {
@@ -64,7 +63,7 @@
   }
 
   a {
-    color          : lighten($brand-primary, 30%);
+    color          : lighten($brand-primary, 10%);
     cursor         : pointer;
     display        : block;
     font-weight    : 400;
@@ -75,8 +74,8 @@
     @include transition(all 0.0s ease);
 
     .fa {
-      background  : darken($brand-primary, 25%);
-      color       : lighten($brand-primary, 25%);
+      background  : $brand-danger;
+      color       : lighten($brand-primary, 10%);
       display     : inline-block;
       float       : left;
       font-size   : 20px;
@@ -103,8 +102,8 @@
       color          : #fff;
 
       .fa {
-        background: lighten($brand-primary, 25%);
-        color     : darken($brand-primary, 25%);
+        background: lighten($brand-primary, 10%);
+        color     : $brand-danger;
       }
     }
 
@@ -119,14 +118,16 @@
       }
 
       .fa {
+        background : lighten($brand-primary, 15%);
+        box-shadow : inset 0 0 7px 1px darken($brand-primary, 15%);
+
         color      : #fff;
-        box-shadow : inset 0 0 3px 1px darken($brand-primary, 25%);
-        text-shadow: 0 3px 1px rgba(0,0,0,0.4), 1px 2px 1px rgba(0,0,0,0.2), -1px 3px 1px rgba(0,0,0,0.2);
-        @include gradient-radial(lighten($brand-primary, 25%), $brand-primary);
+        text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+
       }
 
       .menu-name {
-        text-shadow: 0 0 3px #000;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
       }
     }
 

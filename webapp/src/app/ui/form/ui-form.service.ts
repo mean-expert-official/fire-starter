@@ -52,7 +52,7 @@ export class FormService {
   }
 
   date(key, options: any = {}) {
-    return this.field('date-picker', 'date', key, options);
+    return this.field('input', 'date', key, options);
   }
 
   textarea(key, options: any = {}) {

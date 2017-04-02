@@ -8,7 +8,9 @@ import { Note } from '../../../shared/sdk/models/Note'
       <div class="input-group">
         <input class="form-control" required name="note" type="text" [(ngModel)]="note.title" placeholder="Add Note" />
         <span class="input-group-btn">
-          <button class="btn btn-secondary">Add Note</button>
+          <button class="btn btn-primary">
+            <i class="fa fa-fw fa-plus"></i>&nbsp; Add Note
+          </button>
         </span>
       </div>
     </form>

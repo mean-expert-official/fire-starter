@@ -5,12 +5,12 @@ import { UIService } from '../../../ui/ui.service';
 @Component({
   selector: 'app-notifications',
   template: `
-    <app-card title="Notification Service">
+    <app-card title="Notification Service" icon="comments-o">
       <button *ngFor="let button of buttons" class="btn btn-{{button.className}} mx-1" (click)="onClickService(button)">
         {{button.label}}
       </button>
     </app-card>
-    <app-card title="Notification Effects">
+    <app-card title="Notification Effects" icon="comments-o">
       <button *ngFor="let button of buttons" class="btn btn-{{button.className}} mx-1" (click)="onClickEffect(button)">
         {{button.label}}
       </button>

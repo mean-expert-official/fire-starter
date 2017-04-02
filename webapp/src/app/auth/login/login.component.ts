@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store'
+import { Store } from '@ngrx/store';
 
 import { UserActions } from '../../shared/sdk/actions/user'
 
@@ -25,7 +25,7 @@ import { UserActions } from '../../shared/sdk/actions/user'
           name="password"
           placeholder="Password">
       </div>
-      <button type="submit"  (click)="submit()" class="btn btn-primary">Login</button>
+      <button type="submit"  (click)="submit()" class="btn btn-primary btn-block">Login</button>
     </form>
   `,
 })
@@ -36,7 +36,7 @@ export class LoginComponent {
     password: null,
   }
 
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store<any>) { }
 
   submit() {
     this.store.dispatch(new UserActions.login({ credentials: this.credentials }))

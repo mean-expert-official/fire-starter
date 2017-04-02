@@ -16,17 +16,17 @@ $purple                                       : #613d7c !default;
 
 // Create grayscale
 $gray-dark                                    : #222;
-$gray                                         : #212121;
+$gray                                         : #333;
 $gray-light                                   : #666;
 $gray-lighter                                 : #bbb;
 $gray-lightest                                : #eee;
 
 // Reassign color vars to semantic color scheme
-$brand-primary                                : #CF5E27;
-$brand-success                                : #768562;
-$brand-info                                   : $gray-light;
-$brand-warning                                : #E18B61;
-$brand-danger                                 : #e51c23;
+$brand-primary                                : #ffa700;
+$brand-success                                : #dd7d06;
+$brand-info                                   : #ff934a;
+$brand-warning                                : #f26200;
+$brand-danger                                 : #a32900;
 $brand-inverse                                : $gray-dark !default;
 
 // Options

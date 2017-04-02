@@ -1,30 +1,6 @@
 @import '../ui/styles/variables';
 @import '../ui/styles/mixins';
 
-.home-header {
-  box-shadow   : 0 2px 7px #ccc;
-  margin-bottom: 15px;
-  margin-left  : -15px;
-  margin-top   : -16px;
-  right        : 0;
-  line-height  : 1;
-  height       : 40px;
-  padding      : 7px 0 0;
-  width        : calc(100vw - 64px);
-  @include gradient-radial(lighten($brand-primary, 30%), lighten($brand-primary, 20%));
-  @include transition(all 0.3s ease);
-
-  h5 {
-    color      : darken($brand-primary, 25%);
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-  }
-
-  &.sidebar-open {
-    left : 250px;
-    width: calc(100vw - 250px);
-  }
-}
-
 .dash-card {
   text-decoration: none;
 
@@ -38,22 +14,26 @@
   }
 
   i {
-    color        : darken($brand-primary, 25%);
+    color        : $brand-danger;
     margin-bottom: 25px;
-    text-shadow  : 2px 2px 1px $brand-primary;
+    text-shadow  : 2px 2px 2px $brand-primary;
   }
 
   &:hover {
     .card,
     .card-header {
-      background  : darken($brand-primary, 25%);
-      border-color: darken($brand-primary, 25%);
+      background  : $brand-primary;
+      border-color: $brand-primary;
     }
 
     .card-header,
     i {
-      color      : #fff !important;
-      text-shadow: 2px 2px 0 $brand-primary;
+      color      : $brand-danger !important;
+      text-shadow: 2px 2px 2px #fff;
+    }
+
+    .badge {
+      background: $brand-danger;
     }
   }
 }

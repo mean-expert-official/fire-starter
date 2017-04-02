@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store'
     <div *ngIf="loggedIn" class="alert alert-success mb-0" role="alert">
       <strong>Success!</strong> You are logged in as {{user?.email}}!
     </div>
-    <div *ngIf="!loggedIn" class="alert alert-info mb-0" role="alert">
+    <div *ngIf="!loggedIn" class="alert alert-danger mb-0" role="alert">
       <strong>Hello!</strong> You are not logged in!
     </div>
   `,

@@ -43,7 +43,7 @@ import { UserActions } from '../../shared/sdk/actions/user'
           name="lastName"
           placeholder="Last name">
       </div>
-      <button type="submit"  (click)="submit()" class="btn btn-primary">Register</button>
+      <button type="submit"  (click)="submit()" class="btn btn-primary btn-block">Register</button>
     </form>
   `,
   styles: []
@@ -58,7 +58,7 @@ export class RegisterComponent {
     lastName: null,
   }
 
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store<any>) { }
 
   submit() {
     this.credentials.username = this.credentials.email

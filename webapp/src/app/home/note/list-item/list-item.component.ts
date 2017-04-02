@@ -8,10 +8,14 @@ import { Note } from '../../../shared/sdk/models/Note'
       <div class="input-group">
         <input class="form-control" name="note.id" [(ngModel)]="note.title"/>
         <span class="input-group-btn">
-          <button class="btn btn-secondary btn-sm" (click)="update.emit(note)">Save</button>
+          <button class="btn btn-primary btn-sm" (click)="update.emit(note)">
+            <i class="fa fa-fw fa-save"></i>
+          </button>
         </span>
         <span class="input-group-btn">
-          <button class="btn btn-secondary btn-sm" (click)="remove.emit(note)">Remove</button>
+          <button class="btn btn-danger btn-sm" (click)="remove.emit(note)">
+            <i class="fa fa-fw fa-trash"></i>
+          </button>
         </span>
       </div>
     </div>

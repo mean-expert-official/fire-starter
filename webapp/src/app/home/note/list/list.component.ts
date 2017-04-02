@@ -37,8 +37,8 @@ export class ListComponent {
     this.noteApi
       .create(note)
       .subscribe(
-      success => this.handleSuccess('create', success),
-      error => this.handleError('create', error)
+      success => this.handleSuccess('Create', success),
+      error => this.handleError('Create', error)
       );
   }
 
@@ -46,8 +46,8 @@ export class ListComponent {
     this.noteApi
       .upsert(note)
       .subscribe(
-      success => this.handleSuccess('update', success),
-      error => this.handleError('update', error)
+      success => this.handleSuccess('Update', success),
+      error => this.handleError('Update', error)
       );
   }
 
@@ -55,18 +55,18 @@ export class ListComponent {
     this.noteApi
       .deleteById(note.id)
       .subscribe(
-      success => this.handleSuccess('remove', success),
-      error => this.handleError('remove', error),
+      success => this.handleSuccess('Delete', success),
+      error => this.handleError('Delete', error),
     );
   }
 
   handleSuccess(action, success) {
-    this.uiService.toastSuccess(`Note ${action} success`, '');
+    this.uiService.toastSuccess(`Note ${action} Success`, '');
     this.find();
   }
 
   handleError(action, error) {
-    this.uiService.toastError(`Note ${action} error`, error.message);
+    this.uiService.toastError(`Note ${action} Error`, error.message);
   }
 
 }

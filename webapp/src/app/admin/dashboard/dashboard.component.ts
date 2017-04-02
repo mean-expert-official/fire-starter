@@ -9,7 +9,7 @@ import { RoleService } from '../roles/role.service';
       <div class="row">
         <div *ngFor="let item of dashCards" class="col-12 col-lg-6">
           <a class="dash-card" [routerLink]="item.link">
-            <div class="card">
+            <div class="card mb-3">
               <h5 class="card-header text-center" [style.color]="'#fff'">{{ item.title }}</h5>
               <div class="card-block text-center">
                 <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>

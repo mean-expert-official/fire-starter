@@ -5,6 +5,7 @@ import { RoleMapping } from '../../models/RoleMapping';
 import { Role } from '../../models/Role';
 import { Todo } from '../../models/Todo';
 import { Note } from '../../models/Note';
+import { Container } from '../../models/Container';
 
 export interface Models { [name: string]: any }
 
@@ -17,7 +18,7 @@ export class SDKModels {
     Role: Role,
     Todo: Todo,
     Note: Note,
-    
+    Container: Container,
   };
 
   public get(modelName: string): any {

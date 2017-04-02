@@ -6,3 +6,4 @@ export * from './Todo';
 export * from './Note';
 export * from './SDKModels';
 export * from './logger.service';
+export * from './Container';
