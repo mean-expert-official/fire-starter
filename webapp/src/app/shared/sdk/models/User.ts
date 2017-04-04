@@ -2,30 +2,28 @@
 
 declare var Object: any;
 export interface UserInterface {
-  realm?: string;
-  username?: string;
-  firstName?: string;
-  lastName?: string;
-  password: string;
-  email: string;
-  emailVerified?: boolean;
-  verificationToken?: string;
-  id?: number;
-  organizationId?: number;
+  "realm"?: any;
+  "username"?: any;
+  "password": any;
+  "firstName": any;
+  "lastName": any;
+  "email": any;
+  "emailVerified"?: any;
+  "verificationToken"?: any;
+  "id"?: any;
   accessTokens?: any[];
 }
 
 export class User implements UserInterface {
-  realm: string;
-  username: string;
-  firstName?: string;
-  lastName?: string;
-  password: string;
-  email: string;
-  emailVerified: boolean;
-  verificationToken: string;
-  id: number;
-  organizationId: number;
+  "realm": any;
+  "username": any;
+  "password": any;
+  "firstName": any;
+  "lastName": any;
+  "email": any;
+  "emailVerified": any;
+  "verificationToken": any;
+  "id": any;
   accessTokens: any[];
   constructor(data?: UserInterface) {
     Object.assign(this, data);
@@ -58,37 +56,41 @@ export class User implements UserInterface {
       name: 'User',
       plural: 'Users',
       properties: {
-        realm: {
+        "realm": {
           name: 'realm',
-          type: 'string'
+          type: 'any'
         },
-        username: {
+        "username": {
           name: 'username',
-          type: 'string'
+          type: 'any'
         },
-        password: {
+        "password": {
           name: 'password',
-          type: 'string'
+          type: 'any'
         },
-        email: {
+        "firstName": {
+          name: 'firstName',
+          type: 'any'
+        },
+        "lastName": {
+          name: 'lastName',
+          type: 'any'
+        },
+        "email": {
           name: 'email',
-          type: 'string'
+          type: 'any'
         },
-        emailVerified: {
+        "emailVerified": {
           name: 'emailVerified',
-          type: 'boolean'
+          type: 'any'
         },
-        verificationToken: {
+        "verificationToken": {
           name: 'verificationToken',
-          type: 'string'
+          type: 'any'
         },
-        id: {
+        "id": {
           name: 'id',
-          type: 'number'
-        },
-        organizationId: {
-          name: 'organizationId',
-          type: 'number'
+          type: 'any'
         },
       },
       relations: {

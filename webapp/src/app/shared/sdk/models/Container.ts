@@ -29,7 +29,7 @@ export class Container implements ContainerInterface {
   * @license MIT
   * This method creates an instance of Container for dynamic purposes.
   **/
-  public static factory(data: ContainerInterface): Container {
+  public static factory(data: ContainerInterface): Container{
     return new Container(data);
   }
   /**
@@ -45,8 +45,8 @@ export class Container implements ContainerInterface {
       plural: 'Containers',
       properties: {
         "name": {
-          "type": "string",
-          "required": true
+          name: 'name',
+          type: 'any'
         },
         "id": {
           name: 'id',

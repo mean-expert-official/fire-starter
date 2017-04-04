@@ -53,6 +53,7 @@ import { RoleMappingApi } from './services/custom/RoleMapping';
 import { RoleApi } from './services/custom/Role';
 import { TodoApi } from './services/custom/Todo';
 import { NoteApi } from './services/custom/Note';
+import { ContainerApi } from './services/custom/Container';
 /**
 * @module SDKBrowserModule
 * @description
@@ -89,6 +90,7 @@ export class SDKBrowserModule {
         RoleApi,
         TodoApi,
         NoteApi,
+        ContainerApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

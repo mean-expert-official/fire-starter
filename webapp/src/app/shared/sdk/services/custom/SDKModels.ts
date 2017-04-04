@@ -19,6 +19,7 @@ export class SDKModels {
     Todo: Todo,
     Note: Note,
     Container: Container,
+    
   };
 
   public get(modelName: string): any {

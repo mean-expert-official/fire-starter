@@ -9,7 +9,6 @@ import { FileFormComponent } from './file-form.component';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { FileService } from './file.service';
-import { ContainerApi } from '../shared/sdk/services';
 
 @NgModule({
   imports: [
@@ -30,7 +29,6 @@ import { ContainerApi } from '../shared/sdk/services';
   ],
   providers: [
     FileService,
-    ContainerApi
   ]
 })
 export class FileModule { }
