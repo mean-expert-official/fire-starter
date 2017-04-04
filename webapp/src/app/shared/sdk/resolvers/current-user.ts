@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { User } from '../models/user';
+import { User } from '../models/User';
 import { getLoopbackAuthUser } from '../reducers/auth';
 
 @Injectable()
