@@ -33,7 +33,7 @@ export class AdminComponent {
     },
   ];
 
-  constructor(private uiService: UIService) {
+  constructor(public uiService: UIService) {
     this.uiService.setSidebarNav(this.sidebarNav);
   }
 }

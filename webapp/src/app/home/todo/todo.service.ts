@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FireLoopRef, Todo } from '../../shared/sdk/models';
 import { RealTime } from '../../shared/sdk/services/core/real.time';
 import { Subscription } from 'rxjs/Subscription';
@@ -6,11 +6,11 @@ import { FormService } from '../../ui/form/ui-form.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class TodoService implements OnDestroy {
+export class TodoService {
 
-  private todos: Todo[] = new Array<Todo>();
-  private todoRef: FireLoopRef<Todo>;
-  private subscriptions: Subscription[] = new Array<Subscription>();
+  public todos: Todo[] = new Array<Todo>();
+  public todoRef: FireLoopRef<Todo>;
+  public subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private formService: FormService,
@@ -21,14 +21,7 @@ export class TodoService implements OnDestroy {
         this.todoRef = this.rt.FireLoop.ref<Todo>(Todo);
         this.subscriptions.push(this.todoRef.on('change')
           .subscribe((todos: Todo[]) => (this.todos = todos)));
-        this.subscriptions.push(this.todoRef.stats()
-          .subscribe((stats: any) => stats.map((stat: any) => stat.count)));
       }));
-  }
-
-  ngOnDestroy() {
-    this.todoRef.dispose();
-    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
   getCardButtons() {

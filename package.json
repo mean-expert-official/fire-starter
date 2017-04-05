@@ -1,16 +1,20 @@
 {
-  "name": "fireloop-starter",
+  "name": "fire-starter",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Starter kit for the fireloop.io platform",
   "scripts": {
-    "preinstall": "npm install -g @angular/cli",
-    "install": "cd fireloop/ && npm install && cd ../webapp && npm install && npm install @angular/cli && cd ..",
+    "install": "cd fireloop/ && npm install && cd ../webapp && npm install @angular/cli @angular/compiler-cli && npm install && cd ..",
     "postinstall": "npm run build",
-    "build": "cd webapp/ && npm run build && cd ..",
+    "build": "cd webapp/ && npm run build",
+    "start": "npm run serve",
     "serve": "cd fireloop/ && node server/server.js",
+    "test": "npm run install && npm run build && npm run serve",
     "contributor-add": "all-contributors add",
     "contributor-generate": "all-contributors generate"
+  },
+  "engines": {
+    "node": "^7.0.0",
+    "npm": "^4.0.0"
   },
   "keywords": [],
   "author": "",

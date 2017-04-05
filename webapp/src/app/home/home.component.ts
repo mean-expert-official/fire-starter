@@ -45,6 +45,11 @@ export class HomeComponent {
         'icon': this.authIcon
       },
       {
+        'name': 'Files',
+        'link': '/home/files',
+        'icon': 'files-o'
+      },
+      {
         'name': 'Todos',
         'link': '/home/todos',
         'icon': 'check-square-o'
@@ -59,11 +64,7 @@ export class HomeComponent {
         'link': '/home/notifications',
         'icon': 'comments-o'
       },
-      {
-        'name': 'Files',
-        'link': '/home/files',
-        'icon': 'files-o'
-      },
+
     ];
   }
 }

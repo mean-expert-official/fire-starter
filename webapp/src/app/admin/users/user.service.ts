@@ -34,6 +34,7 @@ export class UserService implements OnDestroy {
   ngOnDestroy() {
     this.userRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    this.rt.connection.disconnect();
   }
 
   getCardButtons() {

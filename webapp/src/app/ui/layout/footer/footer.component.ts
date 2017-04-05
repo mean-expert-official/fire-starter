@@ -7,7 +7,7 @@ import { UIService } from '../../ui.service';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  constructor(private uiService: UIService) {
+  constructor(public uiService: UIService) {
 
   }
 }

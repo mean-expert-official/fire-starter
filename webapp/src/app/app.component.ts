@@ -12,7 +12,7 @@ import { UIService } from './ui/ui.service';
 })
 export class AppComponent {
 
-  constructor(private uiService: UIService) {
+  constructor(public uiService: UIService) {
 
   }
 

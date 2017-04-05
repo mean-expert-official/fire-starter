@@ -29,6 +29,18 @@ export class FileService implements OnDestroy {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
+  refresh() {
+    this.subscriptions.push(
+      this.containerApi.getContainers().subscribe(
+        (containers: Container[]) => {
+          this.containers = containers;
+          this.setFilesToContainers();
+        },
+        (err) => {
+          console.log(err);
+        }));
+  }
+
   setFilesToContainers(): void {
     const newMapping: FilesToContainer[] = [];
     this.containers.forEach(container => {
@@ -51,15 +63,6 @@ export class FileService implements OnDestroy {
       sortBy(newMapping, 'container.name');
       this.filesToContainers = newMapping;
     });
-  }
-
-  refresh() {
-    this.subscriptions.push(
-      this.containerApi.getContainers().subscribe(
-        (containers: Container[]) => {
-          this.containers = containers;
-          this.setFilesToContainers();
-        }));
   }
 
   getCardButtons(type: string = 'default') {
@@ -87,10 +90,8 @@ export class FileService implements OnDestroy {
     ];
   }
 
-
-
-  delete(container: Container): Observable<Container> {
-    return this.containerApi.destroyContainer(container);
+  deleteContainer(container: Container): Observable<Container> {
+    return this.containerApi.destroyContainer(container.name);
   }
 
   getFormConfig(formType: string) {

@@ -18,11 +18,11 @@ import { UIService } from '../../../ui/ui.service';
 })
 export class ListComponent {
 
-  private notes: Note[] = [];
+  public notes: Note[] = [];
 
   constructor(
-    private noteApi: NoteApi,
-    private uiService: UIService,
+    public noteApi: NoteApi,
+    public uiService: UIService,
   ) {
     this.find();
   }

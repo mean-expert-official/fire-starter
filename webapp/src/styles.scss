@@ -85,3 +85,11 @@ label {
   border-bottom: none;
   box-shadow   : inset 0 -2px 0 $brand-danger;
 }
+
+.has-warning .col-form-label,
+.has-warning .custom-control,
+.has-warning .form-check-label,
+.has-warning .form-control-feedback,
+.has-warning .form-control-label {
+  color: $brand-danger;
+}
