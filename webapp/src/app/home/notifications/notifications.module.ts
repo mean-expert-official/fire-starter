@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NotificationsComponent } from './notifications/notifications.component';
-import { NotificationEffects } from './state/notification.effects';
+import { NotificationsComponent } from './notifications.component';
 import { UiModule } from '../../ui/ui.module';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { UiModule } from '../../ui/ui.module';
     NotificationsComponent,
   ],
   providers: [
-    NotificationEffects,
   ]
 })
 export class NotificationsModule { }

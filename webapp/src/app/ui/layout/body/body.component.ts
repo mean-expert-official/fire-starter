@@ -7,7 +7,7 @@ import { UIService } from '../../ui.service';
   styleUrls: ['./body.component.scss']
 })
 export class BodyComponent {
-  constructor(private uiService: UIService) {
+  constructor(public uiService: UIService) {
 
   }
 }

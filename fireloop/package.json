@@ -30,6 +30,7 @@
     "loopback-ds-timestamp-mixin": "^3.4.1",
     "mocha": "^3.2.0",
     "serve-favicon": "^2.0.1",
+    "socket.io": "^1.7.3",
     "strong-error-handler": "^1.0.1",
     "supertest": "^3.0.0",
     "ts-node": "^3.0.2",

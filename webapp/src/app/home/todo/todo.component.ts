@@ -18,12 +18,14 @@ export class TodoComponent implements OnDestroy {
 
   constructor(
     private modal: NgbModal,
-    private uiService: UIService,
-    private todoService: TodoService,
+    public uiService: UIService,
+    public todoService: TodoService,
   ) { }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    this.todoService.todoRef.dispose();
+    this.todoService.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
   showDialog(type, item) {
@@ -59,8 +61,8 @@ export class TodoComponent implements OnDestroy {
   handleAction(event) {
     switch (event.type) {
       case 'create':
-        this.subscriptions.push(this.todoService
-          .upsert(event.payload).subscribe(() => {
+        this.subscriptions.push(this.todoService.upsert(event.payload).subscribe(
+          () => {
             this.modalRef.close();
             this.uiService.toastSuccess('Todo Created', 'The Todo was created successfully.');
           },
@@ -71,8 +73,8 @@ export class TodoComponent implements OnDestroy {
         ));
         break;
       case 'update':
-        this.subscriptions.push(this.todoService
-          .upsert(event.payload).subscribe(() => {
+        this.subscriptions.push(this.todoService.upsert(event.payload).subscribe(
+          () => {
             this.modalRef.close();
             this.uiService.toastSuccess('Todo Updated', 'The Todo was updated successfully.');
           },
@@ -83,8 +85,8 @@ export class TodoComponent implements OnDestroy {
         ));
         break;
       case 'delete':
-        this.subscriptions.push(this.todoService
-          .delete(event.payload).subscribe(() => {
+        this.subscriptions.push(this.todoService.delete(event.payload).subscribe(
+          () => {
             this.uiService.toastSuccess('Todo Deleted', 'The Todo was deleted successfully.');
           },
           (err) => {

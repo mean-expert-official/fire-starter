@@ -8,7 +8,7 @@ import { UIService } from '../../ui.service';
 })
 export class SidebarComponent {
 
-  constructor(private uiService: UIService) {
+  constructor(public uiService: UIService) {
 
   }
 

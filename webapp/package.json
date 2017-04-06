@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "./node_modules/.bin/ng",
     "start": "ng serve --progress false --proxy-config proxy.conf.json",
-    "build": "ng build --output-path ../fireloop/dist",
+    "build": "ng build --prod --output-path ../fireloop/dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

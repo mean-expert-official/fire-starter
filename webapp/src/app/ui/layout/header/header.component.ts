@@ -8,10 +8,13 @@ import { UIService } from '../../ui.service';
 })
 export class HeaderComponent {
 
-  constructor(private uiService: UIService) {
+  constructor(public uiService: UIService) {
 
   }
 
   public appName = 'Fireloop Starter'
+  logout() {
+
+  }
 
 }

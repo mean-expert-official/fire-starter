@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { RealTime } from '../../shared/sdk/services/core/real.time';
-import { FireLoopRef } from '../../shared/sdk/models';
+import { FireLoopRef, Todo, Note, Container } from '../../shared/sdk/models';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-home-dashboard',
   template: `
     <app-card icon="tachometer" title="Dashboard">
-      <div class="row">
+      <div class="row align-items-center">
         <div *ngFor="let item of dashCards" class="col-12 col-lg-6">
           <a class="dash-card" [routerLink]="item.link">
             <div class="card mb-3">
@@ -25,40 +25,56 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['../home.component.scss']
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnDestroy {
 
-  dashCards: any = [];
+  public dashCards: any = [];
+  public todos: Todo[] = new Array<Todo>();
+  private todoRef: FireLoopRef<Todo>;
+  public notes: Note[] = new Array<Note>();
+  private noteRef: FireLoopRef<Note>;
+  private subscriptions: Subscription[] = new Array<Subscription>();
 
-  constructor() {
-
+  constructor(
+    private rt: RealTime,
+  ) {
+    this.subscriptions.push(
+      this.rt.onReady().subscribe(
+        (fire: any) => {
+          this.todoRef = this.rt.FireLoop.ref<Todo>(Todo);
+          this.subscriptions.push(this.todoRef.on('change').subscribe(
+            (todos: Todo[]) => {
+              this.todos = todos;
+              this.setDashCards();
+            }));
+          this.noteRef = this.rt.FireLoop.ref<Note>(Note);
+          this.subscriptions.push(this.noteRef.on('change').subscribe(
+            (notes: Note[]) => {
+              this.notes = notes
+              this.setDashCards();
+            }));
+        }));
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    this.todoRef.dispose();
+    this.noteRef.dispose();
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
+
+  setDashCards() {
     this.dashCards = [
       {
         'title': 'Todos',
         'link': '/home/todos',
         'icon': 'check-square-o',
-        'data': 0
+        'data': this.todos.length
       },
       {
         'title': 'Notes',
         'link': '/home/notes',
         'icon': 'sticky-note-o',
-        'data': 0
-      },
-      {
-        'title': 'Notifications',
-        'link': '/home/notifications',
-        'icon': 'comments-o',
-        'data': 0
-      },
-      {
-        'title': 'Files',
-        'link': '/home/files',
-        'icon': 'files-o',
-        'data': 0
-      },
+        'data': this.notes.length
+      }
     ]
   }
 

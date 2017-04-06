@@ -17,8 +17,8 @@ export class RoleComponent implements OnDestroy {
 
   constructor(
     private modal: NgbModal,
-    private uiService: UIService,
-    private roleService: RoleService,
+    public uiService: UIService,
+    public roleService: RoleService,
   ) { }
 
   ngOnDestroy() {

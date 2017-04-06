@@ -6,9 +6,10 @@ import swal, { SweetAlertOptions } from 'sweetalert2';
 @Injectable()
 export class UIService {
 
-  private sidebarActive: boolean;
-  private sidebarOpen: boolean;
-  private sidebarNav: any;
+  public sidebarActive: boolean;
+  public sidebarOpen: boolean;
+  public sidebarNav: any;
+  public isLargeScreen: boolean;
 
   constructor(
     private toastyService: ToastyService,
@@ -17,22 +18,35 @@ export class UIService {
     this.toastyConfig.limit = 10;
     this.toastyConfig.theme = 'bootstrap';
     this.sidebarActive = true;
-    this.sidebarOpen = true;
+    this.setLargeScreen();
+    if (this.isLargeScreen) {
+      this.sidebarOpen = true;
+    } else {
+      this.sidebarOpen = false;
+    }
   }
 
-  activateSidebar() {
+  setLargeScreen(): void {
+    if (window.innerWidth > 700) {
+      this.isLargeScreen = true;
+    } else {
+      this.isLargeScreen = false;
+    }
+  }
+
+  activateSidebar(): void {
     this.sidebarActive = true;
   }
 
-  deactivateSidebar() {
+  deactivateSidebar(): void {
     this.sidebarActive = false;
   }
 
-  toggleSidebar() {
+  toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
-  setSidebarNav(nav: any) {
+  setSidebarNav(nav: any): void {
     this.sidebarNav = nav;
   }
 

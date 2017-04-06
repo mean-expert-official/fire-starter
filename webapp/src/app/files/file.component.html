@@ -46,23 +46,28 @@
   <div class="card-header">
     <div class="row align-items-center">
       <div class="col-12 col-md-6">
-        <h4 class="text-uppercase text-danger mb-0">
+        <h4 class="text-uppercase mb-0">
           <i class="fa fa-fw fa-upload"></i>
           Upload
         </h4>
       </div>
       <div class="col-12 col-md-6">
-        <div class="form-group has-warning mb-0">
-          <label for="uploadContainer" class="text-danger">Upload Container</label>
-          <select class="form-control" id="containerName" required [(ngModel)]="uploadContainer.name" name="containerName" (select)="uploadUrl = fileService.getUploadUrl(uploadContainer)">
+        <div class="form-group mb-0" [class.has-warning]="containerName.errors" [class.has-success]="!containerName.errors">
+          <label class="form-control-label" for="uploadContainer">Upload Container</label>
+          <select class="form-control" id="uploadContainer" [class.form-control-warning]="containerName.errors" [class.form-control-success]="!containerName.errors" required [(ngModel)]="uploadContainer.name" #containerName="ngModel" (select)="uploadUrl = fileService.getUploadUrl(uploadContainer)">
             <option *ngFor="let item of fileService.containers" [value]="item.name">{{ item.name }}</option>
           </select>
+          <div *ngIf="containerName.errors" class="alert alert-danger mb-0 mt-1 text-center">
+            <div [hidden]="!containerName.errors.required">
+              You must select a container to upload to.
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="card-block">
-    <div class="row">
+    <div class="row align-items-center">
       <div class="col-12 col-md-6">
         <h4>Add Files</h4>
       </div>
@@ -93,7 +98,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="uploader?.queue?.length" class="row">
+    <div *ngIf="uploader?.queue?.length && !containerName.errors" class="row">
       <div class="col-3">
         <p class="lead float-right"><strong>Upload Progress:</strong></p>
       </div>
@@ -103,7 +108,7 @@
         </div>
       </div>
       <div class="col-12 col-lg-3">
-        <button type="button" class="btn btn-success btn-sm btn-block" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+        <button type="button" class="btn btn-success btn-sm btn-block" (click)="uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
                 <span class="fa fa-fw fa-upload"></span> Upload All
               </button>
         <button type="button" class="btn btn-warning btn-sm btn-block" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">

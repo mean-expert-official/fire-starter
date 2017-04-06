@@ -34,6 +34,7 @@ export class RoleService implements OnDestroy {
   ngOnDestroy() {
     this.roleRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    this.rt.connection.disconnect();
   }
 
   getCardButtons() {

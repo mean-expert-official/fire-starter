@@ -17,8 +17,8 @@ export class UserComponent implements OnDestroy {
 
   constructor(
     private modal: NgbModal,
-    private uiService: UIService,
-    private userService: UserService,
+    public uiService: UIService,
+    public userService: UserService,
   ) { }
 
   ngOnDestroy() {
