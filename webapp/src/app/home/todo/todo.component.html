@@ -6,7 +6,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let todo of todoService.todos">
+      <tr *ngFor="let todo of todos">
         <td>{{ todo.text }}</td>
         <td>{{ todo.dueAt | date: 'longDate' }}</td>
         <td><i *ngIf="todo.done" class="fa fa-fw fa-check"></i></td>

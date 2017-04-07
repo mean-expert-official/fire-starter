@@ -8,25 +8,17 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class TodoService {
 
-  public todos: Todo[] = new Array<Todo>();
-  public todoRef: FireLoopRef<Todo>;
   public subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private formService: FormService,
-    private rt: RealTime,
   ) {
-    this.subscriptions.push(
-      this.rt.onReady().subscribe(() => {
-        this.todoRef = this.rt.FireLoop.ref<Todo>(Todo);
-        this.subscriptions.push(this.todoRef.on('change')
-          .subscribe((todos: Todo[]) => (this.todos = todos)));
-      }));
+
   }
 
   getCardButtons() {
     return {
-      class: 'btn btn-primary float-right',
+      class: 'btn btn-primary btn-block float-right',
       icon: 'plus',
       text: 'Create'
     };
@@ -41,22 +33,11 @@ export class TodoService {
     ];
   }
 
-  upsert(todo: Todo): Observable<Todo> {
-    if (todo.id) {
-      return this.todoRef.upsert(todo);
-    } else {
-      return this.todoRef.create(todo);
-    }
-  }
-
-  delete(todo: Todo): Observable<Todo> {
-    return this.todoRef.remove(todo);
-  }
-
   getFormConfig(formType: string) {
     return {
       fields: this.getFormFields(formType),
       showCancel: true,
+      buttonColClass: 'col-12',
       action: formType === 'create' ? formType : 'update',
     };
   }
@@ -70,10 +51,7 @@ export class TodoService {
         }
       }),
       this.formService.date('dueAt', {
-        label: 'Due Date',
-        // addonLeft: {
-        //   class: 'fa fa-fw fa-calendar'
-        // }
+        label: 'Due Date'
       }),
     ];
     if (formType === 'update') {

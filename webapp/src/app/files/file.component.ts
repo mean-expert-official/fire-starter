@@ -99,7 +99,7 @@ export class FileComponent implements OnDestroy {
       <hr>
       <h5 class="text-primary">${file.name}</h5>
       <hr>
-      <div class="alert alert-success fade show pb-2 mb-0">
+      <div class="alert alert-info fade show pb-2 mb-0">
         <audio [title]="file.name" controls>
           <source src="${file.url}" type="audio/${file.ext === 'mp3' ? 'mpeg' : 'wav'}">
             Your browser does not support the audio tag.

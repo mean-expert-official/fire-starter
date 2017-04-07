@@ -9,6 +9,10 @@
   line-height : 40px;
   width       : 100vw;
   @include transition(all 0.3s ease);
+  @media (max-width: 575px) {
+    padding-left: 0;
+    width       : 100vw;
+  }
 
   &.sidebar-open {
     padding-left: 250px;

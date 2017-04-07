@@ -5,10 +5,10 @@
   "scripts": {
     "install": "cd fireloop/ && npm install && cd ../webapp && npm install @angular/cli @angular/compiler-cli && npm install && cd ..",
     "postinstall": "npm run build",
-    "build": "cd webapp/ && npm run build",
+    "build": "cd webapp/ && npm run build && cd ..",
     "start": "npm run serve",
     "serve": "cd fireloop/ && node server/server.js",
-    "test": "npm run install && npm run build && npm run serve",
+    "test": "npm run install",
     "contributor-add": "all-contributors add",
     "contributor-generate": "all-contributors generate"
   },

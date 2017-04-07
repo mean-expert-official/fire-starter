@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { User } from '../../shared/sdk/models';
+import { RealTime } from '../../shared/sdk/services/core/real.time';
+import { FireLoopRef, User } from '../../shared/sdk/models';
 import { UserFormComponent } from './user-form.component';
 import { UserService } from './user.service';
 import { UIService } from '../../ui/ui.service';
@@ -13,15 +14,29 @@ import { Subscription } from 'rxjs/Subscription';
 export class UserComponent implements OnDestroy {
 
   private modalRef;
+  public users: User[] = new Array<User>();
+  private userRef: FireLoopRef<User>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
     public uiService: UIService,
     public userService: UserService,
-  ) { }
+    private rt: RealTime,
+  ) {
+    this.subscriptions.push(
+      this.rt.onReady().subscribe(
+        (fire: any) => {
+          this.userRef = this.rt.FireLoop.ref<User>(User);
+          this.subscriptions.push(this.userRef.on('change').subscribe(
+            (users: User[]) => {
+              this.users = users;
+            }));
+        }));
+  }
 
   ngOnDestroy() {
+    this.userRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
@@ -46,7 +61,7 @@ export class UserComponent implements OnDestroy {
       title: 'Delete User',
       html: `
         <p class="lead">Are you sure you want to delete User
-          <span class="font-weight-bold font-italic">${user.username}</span>?
+          <span class="font-weight-bold font-italic">${user.email}</span>?
         </p>
       `,
       confirmButtonText: 'Yes, Delete'
@@ -57,8 +72,8 @@ export class UserComponent implements OnDestroy {
   handleAction(event) {
     switch (event.type) {
       case 'create':
-        this.subscriptions.push(this.userService
-          .upsert(event.payload).subscribe(() => {
+        this.subscriptions.push(this.userRef.create(event.payload).subscribe(
+          () => {
             this.modalRef.close();
             this.uiService.toastSuccess('User Created', 'The User was created successfully.');
           }, (err) => {
@@ -68,8 +83,8 @@ export class UserComponent implements OnDestroy {
         ));
         break;
       case 'update':
-        this.subscriptions.push(this.userService
-          .upsert(event.payload).subscribe(() => {
+        this.subscriptions.push(this.userRef.upsert(event.payload).subscribe(
+          () => {
             this.modalRef.close();
             this.uiService.toastSuccess('User Updated', 'The User was updated successfully.');
           }, (err) => {
@@ -79,8 +94,8 @@ export class UserComponent implements OnDestroy {
         ));
         break;
       case 'delete':
-        this.subscriptions.push(this.userService
-          .delete(event.payload).subscribe(() => {
+        this.subscriptions.push(this.userRef.remove(event.payload).subscribe(
+          () => {
             this.uiService.toastSuccess('User Deleted', 'The User was deleted successfully.');
           },
           (err) => {

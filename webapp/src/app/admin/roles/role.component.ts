@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Role } from '../../shared/sdk/models';
+import { FireLoopRef, Role } from '../../shared/sdk/models';
+import { RealTime } from '../../shared/sdk/services/core/real.time';
 import { RoleFormComponent } from './role-form.component';
 import { RoleService } from './role.service';
 import { UIService } from '../../ui/ui.service';
@@ -13,13 +14,26 @@ import { Subscription } from 'rxjs/Subscription';
 export class RoleComponent implements OnDestroy {
 
   private modalRef;
+  public roles: Role[] = new Array<Role>();
+  private roleRef: FireLoopRef<Role>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
     public uiService: UIService,
     public roleService: RoleService,
-  ) { }
+    private rt: RealTime,
+  ) {
+    this.subscriptions.push(
+      this.rt.onReady().subscribe(
+        (fire: any) => {
+          this.roleRef = this.rt.FireLoop.ref<Role>(Role);
+          this.subscriptions.push(this.roleRef.on('change').subscribe(
+            (roles: Role[]) => {
+              this.roles = roles;
+            }));
+        }));
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
@@ -58,8 +72,8 @@ export class RoleComponent implements OnDestroy {
   handleAction(event) {
     switch (event.type) {
       case 'create':
-        this.subscriptions.push(this.roleService
-          .upsert(event.payload).subscribe(() => {
+        this.subscriptions.push(this.roleRef.create(event.payload).subscribe(
+          () => {
             this.modalRef.close();
             this.uiService.toastSuccess('Role Created', 'The Role was created successfully.');
           },
@@ -70,8 +84,8 @@ export class RoleComponent implements OnDestroy {
         ));
         break;
       case 'update':
-        this.subscriptions.push(this.roleService
-          .upsert(event.payload).subscribe(() => {
+        this.subscriptions.push(this.roleRef.upsert(event.payload).subscribe(
+          () => {
             this.modalRef.close();
             this.uiService.toastSuccess('Role Updated', 'The Role was updated successfully.');
           },
@@ -82,8 +96,8 @@ export class RoleComponent implements OnDestroy {
         ));
         break;
       case 'delete':
-        this.subscriptions.push(this.roleService
-          .delete(event.payload).subscribe(() => {
+        this.subscriptions.push(this.roleRef.remove(event.payload).subscribe(
+          () => {
             this.uiService.toastSuccess('Role Deleted', 'The Role was deleted successfully.');
           },
           (err) => {

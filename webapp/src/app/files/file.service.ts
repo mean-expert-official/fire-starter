@@ -75,7 +75,7 @@ export class FileService implements OnDestroy {
         };
       default:
         return {
-          class: 'btn btn-primary float-right',
+          class: 'btn btn-primary btn-block float-right',
           icon: 'plus',
           text: 'Create Container'
         };

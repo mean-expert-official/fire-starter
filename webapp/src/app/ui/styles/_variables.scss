@@ -23,8 +23,8 @@ $gray-lightest                                : #eee;
 
 // Reassign color vars to semantic color scheme
 $brand-primary                                : #ffa700;
-$brand-success                                : #dd7d06;
-$brand-info                                   : #ff934a;
+$brand-success                                : #008744;
+$brand-info                                   : $gray-light;
 $brand-warning                                : #f26200;
 $brand-danger                                 : #a32900;
 $brand-inverse                                : $gray-dark !default;
