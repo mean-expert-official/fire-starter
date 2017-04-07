@@ -21,7 +21,8 @@ export class FormService {
       'options',
       'placeholder',
       'addonLeft',
-      'addonRight'
+      'addonRight',
+      'readOnly'
     ];
 
     toKeys.forEach(toKey => {

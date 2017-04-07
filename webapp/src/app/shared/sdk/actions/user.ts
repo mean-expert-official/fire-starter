@@ -2,10 +2,10 @@
 import { Action } from '@ngrx/store';
 import { type } from '../util';
 import { BaseLoopbackActionTypesFactory, BaseLoopbackActionsFactory } from './base';
-import { SDKToken, User } from '../models';
+import { SDKToken, Account } from '../models';
 
 export const UserActionTypes =
-Object.assign(BaseLoopbackActionTypesFactory('User'), {
+Object.assign(BaseLoopbackActionTypesFactory('Account'), {
   /**
    * @author João Ribeiro <@JonnyBGod> <github:JonnyBGod>
    * @description
@@ -54,7 +54,7 @@ Object.assign(BaseLoopbackActionTypesFactory('User'), {
 });
 
 export const UserActions =
-Object.assign(BaseLoopbackActionsFactory<User>('User', UserActionTypes), {
+Object.assign(BaseLoopbackActionsFactory<Account>('User', UserActionTypes), {
   /**
    * @author João Ribeiro <@JonnyBGod> <github:JonnyBGod>
    * @description

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NoteApi } from '../../../shared/sdk/services/custom/Note';
 import { Note } from '../../../shared/sdk/models/Note';
-import { UIService } from '../../../ui/ui.service';
+import { UiService } from '../../../ui/ui.service';
 
 @Component({
   selector: 'app-note-list',
@@ -22,7 +22,7 @@ export class ListComponent {
 
   constructor(
     public noteApi: NoteApi,
-    public uiService: UIService,
+    public uiService: UiService,
   ) {
     this.find();
   }

@@ -11,16 +11,18 @@
     "TimeStamp": {
       "required": false
     },
-    "Stats": [{
-      "method": "stats",
-      "endpoint": "/stats",
-      "description": "Statistical information for Todo registers.",
-      "type": "model",
-      "count": {
-        "on": "dueAt",
-        "by": "index"
+    "Stats": [
+      {
+        "method": "stats",
+        "endpoint": "/stats",
+        "description": "Statistical information for Todo registers.",
+        "type": "model",
+        "count": {
+          "on": "dueAt",
+          "by": "index"
+        }
       }
-    }]
+    ]
   },
   "properties": {
     "text": {

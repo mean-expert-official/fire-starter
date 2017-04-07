@@ -2,8 +2,7 @@
 import { Observable } from 'rxjs/Observable';
 import { createSelector } from 'reselect';
 import { Action } from '@ngrx/store';
-import { SDKToken } from '../models/BaseModels';
-import { User } from '../models/User';
+import { SDKToken, Account } from '../models';
 import { LoopbackAuthActionTypes } from '../actions/auth';
 import { UserActionTypes } from '../actions/user';
 
@@ -71,7 +70,7 @@ export function getLoopbackAuthState() {
 
 export function getLoopbackAuthToken() {
   return (state$: Observable<any>) => state$
-    .select((s) => s.loopbackAuth);
+    .select((s) => s.loopbackAuth.id);
 }
 
 export function getLoopbackAuthUser() {

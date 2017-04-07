@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UIService } from '../../ui.service';
+import { UiService } from '../../ui.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,7 +7,7 @@ import { UIService } from '../../ui.service';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  constructor(public uiService: UIService) {
+  constructor(public uiService: UiService) {
 
   }
 }

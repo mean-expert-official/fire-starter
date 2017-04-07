@@ -1,4 +1,4 @@
 **/node_modules
-fireloop/node_modules
-fireloop/dist
+api/node_modules
+api/dist
 webapp/node_modules

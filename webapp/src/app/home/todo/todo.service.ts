@@ -18,7 +18,7 @@ export class TodoService {
 
   getCardButtons() {
     return {
-      class: 'btn btn-primary btn-block float-right',
+      class: 'btn btn-secondary btn-block float-right',
       icon: 'plus',
       text: 'Create'
     };

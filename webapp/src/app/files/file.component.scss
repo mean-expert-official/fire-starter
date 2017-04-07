@@ -2,8 +2,8 @@
 @import '../ui/styles/mixins';
 
 .drop-zone {
-  border    : dashed 3px #ccc;
-  padding   : 30px;
+  border: dashed 3px #ccc;
+  padding: 30px;
   text-align: center;
 }
 
@@ -16,9 +16,16 @@
 }
 
 .close {
-  font-size : 33px;
-  padding   : 0;
-  top       : -2px;
-  right     : 0;
+  font-size: 33px;
+  padding: 0;
+  top: -2px;
+  right: 0;
   text-align: center;
+}
+
+.dropdown-toggle {
+  &:after,
+  &:before {
+    display: none;
+  }
 }

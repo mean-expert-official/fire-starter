@@ -9,7 +9,7 @@ import { getLoopbackAuthUserId } from '../reducers/auth';
 
 @Injectable()
 export class UserLoggedGuard implements CanActivate {
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store<any>) { }
 
   public canActivate(): Observable<boolean> {
     return this.store.let(getLoopbackAuthUserId())
