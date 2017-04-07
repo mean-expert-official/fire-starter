@@ -1,16 +1,17 @@
 @import '../../styles/variables';
-@import '~bootstrap/scss/mixins';
+@import '../../styles/mixins';
 
 .sidebar-wrapper {
-  background: transparent radial-gradient(circle farthest-side at right bottom, $brand-primary 5%, $brand-warning 25%, darken($brand-warning, 7%) 80%, $brand-danger 98%) repeat scroll 0 0;
-  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.3);
-  position  : fixed;
-  width     : 64px;
-  height    : 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  top       : 0;
-  z-index   : 1031;
+  background  : transparent radial-gradient(circle farthest-side at right bottom, $brand-primary 5%, $brand-warning 25%, lighten($brand-danger, 15%) 80%, darken($brand-danger, 3%) 98%) repeat scroll 0 0;
+  border-right: 1px solid $brand-primary;
+  box-shadow  : 1px 0 5px 0 rgba(0, 0, 0, 0.7);
+  position    : fixed;
+  width       : 64px;
+  height      : 100%;
+  overflow-x  : hidden;
+  overflow-y  : auto;
+  top         : 0;
+  z-index     : 1031;
   @include transition(all 0.3s ease);
 
   &.sidebar-open {
@@ -28,6 +29,20 @@
   }
   @media (max-width: 575px) {
     width: 0;
+
+    &.sidebar-open {
+      width: 64px;
+
+      .sidebar-nav {
+        // padding: 0;
+      }
+
+      .img-wrap {
+        img {
+          width: 50px;
+        }
+      }
+    }
   }
 }
 
@@ -37,8 +52,8 @@
 
 .img-wrap {
   display    : block;
-  height     : 100px;
-  padding-top: 20px;
+  height     : 90px;
+  padding-top: 15px;
   width      : 100%;
   // @include gradient-radial(lighten($brand-primary, 15%), $brand-primary);
   @include transition(all 0.3s ease);

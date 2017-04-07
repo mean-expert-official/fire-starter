@@ -4,7 +4,7 @@ import { RealTime, ContainerApi } from '../shared/sdk/services';
 import { Subscription } from 'rxjs/Subscription';
 import { FormService } from '../ui/form/ui-form.service';
 import { Observable } from 'rxjs/Observable';
-import { sortBy, split } from "lodash";
+import { sortBy, split } from 'lodash';
 
 export interface FilesToContainer {
   container: Container;
@@ -47,7 +47,7 @@ export class FileService implements OnDestroy {
       this.subscriptions.push(
         this.containerApi.getFiles(container.name).subscribe(
           (files: any[]) => {
-            files.forEach(file => {
+            files.forEach((file: any) => {
               const containerUrl = this.getUploadUrl(container.name).replace('upload', 'download');
               file.url = containerUrl + '/' + file.name;
               const fileExt = split(file.name, '.', 2)[1];
@@ -60,7 +60,7 @@ export class FileService implements OnDestroy {
             };
             newMapping.push(row);
           }));
-      sortBy(newMapping, 'container.name');
+      sortBy(newMapping);
       this.filesToContainers = newMapping;
     });
   }
@@ -69,13 +69,13 @@ export class FileService implements OnDestroy {
     switch (type) {
       case 'record':
         return {
-          class: 'btn btn-primary float-right',
+          class: 'btn btn-secondary float-right',
           icon: 'microphone',
           text: 'Record'
         };
       default:
         return {
-          class: 'btn btn-primary btn-block float-right',
+          class: 'btn btn-secondary btn-block float-right',
           icon: 'plus',
           text: 'Create Container'
         };

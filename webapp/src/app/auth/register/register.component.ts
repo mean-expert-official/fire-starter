@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { Store } from '@ngrx/store'
-
-import { UserActions } from '../../shared/sdk/actions/user'
+import { Component, Output, EventEmitter } from '@angular/core';
+import { FireUserApi } from '../../shared/sdk/services';
 
 @Component({
   selector: 'app-auth-register',
@@ -50,6 +48,8 @@ import { UserActions } from '../../shared/sdk/actions/user'
 })
 export class RegisterComponent {
 
+  @Output() register = new EventEmitter();
+
   public credentials = {
     email: null,
     username: null,
@@ -58,11 +58,10 @@ export class RegisterComponent {
     lastName: null,
   }
 
-  constructor(private store: Store<any>) { }
+  constructor(private userApi: FireUserApi) { }
 
   submit() {
-    this.credentials.username = this.credentials.email
-    this.store.dispatch(new UserActions.register({ credentials: this.credentials }))
+    this.register.emit(this.credentials);
   }
 
 }

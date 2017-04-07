@@ -17,15 +17,23 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "db",
+    "public": false
   },
   "AccessToken": {
     "dataSource": "db",
-    "public": false
+    "public": true,
+    "relations": {
+      "user": {
+        "type": "belongsTo",
+        "model": "FireUser",
+        "foreignKey": "userId"
+      }
+    }
   },
   "ACL": {
     "dataSource": "db",
-    "public": false
+    "public": true
   },
   "RoleMapping": {
     "dataSource": "db",
@@ -45,6 +53,10 @@
   },
   "Container": {
     "dataSource": "storage",
+    "public": true
+  },
+  "FireUser": {
+    "dataSource": "db",
     "public": true
   }
 }

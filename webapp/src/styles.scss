@@ -1,9 +1,9 @@
 $fa-font-path: '~font-awesome/fonts';
 $web-font-path: "https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed";
 @import './app/ui/styles/variables';
-@import './app/ui/styles/toasty';
-@import './app/ui/styles/sweetalert2';
 @import '~font-awesome/scss/font-awesome';
+@import './app/ui/styles/toasty';
+@import '~sweetalert2/src/sweetalert2';
 @import '~bootstrap/scss/bootstrap';
 @import './app/ui/styles/bootswatch';
 
@@ -18,28 +18,71 @@ h4,
 h5 {
   color      : #222;
   font-weight: 700;
-  text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.breadcrumb {
+  background : #fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin     : 0;
+  padding    : 10px 20px;
+
+  a:not([href]):not([tabindex]) {
+    @include ripple($brand-primary);
+
+    &:focus,
+    &:hover {
+      color: darken($brand-primary, 10%) !important;
+      text-decoration: underline !important;
+    }
+  }
+}
+
+.sticky-top {
+  z-index: 1029;
+}
+
+.dash-card {
+  text-decoration: none;
+
+  .card {
+    @include ripple($brand-primary);
+  }
+
+  .card-header {
+    background    : lighten($brand-danger, 7%);
+    letter-spacing: 0.5px;
+  }
+
+  i {
+    color        : lighten($brand-danger, 7%);
+    margin-bottom: 25px;
+    text-shadow  : 2px 2px 2px $brand-primary;
+  }
+
+  &:hover {
+    i, .card-title, .badge {
+      transform: scale(1.1);
+    }
+  }
 }
 
 a {
-  cursor: pointer;
+  background: transparent;
+  cursor    : pointer;
   @include ripple(#eee);
 }
 
 .btn {
   cursor     : pointer;
   font-family: 'Segoe UI', sans-serif;
-  font-weight: 700;
+  font-weight: 900 !important;
 }
 
-.card {
-  box-shadow: 0 1px 2px rgba(151,151,151,0.58);
-}
-
-.btn,
 .card-title,
 .modal-title {
-  text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+  text-shadow: 1px 0 1px rgba(0,0,0,0.5);
 }
 
 .alert {
@@ -58,7 +101,8 @@ a {
   font-size: 18px;
 }
 
-formly-field-input {
+formly-field-input,
+formly-field-select {
   width: 100%;
 }
 

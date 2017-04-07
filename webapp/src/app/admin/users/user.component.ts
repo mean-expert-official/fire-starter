@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RealTime } from '../../shared/sdk/services/core/real.time';
-import { FireLoopRef, User } from '../../shared/sdk/models';
+import { FireLoopRef, FireUser } from '../../shared/sdk/models';
 import { UserFormComponent } from './user-form.component';
 import { UserService } from './user.service';
 import { UIService } from '../../ui/ui.service';
@@ -14,8 +14,8 @@ import { Subscription } from 'rxjs/Subscription';
 export class UserComponent implements OnDestroy {
 
   private modalRef;
-  public users: User[] = new Array<User>();
-  private userRef: FireLoopRef<User>;
+  public users: FireUser[] = new Array<FireUser>();
+  private userRef: FireLoopRef<FireUser>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
@@ -26,10 +26,14 @@ export class UserComponent implements OnDestroy {
   ) {
     this.subscriptions.push(
       this.rt.onReady().subscribe(
-        (fire: any) => {
-          this.userRef = this.rt.FireLoop.ref<User>(User);
-          this.subscriptions.push(this.userRef.on('change').subscribe(
-            (users: User[]) => {
+        () => {
+          this.userRef = this.rt.FireLoop.ref<FireUser>(FireUser);
+          this.subscriptions.push(this.userRef.on('change', {
+            include: 'roles',
+            order: 'email ASC'
+          }).subscribe(
+            (users: FireUser[]) => {
+              console.log(users);
               this.users = users;
             }));
         }));
@@ -41,7 +45,7 @@ export class UserComponent implements OnDestroy {
   }
 
   showDialog(type, item) {
-    this.modalRef = this.modal.open(UserFormComponent, { size: 'lg' });
+    this.modalRef = this.modal.open(UserFormComponent, { size: 'sm' });
     this.modalRef.componentInstance.item = item;
     this.modalRef.componentInstance.formConfig = this.userService.getFormConfig(type);
     this.modalRef.componentInstance.title = (type === 'create') ? 'Create User' : 'Update User';
@@ -49,14 +53,14 @@ export class UserComponent implements OnDestroy {
   }
 
   create() {
-    this.showDialog('create', new User());
+    this.showDialog('create', new FireUser());
   }
 
-  update(user: User) {
+  update(user: FireUser) {
     this.showDialog('update', user);
   }
 
-  delete(user: User) {
+  delete(user: FireUser) {
     const question = {
       title: 'Delete User',
       html: `

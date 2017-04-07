@@ -1,11 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FireLoopRef, Role } from '../../shared/sdk/models';
-import { RealTime } from '../../shared/sdk/services/core/real.time';
-import { RoleFormComponent } from './role-form.component';
+import { FireLoopRef, Role, FireUser } from '../../shared/sdk/models';
+import { RealTime, RoleApi, FireUserApi } from '../../shared/sdk/services';
+import { RoleFormComponent } from './form/role-form.component';
+import { ViewUsersComponent } from './form/view-users.component';
 import { RoleService } from './role.service';
 import { UIService } from '../../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
+import { sortBy } from 'lodash';
 
 @Component({
   selector: 'app-role',
@@ -16,6 +18,8 @@ export class RoleComponent implements OnDestroy {
   private modalRef;
   public roles: Role[] = new Array<Role>();
   private roleRef: FireLoopRef<Role>;
+  public users: FireUser[] = new Array<FireUser>();
+  private userRef: FireLoopRef<FireUser>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
@@ -23,27 +27,55 @@ export class RoleComponent implements OnDestroy {
     public uiService: UIService,
     public roleService: RoleService,
     private rt: RealTime,
+    private roleApi: RoleApi,
+    private userApi: FireUserApi
   ) {
-    this.subscriptions.push(
-      this.rt.onReady().subscribe(
-        (fire: any) => {
-          this.roleRef = this.rt.FireLoop.ref<Role>(Role);
-          this.subscriptions.push(this.roleRef.on('change').subscribe(
-            (roles: Role[]) => {
-              this.roles = roles;
-            }));
+    this.subscriptions.push(this.rt.onReady().subscribe((fire: any) => {
+      this.roleRef = this.rt.FireLoop.ref<Role>(Role);
+      this.refresh();
+      this.userRef = this.rt.FireLoop.ref<FireUser>(FireUser);
+      this.subscriptions.push(this.userRef.on('change').subscribe(
+        (users: FireUser[]) => {
+          this.users = users;
         }));
+    }));
   }
 
   ngOnDestroy() {
+    this.roleRef.dispose();
+    this.userRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
-  showDialog(type, item) {
+  refresh() {
+    this.subscriptions.push(this.roleRef.on('change', {
+      order: 'name ASC',
+      include: 'principals'
+    }).subscribe(
+      (roles: Role[]) => {
+        roles.forEach((role: any) => (role.principalCount = role.principals.length));
+        this.roles = roles;
+      }));
+  }
+
+  showDialog(type, item, options?) {
     this.modalRef = this.modal.open(RoleFormComponent, { size: 'lg' });
     this.modalRef.componentInstance.item = item;
-    this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type);
-    this.modalRef.componentInstance.title = (type === 'create') ? 'Create Role' : 'Update Role';
+    this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type, options);
+    switch (type) {
+      case 'create':
+        this.modalRef.componentInstance.title = 'Create Role'
+        break;
+      case 'update':
+        this.modalRef.componentInstance.title = 'Update Role'
+        break;
+      case 'addUser':
+        this.modalRef.componentInstance.title = 'Add User to Role'
+        break;
+      default:
+        console.log('Unknown type', type);
+        break;
+    };
     this.subscriptions.push(this.modalRef.componentInstance.action.subscribe(event => this.handleAction(event)));
   }
 
@@ -59,8 +91,8 @@ export class RoleComponent implements OnDestroy {
     const question = {
       title: 'Delete Role',
       html: `
-        <p class="lead">Are you sure you want to delete Role
-          <span class="font-weight-bold font-italic">${role.name}</span>?
+        <p class="lead">Are you sure you want to delete the
+          <span class="font-weight-bold font-italic">${role.name}</span> role?
         </p>
       `,
       confirmButtonText: 'Yes, Delete'
@@ -68,6 +100,34 @@ export class RoleComponent implements OnDestroy {
     this.uiService.alertError(question, () => this.handleAction({ type: 'delete', payload: role }), () => { });
   }
 
+  viewUsers(role: Role) {
+    this.modalRef = this.modal.open(ViewUsersComponent, { size: 'lg' });
+    this.modalRef.componentInstance.title = `${role.name} Users`;
+    this.modalRef.componentInstance.role = role;
+    if (role.principals[0]) {
+      let principalList = [];
+      let principals = [];
+      role.principals.forEach((principal: any) => {
+        principalList.push({ id: principal.principalId, mapping: principal.id });
+      });
+      principalList.forEach((principal: any) => {
+        this.subscriptions.push(this.userApi.findById(principal.id).subscribe(
+          (user: any) => {
+            principals.push({ user: user, mapping: principal.mapping })
+          }));
+      });
+      this.modalRef.componentInstance.users = principals;
+    };
+    this.subscriptions.push(this.modalRef.componentInstance.action.subscribe(event => this.handleAction(event)));
+  }
+
+  addUser(role: Role) {
+    let options = {
+      users: this.users,
+      roles: this.roles
+    };
+    this.showDialog('addUser', role, options);
+  }
 
   handleAction(event) {
     switch (event.type) {
@@ -102,6 +162,48 @@ export class RoleComponent implements OnDestroy {
           },
           (err) => {
             this.uiService.toastError('Delete Role Failed', err.message || err.error.message);
+          },
+        ));
+        break;
+      case 'deleteUserInit':
+        const question = {
+          title: 'Delete User',
+          html: `
+            <p class="lead">Are you sure you want to delete user
+              <span class="font-weight-bold font-italic">${event.payload.user.email}</span>
+              from the <span class="font-weight-bold font-italic">${event.payload.role.name}</span> role?
+            </p>
+          `,
+          confirmButtonText: 'Yes, Delete'
+        };
+        this.uiService.alertError(question, () => this.handleAction({ type: 'deleteUser', payload: event.payload }), () => { });
+        break;
+      case 'deleteUser':
+        this.subscriptions.push(this.roleApi.destroyByIdPrincipals(event.payload.role.id, event.payload.mapping).subscribe(
+          () => {
+            this.modalRef.close();
+            this.uiService.toastSuccess('User Deleted', 'The user was deleted successfully.');
+            this.refresh();
+          },
+          (err) => {
+            this.uiService.toastError('Delete User Failed', err.message || err.error.message);
+          },
+        ));
+        break;
+      case 'addUser':
+        let mapping = {
+          principalType: 'USER',
+          principalId: event.payload.user,
+          roleId: event.payload.id
+        }
+        this.subscriptions.push(this.roleApi.createPrincipals(event.payload.id, mapping).subscribe(
+          () => {
+            this.refresh();
+            this.modalRef.close();
+            this.uiService.toastSuccess('User Added', 'The user was added successfully.');
+          },
+          (err) => {
+            this.uiService.toastError('Add User Failed', err.message || err.error.message);
           },
         ));
         break;

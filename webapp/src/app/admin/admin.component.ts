@@ -3,14 +3,7 @@ import { UIService } from '../ui/ui.service';
 
 @Component({
   selector: 'app-admin',
-  template: `
-    <nav class="navbar sticky-top admin-header" [class.sidebar-open]="uiService.sidebarOpen && uiService.isLargeScreen">
-      <h5 class="text-center mb-0">
-        <i class="fa fa-fw fa-lock" aria-hidden="true"></i>&nbsp; Admin
-      </h5>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
+  template: `<router-outlet></router-outlet>`,
   styleUrls: ['./admin.component.scss']
 
 })
@@ -22,6 +15,11 @@ export class AdminComponent {
       'icon': 'tachometer'
     },
     {
+      'name': 'Auth',
+      'link': '/admin/auth',
+      'icon': 'lock'
+    },
+    {
       'name': 'Users',
       'link': '/admin/users',
       'icon': 'users'
@@ -30,6 +28,11 @@ export class AdminComponent {
       'name': 'Roles',
       'link': '/admin/roles',
       'icon': 'tags'
+    },
+    {
+      'name': 'Controls',
+      'link': '/admin/controls',
+      'icon': 'ban'
     },
   ];
 

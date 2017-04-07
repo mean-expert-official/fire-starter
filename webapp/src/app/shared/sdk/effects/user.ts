@@ -16,7 +16,7 @@ import { BaseLoopbackEffects } from './base';
 
 import { UserActionTypes, UserActions } from '../actions/user';
 import { LoopbackErrorActions } from '../actions/error';
-import { UserApi } from '../services/index';
+import { FireUserApi } from '../services/index';
 
 @Injectable()
 export class UserEffects extends BaseLoopbackEffects {
@@ -86,7 +86,7 @@ export class UserEffects extends BaseLoopbackEffects {
 
   constructor(
     @Inject(Actions) public actions$: Actions,
-    @Inject(UserApi) public user: UserApi
+    @Inject(FireUserApi) public user: FireUserApi
   ) {
     super(actions$, user, 'User', UserActionTypes);
   }

@@ -5,7 +5,7 @@ import { UIService } from '../../ui/ui.service';
 @Component({
   selector: 'app-notifications',
   template: `
-    <app-card title="Notification Service" icon="comments-o">
+    <app-card title="Notifications" icon="comments-o">
       <div class="row">
         <div class="col-12 mb-3">
           <h4>Toasty</h4>

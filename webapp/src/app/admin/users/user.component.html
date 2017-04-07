@@ -1,5 +1,5 @@
 <app-card icon="users" title="Users" [createButton]="userService.getCardButtons()" (action)="create()">
-  <table class="table table-striped table-sm">
+  <table class="table table-striped table-sm" [class.table-responsive]="!uiService.isLargeScreen">
     <thead>
       <tr>
         <th *ngFor="let header of userService.getTableHeaders()">{{ header }}</th>
@@ -10,7 +10,7 @@
         <td>{{ user.email }}</td>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
-        <td>
+        <td nowrap>
           <button type="button" class="btn btn-secondary btn-sm" placement="bottom" ngbTooltip="Update" (click)="update(user)">
             <i class="fa fa-fw fa-edit"></i>
           </button>
