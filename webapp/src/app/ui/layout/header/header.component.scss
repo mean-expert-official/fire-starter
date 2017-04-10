@@ -12,6 +12,10 @@
   padding    : 0;
   width      : calc(100vw - 64px);
   @include transition(all 0.3s ease);
+  @media (max-width: 575px) {
+    left : 0;
+    width: 100vw;
+  }
 
   &.sidebar-open {
     left : 250px;
@@ -57,7 +61,7 @@
 .dropdown-menu {
   font-size: 15px;
   top      : 47px;
-  z-index  : 1033;
+  z-index  : 1050;
 
   .dropdown-item {
     line-height: 1;

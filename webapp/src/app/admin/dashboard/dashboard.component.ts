@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../users/user.service';
-import { RoleService } from '../roles/role.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FireLoopRef, User, Role } from '../../shared/sdk/models';
+import { RealTime } from '../../shared/sdk/services/core/real.time';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -24,29 +25,53 @@ import { RoleService } from '../roles/role.service';
   styleUrls: ['../admin.component.scss']
 })
 
-export class DashboardComponent implements OnInit {
-
-  dashCards: any = [];
+export class DashboardComponent implements OnDestroy {
+  public dashCards: any = [];
+  public users: User[] = new Array<User>();
+  private userRef: FireLoopRef<User>;
+  public roles: Role[] = new Array<Role>();
+  private roleRef: FireLoopRef<Role>;
+  private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
-    private userService: UserService,
-    private roleService: RoleService,
+    private rt: RealTime,
   ) {
-
+    this.subscriptions.push(
+      this.rt.onReady().subscribe(
+        (fire: any) => {
+          this.userRef = this.rt.FireLoop.ref<User>(User);
+          this.subscriptions.push(this.userRef.on('change').subscribe(
+            (users: User[]) => {
+              this.users = users;
+              this.setDashCards();
+            }));
+          this.roleRef = this.rt.FireLoop.ref<Role>(Role);
+          this.subscriptions.push(this.roleRef.on('change').subscribe(
+            (roles: Role[]) => {
+              this.roles = roles;
+              this.setDashCards();
+            }));
+        }));
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    this.userRef.dispose();
+    this.roleRef.dispose();
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
+
+  setDashCards() {
     this.dashCards = [
       {
         icon: 'users',
         title: 'Users',
-        data: this.userService.users.length,
+        data: this.users.length,
         link: '/admin/users'
       },
       {
         icon: 'tags',
         title: 'Roles',
-        data: this.roleService.roles.length,
+        data: this.roles.length,
         link: '/admin/roles'
       }
     ]

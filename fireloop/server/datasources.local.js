@@ -1,7 +1,7 @@
 'use strict'
 const mongodbUrl = process.env.MONGODB_URL;
 
-if (mongodbUrl) {
+if(mongodbUrl) {
   console.log('Data sources: Using MongoDB config', mongodbUrl)
   module.exports = {
     db: {

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FireLoopRef, User } from '../../shared/sdk/models';
 import { RealTime } from '../../shared/sdk/services/core/real.time';
 import { Subscription } from 'rxjs/Subscription';
@@ -6,7 +6,7 @@ import { FormService } from '../../ui/form/ui-form.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class UserService implements OnDestroy {
+export class UserService {
 
   public users: User[] = new Array<User>();
   public userRef: FireLoopRef<User>;
@@ -14,32 +14,13 @@ export class UserService implements OnDestroy {
 
   constructor(
     private formService: FormService,
-    private rt: RealTime,
   ) {
-    this.subscriptions.push(
-      this.rt.onReady().subscribe(() => {
-        this.userRef = this.rt.FireLoop.ref<User>(User);
-        this.subscriptions.push(this.userRef.on('change').subscribe(
-          (users: User[]) => {
-            this.users = users;
-            this.users.sort((a, b) => {
-              if (a.firstName > b.firstName) return 1;
-              if (a.firstName < b.firstName) return -1;
-              return 0;
-            });
-          }));
-      }));
-  }
 
-  ngOnDestroy() {
-    this.userRef.dispose();
-    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
-    this.rt.connection.disconnect();
   }
 
   getCardButtons() {
     return {
-      class: 'btn btn-primary float-right',
+      class: 'btn btn-primary btn-block float-right',
       icon: 'plus',
       text: 'Create'
     };

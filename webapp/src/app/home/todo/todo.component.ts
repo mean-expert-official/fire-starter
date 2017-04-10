@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Todo } from '../../shared/sdk/models/Todo';
+import { RealTime } from '../../shared/sdk/services/core/real.time';
+import { FireLoopRef, Todo } from '../../shared/sdk/models';
 import { TodoFormComponent } from './todo-form.component';
 import { TodoService } from './todo.service';
 import { UIService } from '../../ui/ui.service';
@@ -13,19 +14,30 @@ import { Subscription } from 'rxjs/Subscription';
 export class TodoComponent implements OnDestroy {
 
   private modalRef;
-  // subscriptions
+  public todos: Todo[] = new Array<Todo>();
+  private todoRef: FireLoopRef<Todo>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
     public uiService: UIService,
     public todoService: TodoService,
-  ) { }
+    private rt: RealTime
+  ) {
+    this.subscriptions.push(
+      this.rt.onReady().subscribe(
+        (fire: any) => {
+          this.todoRef = this.rt.FireLoop.ref<Todo>(Todo);
+          this.subscriptions.push(this.todoRef.on('change').subscribe(
+            (todos: Todo[]) => {
+              this.todos = todos;
+            }));
+        }));
+  }
 
   ngOnDestroy() {
+    this.todoRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
-    this.todoService.todoRef.dispose();
-    this.todoService.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
   showDialog(type, item) {
@@ -61,7 +73,7 @@ export class TodoComponent implements OnDestroy {
   handleAction(event) {
     switch (event.type) {
       case 'create':
-        this.subscriptions.push(this.todoService.upsert(event.payload).subscribe(
+        this.subscriptions.push(this.todoRef.create(event.payload).subscribe(
           () => {
             this.modalRef.close();
             this.uiService.toastSuccess('Todo Created', 'The Todo was created successfully.');
@@ -73,7 +85,7 @@ export class TodoComponent implements OnDestroy {
         ));
         break;
       case 'update':
-        this.subscriptions.push(this.todoService.upsert(event.payload).subscribe(
+        this.subscriptions.push(this.todoRef.upsert(event.payload).subscribe(
           () => {
             this.modalRef.close();
             this.uiService.toastSuccess('Todo Updated', 'The Todo was updated successfully.');
@@ -85,7 +97,7 @@ export class TodoComponent implements OnDestroy {
         ));
         break;
       case 'delete':
-        this.subscriptions.push(this.todoService.delete(event.payload).subscribe(
+        this.subscriptions.push(this.todoRef.remove(event.payload).subscribe(
           () => {
             this.uiService.toastSuccess('Todo Deleted', 'The Todo was deleted successfully.');
           },

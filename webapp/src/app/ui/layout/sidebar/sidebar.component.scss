@@ -26,6 +26,9 @@
       }
     }
   }
+  @media (max-width: 575px) {
+    width: 0;
+  }
 }
 
 .container-fluid {

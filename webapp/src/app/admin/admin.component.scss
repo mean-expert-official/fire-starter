@@ -2,18 +2,20 @@
 @import '../ui/styles/mixins';
 
 .admin-header {
-  box-shadow   : 0 2px 7px #ccc;
-  margin-bottom: 15px;
-  margin-left  : -15px;
-  margin-top   : -16px;
-  right        : 0;
-  line-height  : 1;
-  height       : 40px;
-  padding      : 7px 0 0;
-  width        : calc(100vw - 64px);
-  z-index      : 300;
-  @include gradient-radial(lighten($brand-primary, 30%), lighten($brand-primary, 20%));
+  box-shadow : 0 2px 5px -1px rgba(0, 0, 0, 0.5);
+  right      : 0;
+  line-height: 1;
+  margin-left: -15px;
+  margin-top : -16px;
+  height     : 40px;
+  padding    : 8px;
+  width      : calc(100vw - 64px);
+  z-index    : 1000;
   @include transition(all 0.3s ease);
+  @media (max-width: 575px) {
+    left : 0;
+    width: 100vw;
+  }
 
   h5 {
     color      : $brand-danger;
@@ -21,7 +23,6 @@
   }
 
   &.sidebar-open {
-    left : 250px;
     width: calc(100vw - 250px);
   }
 }

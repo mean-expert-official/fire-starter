@@ -4,7 +4,7 @@ import { UIService } from '../ui/ui.service';
 @Component({
   selector: 'app-admin',
   template: `
-    <nav class="navbar sticky-top admin-header" [class.sidebar-open]="uiService.sidebarOpen">
+    <nav class="navbar sticky-top admin-header" [class.sidebar-open]="uiService.sidebarOpen && uiService.isLargeScreen">
       <h5 class="text-center mb-0">
         <i class="fa fa-fw fa-lock" aria-hidden="true"></i>&nbsp; Admin
       </h5>
