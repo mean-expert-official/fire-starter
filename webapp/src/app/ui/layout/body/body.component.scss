@@ -2,26 +2,26 @@
 @import '../../styles/mixins';
 
 .main {
-  background    : #f7f7f7;
-  height        : calc(100% - 70px);
-  padding-bottom: 200px;
-  left          : 64px;
-  overflow-x    : hidden;
-  position      : absolute;
-  top           : 40px;
-  width         : calc(100% - 64px);
+  background: #f7f7f7;
+  height: calc(100% - 70px);
+  padding-bottom: 250px;
+  left: 64px;
+  overflow-x: hidden;
+  position: absolute;
+  top: 40px;
+  width: calc(100% - 64px);
 
   &.sidebar-open {
-    left : 250px;
+    left: 250px;
     width: calc(100% - 250px);
   }
   @include transition(all 0.3s ease);
   @media (max-width: 575px) {
-    left : 0;
+    left: 0;
     width: 100%;
 
     &.sidebar-open {
-      left : 64px;
+      left: 64px;
       width: calc(100% - 64px);
     }
   }

@@ -1,8 +1,13 @@
 <!-- FILES -->
-<app-card icon="files-o" title="Files" [createButton]="fileService.getCardButtons()" (action)="create()">
+<app-card icon="files-o"
+          title="Files"
+          [createButton]="fileService.getCardButtons()"
+          (action)="create()">
   <div class="row">
     <div class="col-12">
-      <table *ngIf="fileService.filesToContainers" class="table table-striped table-sm" [class.table-responsive]="!uiService.isLargeScreen">
+      <table *ngIf="fileService.filesToContainers"
+             class="table table-striped table-sm"
+             [class.table-responsive]="!uiService.isLargeScreen">
         <thead>
           <tr>
             <th *ngFor="let header of fileService.getTableHeaders()">{{ header }}</th>
@@ -15,13 +20,21 @@
               <div *ngFor="let file of item.files">
                 <div class="row">
                   <div class="col-2">
-                    <button *ngIf="file.ext === 'wav'" type="button" class="btn btn-sm btn-primary" (click)="play(file)">
+                    <button *ngIf="file.ext === 'wav'"
+                            type="button"
+                            class="btn btn-sm btn-primary"
+                            (click)="play(file)">
                       <i class="fa fa-fw fa-play"></i>
                     </button>
                   </div>
                   <div class="col-10">
-                    <div class="alert alert-info alert-dismissible fade show mb-1" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="deleteFile(item.container.name, file)">
+                    <div class="alert alert-info alert-dismissible fade show mb-1"
+                         role="alert">
+                      <button type="button"
+                              class="close"
+                              data-dismiss="alert"
+                              aria-label="Close"
+                              (click)="deleteFile(item.container.name, file)">
                         <span aria-hidden="true">&times;</span>
                       </button>
                       <strong>{{ file.name }}</strong>
@@ -31,7 +44,11 @@
               </div>
             </td>
             <td>
-              <button type="button" class="btn btn-danger btn-sm" placement="bottom" ngbTooltip="Delete" (click)="delete(item)">
+              <button type="button"
+                      class="btn btn-danger btn-sm"
+                      placement="bottom"
+                      ngbTooltip="Delete"
+                      (click)="delete(item)">
                 <i class="fa fa-fw fa-trash-o"></i>&nbsp;
               </button>
             </td>
@@ -42,7 +59,8 @@
   </div>
 </app-card>
 <!-- UPLOAD -->
-<app-card icon="upload" title="Upload">
+<app-card icon="upload"
+          title="Upload">
   <div class="row align-items-center">
     <div class="col-12 col-md-6">
       <h4>Add Files</h4>
@@ -55,42 +73,65 @@
   <hr>
   <div class="row align-items-center">
     <div class="col-12 col-lg-7 mb-2">
-      <div ng2FileDrop [ngClass]="{'file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploader" class="card drop-zone">
+      <div ng2FileDrop
+           [ngClass]="{'file-over': hasBaseDropZoneOver}"
+           (fileOver)="fileOverBase($event)"
+           [uploader]="uploader"
+           class="card drop-zone">
         <h5 class="text-primary">Drop Zone</h5>
-        <i class="text-primary fa fa-cloud-upload fa-3x" aria-hidden="true"></i>
+        <i class="text-primary fa fa-cloud-upload fa-3x"
+           aria-hidden="true"></i>
       </div>
     </div>
     <div class="col-12 col-lg-5 mb-2">
       <div class="row">
         <div class="col-12">
           <h5>Single Select</h5>
-          <input class="text-center" type="file" ng2FileSelect [uploader]="uploader" />
+          <input class="text-center"
+                 type="file"
+                 ng2FileSelect
+                 [uploader]="uploader" />
           <hr>
         </div>
         <div class="col-12">
           <h5>Multiple Select</h5>
-          <input type="file" ng2FileSelect [uploader]="uploader" multiple />
+          <input type="file"
+                 ng2FileSelect
+                 [uploader]="uploader"
+                 multiple />
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="uploader?.queue?.length" class="row">
+  <div *ngIf="uploader?.queue?.length"
+       class="row">
     <div class="col-3">
       <p class="lead float-right"><strong>Upload Progress:</strong></p>
     </div>
     <div class="col-9 align-self-center pb-3">
       <div class="progress">
-        <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+        <div class="progress-bar bg-success"
+             role="progressbar"
+             [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
       </div>
     </div>
     <div class="col-12 col-lg-3">
-      <button type="button" class="btn btn-primary btn-sm btn-block" (click)="uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+      <button type="button"
+              class="btn btn-primary btn-sm btn-block"
+              (click)="uploadAll()"
+              [disabled]="!uploader.getNotUploadedItems().length">
         <span class="fa fa-fw fa-upload"></span> Upload All
       </button>
-      <button type="button" class="btn btn-warning btn-sm btn-block" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+      <button type="button"
+              class="btn btn-warning btn-sm btn-block"
+              (click)="uploader.cancelAll()"
+              [disabled]="!uploader.isUploading">
         <span class="fa fa-fw fa-ban"></span> Cancel All
       </button>
-      <button type="button" class="btn btn-danger btn-sm btn-block" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+      <button type="button"
+              class="btn btn-danger btn-sm btn-block"
+              (click)="uploader.clearQueue()"
+              [disabled]="!uploader.queue.length">
         <span class="fa fa-fw fa-trash"></span> Remove All
       </button>
     </div>
@@ -111,7 +152,9 @@
             <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
             <td>
               <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                <div class="progress-bar bg-success"
+                     role="progressbar"
+                     [ngStyle]="{ 'width': item.progress + '%' }"></div>
               </div>
             </td>
             <td class="text-center">
@@ -120,13 +163,21 @@
               <span *ngIf="item.isError"><i class="fa fa-fw fa"></i></span>
             </td>
             <td nowrap>
-              <button type="button" class="btn btn-primary btn-sm" (click)="upload(item)" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+              <button type="button"
+                      class="btn btn-primary btn-sm"
+                      (click)="upload(item)"
+                      [disabled]="item.isReady || item.isUploading || item.isSuccess">
                 <span class="fa fa-fw fa-upload"></span>
               </button>
-              <button type="button" class="btn btn-warning btn-sm" (click)="item.cancel()" [disabled]="!item.isUploading">
+              <button type="button"
+                      class="btn btn-warning btn-sm"
+                      (click)="item.cancel()"
+                      [disabled]="!item.isUploading">
                 <span class="fa fa-fw fa-ban"></span>
               </button>
-              <button type="button" class="btn btn-danger btn-sm" (click)="item.remove()">
+              <button type="button"
+                      class="btn btn-danger btn-sm"
+                      (click)="item.remove()">
                 <span class="fa fa-fw fa-trash"></span>
               </button>
             </td>

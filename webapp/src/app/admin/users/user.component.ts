@@ -33,7 +33,6 @@ export class UserComponent implements OnDestroy {
             order: 'email ASC'
           }).subscribe(
             (users: FireUser[]) => {
-              console.log(users);
               this.users = users;
             }));
         }));

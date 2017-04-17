@@ -59,7 +59,7 @@ export class RoleComponent implements OnDestroy {
   }
 
   showDialog(type, item, options?) {
-    this.modalRef = this.modal.open(RoleFormComponent, { size: 'lg' });
+    this.modalRef = this.modal.open(RoleFormComponent, { size: 'sm' });
     this.modalRef.componentInstance.item = item;
     this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type, options);
     switch (type) {

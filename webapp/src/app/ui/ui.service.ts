@@ -46,6 +46,10 @@ export class UIService {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
+  getSidebarNav() {
+    return this.sidebarNav;
+  }
+
   setSidebarNav(nav: any): void {
     this.sidebarNav = nav;
   }

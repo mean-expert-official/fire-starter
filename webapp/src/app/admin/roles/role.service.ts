@@ -7,10 +7,8 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class RoleService {
 
-  private subscriptions: Subscription[] = new Array<Subscription>();
-
   constructor(
-    private formService: FormService,
+    public formService: FormService,
   ) { }
 
   getCardButtons() {

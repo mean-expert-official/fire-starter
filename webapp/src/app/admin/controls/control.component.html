@@ -1,5 +1,9 @@
-<app-card icon="ban" title="Controls" [createButton]="controlService.getCardButtons()" (action)="create()">
-  <table class="table table-striped table-sm" [class.table-responsive]="!uiService.isLargeScreen">
+<app-card icon="ban"
+          title="Controls"
+          [createButton]="controlService.getCardButtons()"
+          (action)="create()">
+  <table class="table table-striped table-sm"
+         [class.table-responsive]="!uiService.isLargeScreen">
     <thead>
       <tr>
         <th *ngFor="let header of controlService.getTableHeaders()">{{ header }}</th>
@@ -14,10 +18,18 @@
         <td>{{ control.principalType }}</td>
         <td>{{ control.principalId }}</td>
         <td nowrap>
-          <button type="button" class="btn btn-secondary btn-sm" placement="bottom" ngbTooltip="Update" (click)="update(control)">
+          <button type="button"
+                  class="btn btn-secondary btn-sm"
+                  placement="bottom"
+                  ngbTooltip="Update"
+                  (click)="update(control)">
             <i class="fa fa-fw fa-edit"></i>
           </button>
-          <button type="button" class="btn btn-danger btn-sm" placement="bottom" ngbTooltip="Delete" (click)="delete(control)">
+          <button type="button"
+                  class="btn btn-danger btn-sm"
+                  placement="bottom"
+                  ngbTooltip="Delete"
+                  (click)="delete(control)">
             <i class="fa fa-fw fa-trash-o"></i>
           </button>
         </td>

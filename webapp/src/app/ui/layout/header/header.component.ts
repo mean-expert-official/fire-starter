@@ -26,7 +26,12 @@ export class HeaderComponent implements OnDestroy {
   public appName = 'Fireloop Starter';
 
   public logout() {
-    this.userApi.logout().subscribe(() => (console.log('Log Out processed')));
+    this.userApi.logout().subscribe(() => {
+      let sidebarNav = this.uiService.getSidebarNav();
+      sidebarNav[1].icon = 'lock';
+      this.uiService.setSidebarNav(sidebarNav);
+      console.log('Log Out processed');
+    });
   }
 
 }

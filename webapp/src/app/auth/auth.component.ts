@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   template: `
-    <app-card icon="heartbeat" title="Status">
+    <app-card [icon]="userApi.isAuthenticated() ? 'unlock' : 'lock'" title="Auth Status">
       <app-auth-status [loggedIn]="userApi.isAuthenticated()" [user]="userApi.getCurrentToken().user" (logout)="processLogout($event)"></app-auth-status>
     </app-card>
     <div *ngIf="!userApi.isAuthenticated()" class="row">
@@ -46,6 +46,9 @@ export class AuthComponent implements OnDestroy {
   processLogin(event: any) {
     this.subscriptions.push(this.userApi.login(event).subscribe(
       (token: SDKToken) => {
+        let sidebarNav = this.uiService.getSidebarNav();
+        sidebarNav[1].icon = 'unlock';
+        this.uiService.setSidebarNav(sidebarNav);
         this.uiService.toastSuccess('Login Success', 'You have logged in successfully.');
       },
       (err: any) => {
@@ -66,6 +69,9 @@ export class AuthComponent implements OnDestroy {
   processLogout(event: any) {
     this.subscriptions.push(this.userApi.logout().subscribe(
       () => {
+        let sidebarNav = this.uiService.getSidebarNav();
+        sidebarNav[1].icon = 'lock';
+        this.uiService.setSidebarNav(sidebarNav);
         this.uiService.toastSuccess('Logout Success', 'You have logged out successfully');
       },
       (err: any) => {
