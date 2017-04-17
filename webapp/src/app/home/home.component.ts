@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import { FireUserApi } from '../shared/sdk/services';
 import { UIService } from '../ui/ui.service';
 
