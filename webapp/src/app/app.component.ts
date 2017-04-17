@@ -6,7 +6,7 @@ import { UIService } from './ui/ui.service';
   selector: 'app-root',
   template: `
     <app-layout></app-layout>
-    <ng2-toasty></ng2-toasty>
+    <ng2-toasty [position]="'bottom-right'"></ng2-toasty>
   `,
 
 })

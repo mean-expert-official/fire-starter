@@ -6,21 +6,23 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-home-dashboard',
   template: `
-    <app-card icon="tachometer" title="Dashboard">
-      <div class="row align-items-center">
-        <div *ngFor="let item of dashCards" class="col-12 col-lg-6">
-          <a class="dash-card" [routerLink]="item.link">
-            <div class="card mb-3">
-              <h5 class="card-header text-center" [style.color]="'#fff'">{{ item.title }}</h5>
-              <div class="card-block text-center">
-                <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>
-                <h4><span class="badge badge-primary">{{ item.data | number }}</span></h4>
-              </div>
+  <app-card icon="tachometer" title="Dashboard">
+    <div *ngIf="dashCards" class="row">
+      <div *ngFor="let item of dashCards" class="col">
+        <a class="dash-card" [routerLink]="item.link">
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="card-title text-center text-white mb-0">{{ item.title }}</h5>
             </div>
-          </a>
-        </div>
+            <div class="card-block text-center">
+              <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>
+              <h4><span class="badge badge-primary">{{ item.data | number }}</span></h4>
+            </div>
+          </div>
+        </a>
       </div>
-    </app-card>
+    </div>
+  </app-card>
   `,
   styleUrls: ['../home.component.scss']
 })

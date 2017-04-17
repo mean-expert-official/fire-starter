@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-
-import { UserActions } from '../../shared/sdk/actions/user'
+import { Component, Output, EventEmitter } from '@angular/core';
+import { FormService } from '../../ui/form/ui-form.service';
 
 @Component({
   selector: 'app-auth-login',
@@ -31,14 +29,16 @@ import { UserActions } from '../../shared/sdk/actions/user'
 })
 export class LoginComponent {
 
+  @Output() login = new EventEmitter();
   public credentials = {
     email: null,
     password: null,
   }
 
-  constructor(private store: Store<any>) { }
+  constructor(private formService: FormService) { }
 
   submit() {
-    this.store.dispatch(new UserActions.login({ credentials: this.credentials }))
+    this.login.emit(this.credentials);
   }
+
 }

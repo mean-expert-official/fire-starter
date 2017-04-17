@@ -12,14 +12,14 @@ import { of } from 'rxjs/observable/of';
 
 import { UserActions } from '../actions/user';
 import { LoopbackErrorActions } from '../actions/error';
-import { UserApi } from '../services/index';
+import { FireUserApi } from '../services/custom';
 import { getUserById } from '../reducers/user';
 
 @Injectable()
 export class UserExistsGuard implements CanActivate {
   constructor(
     private store: Store<any>,
-    private user: UserApi,
+    private user: FireUserApi,
     private router: Router
   ) { }
 

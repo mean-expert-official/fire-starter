@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-
+import { FireUserApi } from '../shared/sdk/services';
 import { UIService } from '../ui/ui.service';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-home',
@@ -18,31 +16,23 @@ export class HomeComponent {
 
   constructor(
     private uiService: UIService,
-    private store: Store<any>,
+    private userApi: FireUserApi
   ) {
-    this.store.select('auth').subscribe(
-      (res: any) => {
-        if (res.id) {
-          this.authIcon = 'unlock';
-          this.uiService.setSidebarNav(this.getSidebarNav());
-        } else {
-          this.authIcon = 'lock';
-          this.uiService.setSidebarNav(this.getSidebarNav());
-        }
-      });
-
+    this.setSidebarNav();
+    this.uiService.setSidebarNav(this.sidebarNav);
   }
-  getSidebarNav() {
-    return [
+
+  setSidebarNav() {
+    this.sidebarNav = [
       {
         'name': 'Dashboard',
         'link': '/home/dashboard',
         'icon': 'tachometer'
       },
       {
-        'name': 'Authentication',
+        'name': 'Auth',
         'link': '/home/auth',
-        'icon': this.authIcon
+        'icon': this.getAuthIcon()
       },
       {
         'name': 'Files',
@@ -66,5 +56,13 @@ export class HomeComponent {
       },
 
     ];
+  }
+
+  getAuthIcon() {
+    if (this.userApi.isAuthenticated()) {
+      return 'unlock'
+    } else {
+      return 'lock'
+    }
   }
 }

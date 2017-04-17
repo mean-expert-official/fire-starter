@@ -15,7 +15,7 @@
 * ============================================================================
 * import { NgModule }       from '@angular/core';
 * import { BrowserModule }  from '@angular/platform-browser';
-* // App Root
+* // App Root 
 * import { AppComponent }   from './app.component';
 * // Feature Modules
 * import { SDK[Browser|Node|Native]Module } from './shared/sdk/sdk.module';
@@ -48,12 +48,13 @@ import { SocketBrowser } from './sockets/socket.browser';
 import { SocketDriver } from './sockets/socket.driver';
 import { SocketConnection } from './sockets/socket.connections';
 import { RealTime } from './services/core/real.time';
-import { UserApi } from './services/custom/User';
+import { ACLApi } from './services/custom/ACL';
 import { RoleMappingApi } from './services/custom/RoleMapping';
 import { RoleApi } from './services/custom/Role';
 import { TodoApi } from './services/custom/Todo';
 import { NoteApi } from './services/custom/Note';
 import { ContainerApi } from './services/custom/Container';
+import { FireUserApi } from './services/custom/FireUser';
 /**
 * @module SDKBrowserModule
 * @description
@@ -85,12 +86,13 @@ export class SDKBrowserModule {
         JSONSearchParams,
         SDKModels,
         RealTime,
-        UserApi,
+        ACLApi,
         RoleMappingApi,
         RoleApi,
         TodoApi,
         NoteApi,
         ContainerApi,
+        FireUserApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }
@@ -108,10 +110,3 @@ export * from './lb.config';
 export * from './storage/storage.swaps';
 export { CookieBrowser } from './storage/cookie.browser';
 export { StorageBrowser } from './storage/storage.browser';
-
-export * from './actions/index';
-export * from './effects/index';
-export * from './reducers/index';
-export * from './state';
-export * from './guards/index';
-export * from './resolvers/index';

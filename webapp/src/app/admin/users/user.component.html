@@ -1,5 +1,9 @@
-<app-card icon="users" title="Users" [createButton]="userService.getCardButtons()" (action)="create()">
-  <table class="table table-striped table-sm">
+<app-card icon="users"
+          title="Users"
+          [createButton]="userService.getCardButtons()"
+          (action)="create()">
+  <table class="table table-striped table-sm"
+         [class.table-responsive]="!uiService.isLargeScreen">
     <thead>
       <tr>
         <th *ngFor="let header of userService.getTableHeaders()">{{ header }}</th>
@@ -10,11 +14,19 @@
         <td>{{ user.email }}</td>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
-        <td>
-          <button type="button" class="btn btn-secondary btn-sm" placement="bottom" ngbTooltip="Update" (click)="update(user)">
+        <td nowrap>
+          <button type="button"
+                  class="btn btn-secondary btn-sm"
+                  placement="bottom"
+                  ngbTooltip="Update"
+                  (click)="update(user)">
             <i class="fa fa-fw fa-edit"></i>
           </button>
-          <button type="button" class="btn btn-danger btn-sm" placement="bottom" ngbTooltip="Delete" (click)="delete(user)">
+          <button type="button"
+                  class="btn btn-danger btn-sm"
+                  placement="bottom"
+                  ngbTooltip="Delete"
+                  (click)="delete(user)">
             <i class="fa fa-fw fa-trash-o"></i>
           </button>
         </td>
