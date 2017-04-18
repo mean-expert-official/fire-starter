@@ -3,6 +3,7 @@ import { Container } from '../shared/sdk/models';
 import { RealTime, ContainerApi } from '../shared/sdk/services';
 import { Subscription } from 'rxjs/Subscription';
 import { FormService } from '../ui/form/ui-form.service';
+import { CardButton } from '../ui/ui.service';
 import { Observable } from 'rxjs/Observable';
 import { sortBy, split } from 'lodash';
 
@@ -25,16 +26,18 @@ export class FileService implements OnDestroy {
     this.refresh();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
-  refresh() {
+  refresh(): void {
     this.subscriptions.push(
       this.containerApi.getContainers().subscribe(
         (containers: Container[]) => {
-          this.containers = containers;
-          this.setFilesToContainers();
+          if (containers.length) {
+            this.containers = containers;
+            this.setFilesToContainers();
+          }
         },
         (err) => {
           console.log(err);
@@ -65,7 +68,7 @@ export class FileService implements OnDestroy {
     });
   }
 
-  getCardButtons(type: string = 'default') {
+  getCardButtons(type: string = 'default'): CardButton {
     switch (type) {
       case 'record':
         return {
@@ -82,7 +85,7 @@ export class FileService implements OnDestroy {
     }
   }
 
-  getTableHeaders() {
+  getTableHeaders(): string[] {
     return [
       'Container',
       'Files',
@@ -94,7 +97,7 @@ export class FileService implements OnDestroy {
     return this.containerApi.destroyContainer(container.name);
   }
 
-  getFormConfig(formType: string) {
+  getFormConfig(formType: string): {} {
     return {
       fields: this.getFormFields(formType),
       showCancel: true,
@@ -102,7 +105,7 @@ export class FileService implements OnDestroy {
     };
   }
 
-  getUploadUrl(container: Container) {
+  getUploadUrl(container: Container): string {
     const apiConfig = window['apiConfig'];
     return [apiConfig.baseUrl, apiConfig.version, 'Containers', container, 'upload'].join('/');
   }
@@ -113,7 +116,7 @@ export class FileService implements OnDestroy {
     return this.containerApi.getFiles(container);
   }
 
-  getFormFields(formType: string) {
+  getFormFields(formType: string): any[] {
     let fields = [
       this.formService.input('name', {
         label: 'Name',

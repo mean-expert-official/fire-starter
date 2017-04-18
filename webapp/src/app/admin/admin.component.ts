@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { FireUserApi } from '../shared/sdk/services';
-import { UIService } from '../ui/ui.service';
+import { Store } from '@ngrx/store';
+import { UserActions } from '../shared/sdk/actions/user';
+import { AccountApi } from '../shared/sdk/services';
+import { UiService, NavItem } from '../ui/ui.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-admin',
@@ -10,44 +13,48 @@ import { UIService } from '../ui/ui.service';
 })
 export class AdminComponent {
   private authIcon;
-  private sidebarNav: any;
+  private sidebarNav: NavItem[];
+  private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
-    private uiService: UIService,
-    private userApi: FireUserApi
+    private uiService: UiService,
+    private userApi: AccountApi,
+    private store: Store<any>,
   ) {
-    this.setSidebarNav();
-    this.uiService.setSidebarNav(this.sidebarNav);
+    this.subscriptions.push(this.store.select('auth').subscribe(
+      (res: any) => {
+        this.uiService.setSidebarNav([
+          {
+            'name': 'Dashboard',
+            'link': '/admin/dashboard',
+            'icon': 'tachometer'
+          },
+          {
+            'name': 'Auth',
+            'link': '/admin/auth',
+            'icon': this.getAuthIcon()
+          },
+          {
+            'name': 'Users',
+            'link': '/admin/users',
+            'icon': 'users'
+          },
+          {
+            'name': 'Roles',
+            'link': '/admin/roles',
+            'icon': 'tags'
+          },
+          {
+            'name': 'Controls',
+            'link': '/admin/controls',
+            'icon': 'ban'
+          },
+        ]);
+      }));
   }
 
-  setSidebarNav() {
-    this.sidebarNav = [
-      {
-        'name': 'Dashboard',
-        'link': '/admin/dashboard',
-        'icon': 'tachometer'
-      },
-      {
-        'name': 'Auth',
-        'link': '/admin/auth',
-        'icon': this.getAuthIcon()
-      },
-      {
-        'name': 'Users',
-        'link': '/admin/users',
-        'icon': 'users'
-      },
-      {
-        'name': 'Roles',
-        'link': '/admin/roles',
-        'icon': 'tags'
-      },
-      {
-        'name': 'Controls',
-        'link': '/admin/controls',
-        'icon': 'ban'
-      },
-    ];
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
   getAuthIcon() {

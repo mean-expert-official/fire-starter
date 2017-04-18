@@ -26,7 +26,7 @@
     "relations": {
       "user": {
         "type": "belongsTo",
-        "model": "FireUser",
+        "model": "Account",
         "foreignKey": "userId"
       }
     }
@@ -55,7 +55,7 @@
     "dataSource": "storage",
     "public": true
   },
-  "FireUser": {
+  "Account": {
     "dataSource": "db",
     "public": true
   }

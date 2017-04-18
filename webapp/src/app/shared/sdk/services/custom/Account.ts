@@ -5,22 +5,23 @@ import { SDKModels } from './SDKModels';
 import { BaseLoopBackApi } from '../core/base.service';
 import { LoopBackConfig } from '../../lb.config';
 import { LoopBackAuth } from '../core/auth.service';
-import { LoopBackFilter, SDKToken, AccessToken } from '../../models/BaseModels';
+import { LoopBackFilter, SDKToken } from '../../models/BaseModels';
 import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
-import { FireUser } from '../../models/FireUser';
+import { Account } from '../../models/Account';
 import { SocketConnection } from '../../sockets/socket.connections';
+import { AccessToken } from '../../models/AccessToken';
 import { RoleMapping } from '../../models/RoleMapping';
 import { Role } from '../../models/Role';
 
 
 /**
- * Api services for the `FireUser` model.
+ * Api services for the `Account` model.
  */
 @Injectable()
-export class FireUserApi extends BaseLoopBackApi {
+export class AccountApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
@@ -36,7 +37,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for accessTokens.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -46,13 +47,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public findByIdAccessTokens(id: any, fk: any): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/accessTokens/:fk";
+      "/Accounts/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -66,7 +67,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for accessTokens.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -79,7 +80,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public destroyByIdAccessTokens(id: any, fk: any): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/accessTokens/:fk";
+      "/Accounts/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -93,7 +94,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for accessTokens.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -107,13 +108,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public updateByIdAccessTokens(id: any, fk: any, data: any = {}): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/accessTokens/:fk";
+      "/Accounts/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -129,7 +130,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for roles.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {any} fk Foreign key for roles
    *
@@ -139,13 +140,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public findByIdRoles(id: any, fk: any): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles/:fk";
+      "/Accounts/:id/roles/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -159,7 +160,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for roles.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {any} fk Foreign key for roles
    *
@@ -172,7 +173,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public destroyByIdRoles(id: any, fk: any): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles/:fk";
+      "/Accounts/:id/roles/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -186,7 +187,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for roles.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {any} fk Foreign key for roles
    *
@@ -200,13 +201,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public updateByIdRoles(id: any, fk: any, data: any = {}): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles/:fk";
+      "/Accounts/:id/roles/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -222,7 +223,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Add a related item by id for roles.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {any} fk Foreign key for roles
    *
@@ -236,13 +237,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public linkRoles(id: any, fk: any, data: any = {}): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles/rel/:fk";
+      "/Accounts/:id/roles/rel/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -258,7 +259,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Remove the roles relation to an item by id.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {any} fk Foreign key for roles
    *
@@ -271,7 +272,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public unlinkRoles(id: any, fk: any): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles/rel/:fk";
+      "/Accounts/:id/roles/rel/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -285,7 +286,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Check the existence of roles relation to an item by id.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {any} fk Foreign key for roles
    *
@@ -295,13 +296,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public existsRoles(id: any, fk: any): Observable<any> {
     let _method: string = "HEAD";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles/rel/:fk";
+      "/Accounts/:id/roles/rel/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -313,9 +314,9 @@ export class FireUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries accessTokens of FireUser.
+   * Queries accessTokens of Account.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {object} filter
    *
@@ -325,13 +326,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public getAccessTokens(id: any, filter: LoopBackFilter = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/accessTokens";
+      "/Accounts/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -345,7 +346,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in accessTokens of this model.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {object} data Request data.
    *
@@ -357,13 +358,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public createAccessTokens(id: any, data: any = {}): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/accessTokens";
+      "/Accounts/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -378,7 +379,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Deletes all accessTokens of this model.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -389,7 +390,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public deleteAccessTokens(id: any): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/accessTokens";
+      "/Accounts/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -400,9 +401,9 @@ export class FireUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts accessTokens of FireUser.
+   * Counts accessTokens of Account.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -417,7 +418,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public countAccessTokens(id: any, where: any = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/accessTokens/count";
+      "/Accounts/:id/accessTokens/count";
     let _routeParams: any = {
       id: id
     };
@@ -429,9 +430,9 @@ export class FireUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries roles of FireUser.
+   * Queries roles of Account.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {object} filter
    *
@@ -441,13 +442,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public getRoles(id: any, filter: LoopBackFilter = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles";
+      "/Accounts/:id/roles";
     let _routeParams: any = {
       id: id
     };
@@ -461,7 +462,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in roles of this model.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {object} data Request data.
    *
@@ -473,13 +474,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public createRoles(id: any, data: any = {}): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles";
+      "/Accounts/:id/roles";
     let _routeParams: any = {
       id: id
     };
@@ -494,7 +495,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Deletes all roles of this model.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -505,7 +506,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public deleteRoles(id: any): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles";
+      "/Accounts/:id/roles";
     let _routeParams: any = {
       id: id
     };
@@ -516,9 +517,9 @@ export class FireUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts roles of FireUser.
+   * Counts roles of Account.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -533,7 +534,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public countRoles(id: any, where: any = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles/count";
+      "/Accounts/:id/roles/count";
     let _routeParams: any = {
       id: id
     };
@@ -557,13 +558,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers";
+      "/Accounts";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -576,7 +577,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {object} data Request data.
    *
@@ -588,13 +589,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id";
+      "/Accounts/:id";
     let _routeParams: any = {
       id: id
     };
@@ -634,7 +635,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public login(credentials: any, include: any = 'user', rememberMe: boolean = true): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/login";
+      "/Accounts/login";
     let _routeParams: any = {};
     let _postBody: any = {
       credentials: credentials
@@ -670,7 +671,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public logout(): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/logout";
+      "/Accounts/logout";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -698,7 +699,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public confirm(uid: any, token: any, redirect: any = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/confirm";
+      "/Accounts/confirm";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -725,7 +726,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public resetPassword(options: any): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/reset";
+      "/Accounts/reset";
     let _routeParams: any = {};
     let _postBody: any = {
       options: options
@@ -753,7 +754,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public changePassword(id: any, oldPassword: any, newPassword: any): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/change-password";
+      "/Accounts/change-password";
     let _routeParams: any = {
       id: id
     };
@@ -781,7 +782,7 @@ export class FireUserApi extends BaseLoopBackApi {
   public myRemote(): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/my-remote";
+      "/Accounts/my-remote";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -790,7 +791,7 @@ export class FireUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * Statistical information for FireUser registers.
+   * Statistical information for Account registers.
    *
    * @param {string} range hourly, daily, weekly, monthly, yearly, custom
    *
@@ -806,13 +807,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public stats(range: any, custom: any = {}, where: any = {}, groupBy: any = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/stats";
+      "/Accounts/stats";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
@@ -827,7 +828,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in accessTokens of this model.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {object} data Request data.
    *
@@ -839,13 +840,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public createManyAccessTokens(id: any, data: any[] = []): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/accessTokens";
+      "/Accounts/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
@@ -860,7 +861,7 @@ export class FireUserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in roles of this model.
    *
-   * @param {any} id FireUser id
+   * @param {any} id Account id
    *
    * @param {object} data Request data.
    *
@@ -872,13 +873,13 @@ export class FireUserApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `FireUser` object.)
+   * This usually means the response is a `Account` object.)
    * </em>
    */
   public createManyRoles(id: any, data: any[] = []): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/FireUsers/:id/roles";
+      "/Accounts/:id/roles";
     let _routeParams: any = {
       id: id
     };
@@ -891,8 +892,8 @@ export class FireUserApi extends BaseLoopBackApi {
   }
   /**
    * @ngdoc method
-   * @name sdk.FireUser#getCurrent
-   * @methodOf sdk.FireUser
+   * @name sdk.Account#getCurrent
+   * @methodOf sdk.Account
    *
    * @description
    *
@@ -905,7 +906,7 @@ export class FireUserApi extends BaseLoopBackApi {
    */
   public getCurrent(): Observable<any> {
     let _method: string = "GET";
-    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() + "/FireUsers" + "/:id";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() + "/Accounts" + "/:id";
     let id: any = this.auth.getCurrentUserId();
     if (id == null)
       id = '__anonymous__';
@@ -916,8 +917,8 @@ export class FireUserApi extends BaseLoopBackApi {
   }
   /**
    * Get data of the currently logged user that was returned by the last
-   * call to {@link sdk.FireUser#login} or
-   * {@link sdk.FireUser#getCurrent}. Return null when there
+   * call to {@link sdk.Account#login} or
+   * {@link sdk.Account#getCurrent}. Return null when there
    * is no user logged in or the data of the current user were not fetched
    * yet.
    *
@@ -928,7 +929,7 @@ export class FireUserApi extends BaseLoopBackApi {
   }
   /**
    * Get data of the currently logged access tokern that was returned by the last
-   * call to {@link sdk.FireUser#login}
+   * call to {@link sdk.Account#login}
    *
    * @returns object An AccessToken instance.
    */
@@ -936,7 +937,7 @@ export class FireUserApi extends BaseLoopBackApi {
     return this.auth.getToken();
   }
   /**
-   * @name sdk.FireUser#isAuthenticated
+   * @name sdk.Account#isAuthenticated
    *
    * @returns {boolean} True if the current user is authenticated (logged in).
    */
@@ -945,7 +946,7 @@ export class FireUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * @name sdk.FireUser#getCurrentId
+   * @name sdk.Account#getCurrentId
    *
    * @returns object Id of the currently logged-in user or null.
    */
@@ -955,9 +956,9 @@ export class FireUserApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `FireUser`.
+   * i.e. `Account`.
    */
   public getModelName() {
-    return "FireUser";
+    return "Account";
   }
 }

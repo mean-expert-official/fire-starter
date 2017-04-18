@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UIService } from '../../ui/ui.service';
+import { UiService } from '../../ui/ui.service';
 
 @Component({
   selector: 'app-notifications',
@@ -10,9 +10,9 @@ import { UIService } from '../../ui/ui.service';
         <div class="col-12 mb-3">
           <h4>Toasty</h4>
           <hr>
-          <div class="row">
+          <div class="row align-items-center justify-content-center">
             <div *ngFor="let button of toastyButtons" class="col-12 col-md-6 col-lg-4">
-              <button type="button" class="btn btn-block btn-{{button.className}} mb-1" (click)="onClickService(button)">
+              <button type="button" class="btn btn-block btn-{{button.className}} mb-3" (click)="onClickService(button)">
                 {{button.label}}
               </button>
             </div>
@@ -21,9 +21,9 @@ import { UIService } from '../../ui/ui.service';
         <div class="col-12">
           <h4>SweetAlert2</h4>
           <hr>
-          <div class="row">
+          <div class="row align-items-center justify-content-center">
             <div *ngFor="let button of salButtons" class="col-12 col-md-6 col-lg-4">
-              <button type="button" class="btn btn-block btn-{{button.className}} mb-1" (click)="onClickService(button)">
+              <button type="button" class="btn btn-block btn-{{button.className}} mb-3" (click)="onClickService(button)">
                 {{button.label}}
               </button>
             </div>
@@ -85,6 +85,6 @@ export class NotificationsComponent {
   }
 
   constructor(
-    private uiService: UIService,
+    private uiService: UiService,
   ) { }
 }

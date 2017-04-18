@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RealTime } from '../../shared/sdk/services/core/real.time';
-import { FireLoopRef, FireUser } from '../../shared/sdk/models';
+import { FireLoopRef, Account } from '../../shared/sdk/models';
 import { UserFormComponent } from './user-form.component';
 import { UserService } from './user.service';
-import { UIService } from '../../ui/ui.service';
+import { UiService } from '../../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -14,25 +14,25 @@ import { Subscription } from 'rxjs/Subscription';
 export class UserComponent implements OnDestroy {
 
   private modalRef;
-  public users: FireUser[] = new Array<FireUser>();
-  private userRef: FireLoopRef<FireUser>;
+  public users: Account[] = new Array<Account>();
+  private userRef: FireLoopRef<Account>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
-    public uiService: UIService,
+    public uiService: UiService,
     public userService: UserService,
     private rt: RealTime,
   ) {
     this.subscriptions.push(
       this.rt.onReady().subscribe(
         () => {
-          this.userRef = this.rt.FireLoop.ref<FireUser>(FireUser);
+          this.userRef = this.rt.FireLoop.ref<Account>(Account);
           this.subscriptions.push(this.userRef.on('change', {
             include: 'roles',
             order: 'email ASC'
           }).subscribe(
-            (users: FireUser[]) => {
+            (users: Account[]) => {
               this.users = users;
             }));
         }));
@@ -52,14 +52,14 @@ export class UserComponent implements OnDestroy {
   }
 
   create() {
-    this.showDialog('create', new FireUser());
+    this.showDialog('create', new Account());
   }
 
-  update(user: FireUser) {
+  update(user: Account) {
     this.showDialog('update', user);
   }
 
-  delete(user: FireUser) {
+  delete(user: Account) {
     const question = {
       title: 'Delete User',
       html: `

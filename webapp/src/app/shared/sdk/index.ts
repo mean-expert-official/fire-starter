@@ -48,13 +48,14 @@ import { SocketBrowser } from './sockets/socket.browser';
 import { SocketDriver } from './sockets/socket.driver';
 import { SocketConnection } from './sockets/socket.connections';
 import { RealTime } from './services/core/real.time';
+import { AccessTokenApi } from './services/custom/AccessToken';
 import { ACLApi } from './services/custom/ACL';
 import { RoleMappingApi } from './services/custom/RoleMapping';
 import { RoleApi } from './services/custom/Role';
 import { TodoApi } from './services/custom/Todo';
 import { NoteApi } from './services/custom/Note';
 import { ContainerApi } from './services/custom/Container';
-import { FireUserApi } from './services/custom/FireUser';
+import { AccountApi } from './services/custom/Account';
 /**
 * @module SDKBrowserModule
 * @description
@@ -86,13 +87,14 @@ export class SDKBrowserModule {
         JSONSearchParams,
         SDKModels,
         RealTime,
+        AccessTokenApi,
         ACLApi,
         RoleMappingApi,
         RoleApi,
         TodoApi,
         NoteApi,
         ContainerApi,
-        FireUserApi,
+        AccountApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

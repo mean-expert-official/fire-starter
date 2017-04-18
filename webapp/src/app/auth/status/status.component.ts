@@ -1,4 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { UserActions } from '../../shared/sdk/actions/user';
+import { AccountApi } from '../../shared/sdk/services';
 
 @Component({
   selector: 'app-auth-status',
@@ -13,10 +16,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
             <strong>Hello!</strong> You are not logged in!
           </div>
         </div>
-        <div *ngIf="user" class="col-12 bg-info text-white mb-3">
+        <div *ngIf="loggedIn" class="col-12 bg-info text-white mb-3">
           <pre class="text-white mb-0">{{ user | json }}</pre>
         </div>
-        <div *ngIf="user" class="col">
+        <div *ngIf="loggedIn" class="col">
           <button class="btn btn-danger btn-block" (click)="submit()">Logout</button>
         </div>
       </div>
@@ -25,15 +28,23 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class StatusComponent {
 
-  @Input() loggedIn: boolean = false;
-  @Input() user: any = {};
-  @Output() logout = new EventEmitter();
+  public loggedIn: boolean = false;
+  public user: any = {};
 
-  constructor() {
-
+  constructor(private store: Store<any>, public userApi: AccountApi) {
+    this.store.select('auth').subscribe(
+      (res: any) => {
+        if (res.id) {
+          this.loggedIn = true;
+          this.user = res.user;
+        } else {
+          this.loggedIn = false;
+          this.user = {};
+        }
+      });
   }
 
   submit() {
-    this.logout.emit({ email: this.user.email });
+    this.store.dispatch(new UserActions.logout({}));
   }
 }

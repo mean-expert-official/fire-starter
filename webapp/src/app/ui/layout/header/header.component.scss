@@ -3,7 +3,7 @@
 
 .navbar {
   background: $brand-danger;
-  box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5);
   border-bottom: 3px solid lighten($brand-danger, 7%);
   left: 64px;
   right: 0;
@@ -48,13 +48,14 @@
     background: transparent;
     color: #fff;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 22px;
+    font-size: 24px;
+    font-style: italic;
     font-weight: 600 !important;
     height: 40px;
     letter-spacing: -0.1px;
     line-height: 36px;
     margin-bottom: 0;
-    text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+    text-shadow: 3px 3px 7px rgba(0,0,0,0.5);
   }
 }
 

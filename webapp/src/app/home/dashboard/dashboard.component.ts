@@ -2,20 +2,21 @@ import { Component, OnDestroy } from '@angular/core';
 import { RealTime } from '../../shared/sdk/services/core/real.time';
 import { FireLoopRef, Todo, Note, Container } from '../../shared/sdk/models';
 import { Subscription } from 'rxjs/Subscription';
+import { DashCard } from '../../ui/ui.service';
 
 @Component({
   selector: 'app-home-dashboard',
   template: `
   <app-card icon="tachometer" title="Dashboard">
-    <div *ngIf="dashCards" class="row">
-      <div *ngFor="let item of dashCards" class="col">
+    <div *ngIf="dashCards" class="row align-items-center justify-content-center">
+      <div *ngFor="let item of dashCards" class="col-6 col-lg-4">
         <a class="dash-card" [routerLink]="item.link">
-          <div class="card mb-3">
-            <div class="card-header">
-              <h5 class="card-title text-center text-white mb-0">{{ item.title }}</h5>
-            </div>
+          <div class="card card-outline-primary mb-3">
+            <h5 class="card-title text-center mb-0">{{ item.name }}</h5>
             <div class="card-block text-center">
-              <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>
+              <div class="card-center">
+                <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>
+              </div>
               <h4><span class="badge badge-primary">{{ item.data | number }}</span></h4>
             </div>
           </div>
@@ -29,7 +30,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class DashboardComponent implements OnDestroy {
 
-  public dashCards: any = [];
+  public dashCards: DashCard[] = [];
   public todos: Todo[] = new Array<Todo>();
   private todoRef: FireLoopRef<Todo>;
   public notes: Note[] = new Array<Note>();
@@ -66,13 +67,13 @@ export class DashboardComponent implements OnDestroy {
   setDashCards() {
     this.dashCards = [
       {
-        'title': 'Todos',
+        'name': 'Todos',
         'link': '/home/todos',
         'icon': 'check-square-o',
         'data': this.todos.length
       },
       {
-        'title': 'Notes',
+        'name': 'Notes',
         'link': '/home/notes',
         'icon': 'sticky-note-o',
         'data': this.notes.length

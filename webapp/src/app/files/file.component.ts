@@ -1,33 +1,47 @@
 import { Component, OnDestroy, OnChanges } from '@angular/core';
+import { Router } from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Container } from '../shared/sdk/models';
-import { FileFormComponent } from './file-form.component';
+import { FileFormComponent } from './form/file-form.component';
 import { FileService } from './file.service';
-import { UIService } from '../ui/ui.service';
+import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-file',
-  templateUrl: './file.component.html',
+  template: `
+    <app-card icon="files-o"
+              title="Files"
+              [createButton]="fileService.getCardButtons()"
+              [nav]="nav"
+              (action)="create()">
+      <router-outlet></router-outlet>
+    </app-card>
+  `,
   styleUrls: ['./file.component.scss']
 })
 export class FileComponent implements OnDestroy {
 
-  private modalRef;
-  private files;
+  private modalRef: any;
+  private files: any[];
   public uploadContainer: Container = new Container();
   private subscriptions: Subscription[] = new Array<Subscription>();
   public uploadUrl: string = null;
   public uploader: FileUploader = new FileUploader({});
   public hasBaseDropZoneOver: boolean = false;
+  public nav: NavItem[];
 
   constructor(
     private modal: NgbModal,
-    public uiService: UIService,
+    public uiService: UiService,
     public fileService: FileService,
+    public router: Router
   ) {
-    this.fileService.getFiles('test').subscribe((files: any) => (this.files = files));
+    this.nav = [
+      { name: 'Containers', link: '/home/files/containers', icon: 'folder-open-o' },
+      { name: 'Upload Files', link: '/home/files/upload', icon: 'upload' }
+    ];
   }
 
   ngOnDestroy() {

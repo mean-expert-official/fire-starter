@@ -1,13 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FireLoopRef, Role, FireUser } from '../../shared/sdk/models';
-import { RealTime, RoleApi, FireUserApi } from '../../shared/sdk/services';
+import { FireLoopRef, Role, Account } from '../../shared/sdk/models';
+import { RealTime, RoleApi, AccountApi } from '../../shared/sdk/services';
 import { RoleFormComponent } from './form/role-form.component';
 import { ViewUsersComponent } from './form/view-users.component';
 import { RoleService } from './role.service';
-import { UIService } from '../../ui/ui.service';
+import { UiService } from '../../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
-import { sortBy } from 'lodash';
+import { sortBy, omit } from 'lodash';
 
 @Component({
   selector: 'app-role',
@@ -18,24 +18,24 @@ export class RoleComponent implements OnDestroy {
   private modalRef;
   public roles: Role[] = new Array<Role>();
   private roleRef: FireLoopRef<Role>;
-  public users: FireUser[] = new Array<FireUser>();
-  private userRef: FireLoopRef<FireUser>;
+  public users: Account[] = new Array<Account>();
+  private userRef: FireLoopRef<Account>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
-    public uiService: UIService,
+    public uiService: UiService,
     public roleService: RoleService,
     private rt: RealTime,
     private roleApi: RoleApi,
-    private userApi: FireUserApi
+    private userApi: AccountApi
   ) {
     this.subscriptions.push(this.rt.onReady().subscribe((fire: any) => {
       this.roleRef = this.rt.FireLoop.ref<Role>(Role);
       this.refresh();
-      this.userRef = this.rt.FireLoop.ref<FireUser>(FireUser);
+      this.userRef = this.rt.FireLoop.ref<Account>(Account);
       this.subscriptions.push(this.userRef.on('change').subscribe(
-        (users: FireUser[]) => {
+        (users: Account[]) => {
           this.users = users;
         }));
     }));
@@ -47,7 +47,7 @@ export class RoleComponent implements OnDestroy {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
-  refresh() {
+  refresh(): void {
     this.subscriptions.push(this.roleRef.on('change', {
       order: 'name ASC',
       include: 'principals'
@@ -58,10 +58,10 @@ export class RoleComponent implements OnDestroy {
       }));
   }
 
-  showDialog(type, item, options?) {
+  showDialog(type, item, options?): void {
     this.modalRef = this.modal.open(RoleFormComponent, { size: 'sm' });
     this.modalRef.componentInstance.item = item;
-    this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type, options);
+    this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type, options ? options : '');
     switch (type) {
       case 'create':
         this.modalRef.componentInstance.title = 'Create Role'
@@ -84,7 +84,8 @@ export class RoleComponent implements OnDestroy {
   }
 
   update(role: Role) {
-    this.showDialog('update', role);
+    const nextRole = omit(role, ['principalCount', 'principals']);
+    this.showDialog('update', nextRole);
   }
 
   delete(role: Role) {

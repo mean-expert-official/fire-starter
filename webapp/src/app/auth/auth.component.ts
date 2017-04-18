@@ -1,14 +1,14 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FireLoopRef, FireUser, SDKToken } from '../shared/sdk/models';
-import { RealTime, FireUserApi } from '../shared/sdk/services';
-import { UIService } from '../ui/ui.service';
+import { FireLoopRef, Account, SDKToken } from '../shared/sdk/models';
+import { RealTime, AccountApi } from '../shared/sdk/services';
+import { UiService } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   template: `
     <app-card [icon]="userApi.isAuthenticated() ? 'unlock' : 'lock'" title="Auth Status">
-      <app-auth-status [loggedIn]="userApi.isAuthenticated()" [user]="userApi.getCurrentToken().user" (logout)="processLogout($event)"></app-auth-status>
+      <app-auth-status></app-auth-status>
     </app-card>
     <div *ngIf="!userApi.isAuthenticated()" class="row">
       <div class="col-lg-6">
@@ -28,13 +28,13 @@ import { Subscription } from 'rxjs/Subscription';
 export class AuthComponent implements OnDestroy {
 
   private subscriptions: Subscription[] = new Array<Subscription>();
-  public user: FireUser;
-  private userRef: FireLoopRef<FireUser>;
+  public user: Account;
+  private userRef: FireLoopRef<Account>;
   private token: any;
 
   constructor(
-    private uiService: UIService,
-    public userApi: FireUserApi
+    private uiService: UiService,
+    public userApi: AccountApi
   ) {
 
   }
@@ -59,7 +59,7 @@ export class AuthComponent implements OnDestroy {
   processRegistration(event: any) {
     this.subscriptions.push(this.userApi.create(event).subscribe(
       (token: any) => {
-        console.log(token);
+        this.uiService.toastSuccess('Registration Success', 'You have registered successfully.');
       },
       (err: any) => {
         this.uiService.toastError('Registration Failed', err.message || err.error.message);

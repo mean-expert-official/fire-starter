@@ -1,21 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FireLoopRef, FireUser, Role, ACL } from '../../shared/sdk/models';
+import { FireLoopRef, Account, Role, ACL } from '../../shared/sdk/models';
 import { RealTime } from '../../shared/sdk/services/core/real.time';
 import { Subscription } from 'rxjs/Subscription';
+import { DashCard } from '../../ui/ui.service';
 
 @Component({
   selector: 'app-admin-dashboard',
   template: `
     <app-card icon="tachometer" title="Dashboard">
-      <div *ngIf="dashCards" class="row">
-        <div *ngFor="let item of dashCards" class="col">
+      <div *ngIf="dashCards" class="row align-items-center justify-content-center">
+        <div *ngFor="let item of dashCards" class="col-6 col-lg-4">
           <a class="dash-card" [routerLink]="item.link">
-            <div class="card mb-3">
-              <div class="card-header">
-                <h5 class="card-title text-center text-white mb-0">{{ item.title }}</h5>
-              </div>
+            <div class="card card-outline-primary mb-3">
+              <h5 class="card-title text-center mb-0">{{ item.name }}</h5>
               <div class="card-block text-center">
-                <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>
+                <div class="card-center">
+                  <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>
+                </div>
                 <h4><span class="badge badge-primary">{{ item.data | number }}</span></h4>
               </div>
             </div>
@@ -28,9 +29,9 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class DashboardComponent implements OnDestroy {
-  public dashCards: any = [];
-  public users: FireUser[] = new Array<FireUser>();
-  private userRef: FireLoopRef<FireUser>;
+  public dashCards: DashCard[] = [];
+  public users: Account[] = new Array<Account>();
+  private userRef: FireLoopRef<Account>;
   public roles: Role[] = new Array<Role>();
   private roleRef: FireLoopRef<Role>;
   public controls: ACL[] = new Array<ACL>();
@@ -43,9 +44,9 @@ export class DashboardComponent implements OnDestroy {
     this.subscriptions.push(
       this.rt.onReady().subscribe(
         (fire: any) => {
-          this.userRef = this.rt.FireLoop.ref<FireUser>(FireUser);
+          this.userRef = this.rt.FireLoop.ref<Account>(Account);
           this.subscriptions.push(this.userRef.on('change').subscribe(
-            (users: FireUser[]) => {
+            (users: Account[]) => {
               this.users = users;
               this.setDashCards();
             }));
@@ -74,20 +75,20 @@ export class DashboardComponent implements OnDestroy {
   setDashCards() {
     this.dashCards = [
       {
+        name: 'Users',
         icon: 'users',
-        title: 'Users',
         data: this.users.length,
         link: '/admin/users'
       },
       {
+        name: 'Roles',
         icon: 'tags',
-        title: 'Roles',
         data: this.roles.length,
         link: '/admin/roles'
       },
       {
+        name: 'Controls',
         icon: 'ban',
-        title: 'Controls',
         data: this.controls.length,
         link: '/admin/controls'
       }

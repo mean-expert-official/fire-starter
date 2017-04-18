@@ -1,5 +1,5 @@
 {
-  "name": "FireUser",
+  "name": "Account",
   "base": "User",
   "idInjection": true,
   "options": {
@@ -13,7 +13,7 @@
       {
         "method": "stats",
         "endpoint": "/stats",
-        "description": "Statistical information for FireUser registers.",
+        "description": "Statistical information for Account registers.",
         "type": "model",
         "count": {
           "on": "createdAt",

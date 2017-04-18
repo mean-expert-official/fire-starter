@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FireLoopRef, FireUser } from '../../shared/sdk/models';
+import { FireLoopRef, Account } from '../../shared/sdk/models';
 import { FormService } from '../../ui/form/ui-form.service';
 import { Observable } from 'rxjs/Observable';
 

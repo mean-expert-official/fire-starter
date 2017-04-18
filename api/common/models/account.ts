@@ -1,8 +1,8 @@
 import { Model } from '@mean-expert/model';
 /**
- * @module FireUser
+ * @module Account
  * @description
- * Write a useful FireUser Model description.
+ * Write a useful Account Model description.
  * Register hooks and remote methods within the
  * Model Decorator
  **/
@@ -12,19 +12,19 @@ import { Model } from '@mean-expert/model';
   },
   remotes: {
     myRemote: {
-      returns : { arg: 'result', type: 'array' },
-      http    : { path: '/my-remote', verb: 'get' }
+      returns: { arg: 'result', type: 'array' },
+      http: { path: '/my-remote', verb: 'get' }
     }
   }
 })
 
-class FireUser {
+class Account {
   // LoopBack model instance is injected in constructor
-  constructor(public model: any) {}
+  constructor(public model: any) { }
 
   // Example Operation Hook
   beforeSave(ctx: any, next: Function): void {
-    console.log('FireUser: Before Save');
+    console.log('Account: Before Save');
     next();
   }
   // Example Remote Method
@@ -33,4 +33,4 @@ class FireUser {
   }
 }
 
-module.exports = FireUser;
+module.exports = Account;

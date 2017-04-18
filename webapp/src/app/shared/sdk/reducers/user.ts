@@ -2,12 +2,12 @@ import { Observable } from 'rxjs/Observable';
 import { createSelector } from 'reselect';
 import { Action } from '@ngrx/store';
 import { BaseReducerFactory } from './base';
-import { FireUser } from '../models/FireUser';
+import { Account } from '../models/Account';
 import { UserActionTypes } from '../actions/user';
 
 export interface State {
   ids: string[];
-  entities: { [id: string]: FireUser };
+  entities: { [id: string]: Account };
   selectedIds: string | string[];
 };
 
@@ -17,7 +17,7 @@ const initialState: State = {
   selectedIds: [],
 };
 
-const cases = Object.assign(BaseReducerFactory<State, FireUser>(UserActionTypes));
+const cases = Object.assign(BaseReducerFactory<State, Account>(UserActionTypes));
 
 /**
  * @module UsersReducer

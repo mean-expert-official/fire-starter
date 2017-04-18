@@ -1,7 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NavItem } from '../ui.service';
 
 @Component({
   selector: 'app-card',
+  styles: [`
+    .nav-link {
+      color: #fff;
+    }
+    `],
   template: `
     <div class="my-2">
       <div class="card">
@@ -20,6 +26,16 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
                  {{ createButton.text }}
               </button>
             </div>
+            <div *ngIf="nav" class="col-12">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li *ngFor="let item of nav" class="nav-item">
+                  <a [routerLink]="item.link" routerLinkActive="active" class="nav-link">
+                    <i *ngIf="item.icon" [class]="'fa fa-fw fa-' + item.icon"></i>
+                    {{ item.name }}
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="card-block">
@@ -36,6 +52,7 @@ export class CardComponent {
   @Input() subTitle;
   @Input() createButton;
   @Input() modalTemplate;
+  @Input() nav: NavItem[];
   @Output() action = new EventEmitter();
 
   constructor() {

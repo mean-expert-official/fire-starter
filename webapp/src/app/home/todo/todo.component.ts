@@ -4,7 +4,7 @@ import { RealTime } from '../../shared/sdk/services/core/real.time';
 import { FireLoopRef, Todo } from '../../shared/sdk/models';
 import { TodoFormComponent } from './todo-form.component';
 import { TodoService } from './todo.service';
-import { UIService } from '../../ui/ui.service';
+import { UiService } from '../../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -20,7 +20,7 @@ export class TodoComponent implements OnDestroy {
 
   constructor(
     private modal: NgbModal,
-    public uiService: UIService,
+    public uiService: UiService,
     public todoService: TodoService,
     private rt: RealTime
   ) {

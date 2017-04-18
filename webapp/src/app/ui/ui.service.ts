@@ -4,11 +4,11 @@ import { assign, noop } from 'lodash';
 import swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Injectable()
-export class UIService {
+export class UiService {
 
   public sidebarActive: boolean;
   public sidebarOpen: boolean;
-  public sidebarNav: any;
+  public sidebarNav: NavItem[];
   public isLargeScreen: boolean;
 
   constructor(
@@ -46,15 +46,15 @@ export class UIService {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
-  getSidebarNav() {
+  getSidebarNav(): NavItem[] {
     return this.sidebarNav;
   }
 
-  setSidebarNav(nav: any): void {
+  setSidebarNav(nav: NavItem[]): void {
     this.sidebarNav = nav;
   }
 
-  toast(config: any) {
+  toast(config: any): void {
     switch (config.type) {
       case 'error':
         this.toastError(config.title, config.msg);
@@ -197,4 +197,23 @@ export class UIService {
       .then(res => successCb(res), dismiss => closeCb(dismiss))
   }
 
+}
+
+export interface NavItem {
+  name: string,
+  icon: string,
+  link: string
+}
+
+export interface DashCard {
+  name: string,
+  icon: string,
+  data: number,
+  link: string
+}
+
+export interface CardButton {
+  class: string,
+  icon: string,
+  text: string
 }

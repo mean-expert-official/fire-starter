@@ -7,6 +7,8 @@ import { TodoComponent } from './todo/todo.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NoteComponent } from './note/note.component';
 import { FileComponent } from '../files/file.component';
+import { UploadFormComponent } from '../files/form/upload-form.component';
+import { ContainerListComponent } from '../files/list/container-list.component';
 
 const routes: Routes = [
   {
@@ -16,11 +18,18 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'auth', component: AuthComponent },
-      { path: 'files', component: FileComponent },
+      {
+        path: 'files',
+        component: FileComponent,
+        children: [
+          { path: '', redirectTo: 'containers', pathMatch: 'full' },
+          { path: 'containers', component: ContainerListComponent },
+          { path: 'upload', component: UploadFormComponent },
+        ]
+      },
       { path: 'todos', component: TodoComponent },
       { path: 'notes', component: NoteComponent },
       { path: 'notifications', component: NotificationsComponent },
-
     ]
   }
 ];

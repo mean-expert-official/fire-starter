@@ -1,7 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
-import { UIService } from '../../ui.service';
-import { FireUserApi } from '../../../shared/sdk/services';
+import { UiService } from '../../ui.service';
+import { AccountApi } from '../../../shared/sdk/services';
 import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
+import { UserActions } from '../../../shared/sdk/actions/user';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +15,9 @@ export class HeaderComponent implements OnDestroy {
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
-    public uiService: UIService,
-    public userApi: FireUserApi
+    public uiService: UiService,
+    public userApi: AccountApi,
+    private store: Store<any>
   ) {
 
   }
@@ -26,12 +29,7 @@ export class HeaderComponent implements OnDestroy {
   public appName = 'Fireloop Starter';
 
   public logout() {
-    this.userApi.logout().subscribe(() => {
-      let sidebarNav = this.uiService.getSidebarNav();
-      sidebarNav[1].icon = 'lock';
-      this.uiService.setSidebarNav(sidebarNav);
-      console.log('Log Out processed');
-    });
+    this.store.dispatch(new UserActions.logout({}));
   }
 
 }

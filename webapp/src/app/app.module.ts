@@ -20,7 +20,7 @@ import { AppStoreModule } from './app.store';
 import { AppRoutingModule } from './app.routing';
 import { AuthModule } from './auth/auth.module';
 import { UiModule } from './ui/ui.module';
-import { UIService } from './ui/ui.service';
+import { UiService } from './ui/ui.service';
 import { FormService } from './ui/form/ui-form.service';
 
 @NgModule({
@@ -43,7 +43,7 @@ import { FormService } from './ui/form/ui-form.service';
   ],
   providers: [
     FormService,
-    UIService,
+    UiService,
     NgbActiveModal,
   ],
   declarations: [

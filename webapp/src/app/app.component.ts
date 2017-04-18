@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { LoopBackConfig } from './shared/sdk/index';
-import { UIService } from './ui/ui.service';
+import { UiService } from './ui/ui.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,7 @@ import { UIService } from './ui/ui.service';
 })
 export class AppComponent {
 
-  constructor(public uiService: UIService) {
+  constructor(public uiService: UiService) {
 
   }
 

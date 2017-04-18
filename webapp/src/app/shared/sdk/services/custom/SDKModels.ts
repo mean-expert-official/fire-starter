@@ -1,12 +1,13 @@
 /* tslint:disable */
 import { Injectable } from '@angular/core';
+import { AccessToken } from '../../models/AccessToken';
 import { ACL } from '../../models/ACL';
 import { RoleMapping } from '../../models/RoleMapping';
 import { Role } from '../../models/Role';
 import { Todo } from '../../models/Todo';
 import { Note } from '../../models/Note';
 import { Container } from '../../models/Container';
-import { FireUser } from '../../models/FireUser';
+import { Account } from '../../models/Account';
 
 export interface Models { [name: string]: any }
 
@@ -14,13 +15,14 @@ export interface Models { [name: string]: any }
 export class SDKModels {
 
   private models: Models = {
+    AccessToken: AccessToken,
     ACL: ACL,
     RoleMapping: RoleMapping,
     Role: Role,
     Todo: Todo,
     Note: Note,
     Container: Container,
-    FireUser: FireUser,
+    Account: Account,
     
   };
 
