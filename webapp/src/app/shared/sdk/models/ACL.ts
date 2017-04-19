@@ -2,22 +2,22 @@
 
 declare var Object: any;
 export interface ACLInterface {
-  "model"?: any;
-  "property"?: any;
-  "accessType"?: any;
-  "permission"?: any;
-  "principalType"?: any;
-  "principalId"?: any;
+  "model"?: string;
+  "property"?: string;
+  "accessType"?: string;
+  "permission"?: string;
+  "principalType"?: string;
+  "principalId"?: string;
   "id"?: any;
 }
 
 export class ACL implements ACLInterface {
-  "model": any;
-  "property": any;
-  "accessType": any;
-  "permission": any;
-  "principalType": any;
-  "principalId": any;
+  "model": string;
+  "property": string;
+  "accessType": string;
+  "permission": string;
+  "principalType": string;
+  "principalId": string;
   "id": any;
   constructor(data?: ACLInterface) {
     Object.assign(this, data);
@@ -52,27 +52,27 @@ export class ACL implements ACLInterface {
       properties: {
         "model": {
           name: 'model',
-          type: 'any'
+          type: 'string'
         },
         "property": {
           name: 'property',
-          type: 'any'
+          type: 'string'
         },
         "accessType": {
           name: 'accessType',
-          type: 'any'
+          type: 'string'
         },
         "permission": {
           name: 'permission',
-          type: 'any'
+          type: 'string'
         },
         "principalType": {
           name: 'principalType',
-          type: 'any'
+          type: 'string'
         },
         "principalId": {
           name: 'principalId',
-          type: 'any'
+          type: 'string'
         },
         "id": {
           name: 'id',

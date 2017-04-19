@@ -11,14 +11,18 @@
   },
   "dependencies": {
     "@mean-expert/boot-script": "^1.0.0",
-    "@mean-expert/loopback-component-realtime": "^1.0.0-rc.4",
-    "@mean-expert/loopback-sdk-builder": "^2.1.0-rc.9",
+    "@mean-expert/loopback-component-realtime": "^1.0.0-rc.5",
+    "@mean-expert/loopback-sdk-builder": "^2.1.0-rc.10",
     "@mean-expert/loopback-stats-mixin": "^1.2.0",
     "@mean-expert/model": "^1.0.9",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.13",
     "chai": "^3.5.0",
     "compression": "^1.0.3",
     "cookie-parser": "^1.4.3",
     "cors": "^2.5.2",
+    "eslint": "^3.17.1",
+    "eslint-config-loopback": "^8.0.0",
     "helmet": "^1.3.0",
     "loopback": "^3.6.0",
     "loopback-boot": "^2.24.0",
@@ -28,17 +32,12 @@
     "loopback-datasource-juggler": "^3.4.1",
     "loopback-ds-timestamp-mixin": "^3.4.1",
     "mocha": "^3.2.0",
+    "nsp": "^2.1.0",
     "serve-favicon": "^2.0.1",
-    "socket.io": "^1.7.3",
     "strong-error-handler": "^2.0.0",
     "supertest": "^3.0.0",
     "ts-node": "^3.0.2",
-    "typescript": "^2.2.0",
-    "@types/mocha": "^2.2.40",
-    "@types/node": "^7.0.11",
-    "eslint": "^2.13.1",
-    "eslint-config-loopback": "^4.0.0",
-    "nsp": "^2.1.0"
+    "typescript": "^2.2.2"
   },
   "devDependencies": {},
   "repository": {
@@ -46,5 +45,5 @@
     "url": ""
   },
   "license": "UNLICENSED",
-  "description": "fireloop"
+  "description": "api"
 }

@@ -6,33 +6,33 @@ import {
 
 declare var Object: any;
 export interface AccountInterface {
-  "firstName": any;
-  "lastName": any;
-  "realm"?: any;
-  "username"?: any;
-  "password": any;
-  "email": any;
-  "emailVerified"?: any;
-  "verificationToken"?: any;
+  "firstName": string;
+  "lastName": string;
+  "realm"?: string;
+  "username"?: string;
+  "password": string;
+  "email": string;
+  "emailVerified"?: boolean;
+  "verificationToken"?: string;
   "id"?: any;
-  "createdAt"?: any;
-  "updatedAt"?: any;
+  "createdAt"?: Date;
+  "updatedAt"?: Date;
   accessTokens?: AccessToken[];
   roles?: Role[];
 }
 
 export class Account implements AccountInterface {
-  "firstName": any;
-  "lastName": any;
-  "realm": any;
-  "username": any;
-  "password": any;
-  "email": any;
-  "emailVerified": any;
-  "verificationToken": any;
+  "firstName": string;
+  "lastName": string;
+  "realm": string;
+  "username": string;
+  "password": string;
+  "email": string;
+  "emailVerified": boolean;
+  "verificationToken": string;
   "id": any;
-  "createdAt": any;
-  "updatedAt": any;
+  "createdAt": Date;
+  "updatedAt": Date;
   accessTokens: AccessToken[];
   roles: Role[];
   constructor(data?: AccountInterface) {
@@ -68,35 +68,35 @@ export class Account implements AccountInterface {
       properties: {
         "firstName": {
           name: 'firstName',
-          type: 'any'
+          type: 'string'
         },
         "lastName": {
           name: 'lastName',
-          type: 'any'
+          type: 'string'
         },
         "realm": {
           name: 'realm',
-          type: 'any'
+          type: 'string'
         },
         "username": {
           name: 'username',
-          type: 'any'
+          type: 'string'
         },
         "password": {
           name: 'password',
-          type: 'any'
+          type: 'string'
         },
         "email": {
           name: 'email',
-          type: 'any'
+          type: 'string'
         },
         "emailVerified": {
           name: 'emailVerified',
-          type: 'any'
+          type: 'boolean'
         },
         "verificationToken": {
           name: 'verificationToken',
-          type: 'any'
+          type: 'string'
         },
         "id": {
           name: 'id',
@@ -104,11 +104,11 @@ export class Account implements AccountInterface {
         },
         "createdAt": {
           name: 'createdAt',
-          type: 'any'
+          type: 'Date'
         },
         "updatedAt": {
           name: 'updatedAt',
-          type: 'any'
+          type: 'Date'
         },
       },
       relations: {

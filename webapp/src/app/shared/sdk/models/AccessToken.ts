@@ -5,17 +5,17 @@ import {
 
 declare var Object: any;
 export interface AccessTokenInterface {
-  "id"?: any;
-  "ttl"?: any;
-  "created"?: any;
+  "id"?: string;
+  "ttl"?: number;
+  "created"?: Date;
   "userId"?: any;
   user?: Account;
 }
 
 export class AccessToken implements AccessTokenInterface {
-  "id": any;
-  "ttl": any;
-  "created": any;
+  "id": string;
+  "ttl": number;
+  "created": Date;
   "userId": any;
   user: Account;
   constructor(data?: AccessTokenInterface) {
@@ -51,16 +51,16 @@ export class AccessToken implements AccessTokenInterface {
       properties: {
         "id": {
           name: 'id',
-          type: 'any'
+          type: 'string'
         },
         "ttl": {
           name: 'ttl',
-          type: 'any',
+          type: 'number',
           default: 1209600
         },
         "created": {
           name: 'created',
-          type: 'any'
+          type: 'Date'
         },
         "userId": {
           name: 'userId',
