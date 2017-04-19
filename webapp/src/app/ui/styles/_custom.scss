@@ -1,0 +1,154 @@
+body {
+  letter-spacing: 0;
+  @include transition(all 0.3s ease);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #222;
+  font-weight: 700;
+  // text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.dropdown-container {
+  width: 100%;
+}
+
+.breadcrumb {
+  background: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+  padding: 10px 20px;
+
+  a:not([href]):not([tabindex]) {
+    @include ripple($brand-primary);
+
+    &:focus,
+    &:hover {
+      color: darken($brand-primary, 10%) !important;
+      text-decoration: underline !important;
+    }
+  }
+}
+
+.sticky-top {
+  z-index: 1029;
+}
+
+.dash-card {
+  text-decoration: none;
+
+  .card {
+    @include ripple($brand-primary);
+  }
+
+  .card-title {
+    margin-top: 20px;
+    text-shadow: none;
+  }
+
+  .card-center {
+    background: $brand-info;
+    border: 1px solid #fff;
+    margin-bottom: 25px;
+    margin-left: -21px;
+    margin-right: -21px;
+  }
+
+  i {
+    color: #fff;
+    padding: 20px 0;
+    text-shadow: 3px 3px 2px $brand-primary;
+    width: 100%;
+  }
+
+  &:hover {
+    text-decoration: none;
+
+    .badge,
+    .card-title,
+    i {
+      transform: scale(1.1);
+    }
+  }
+}
+
+a {
+  background: transparent;
+  cursor: pointer;
+  @include ripple(#eee);
+}
+
+.btn {
+  cursor: pointer;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 900 !important;
+}
+
+.card-title,
+.modal-title {
+  text-shadow: 1px 0 1px rgba(0,0,0,0.5);
+}
+
+.alert {
+  border-color: transparent;
+}
+
+.modal-title {
+  color: #fff;
+}
+
+.close {
+  outline: none !important;
+}
+
+.lead {
+  font-size: 18px;
+}
+
+formly-field-input,
+formly-field-select {
+  width: 100%;
+}
+
+.form-control {
+  width: 100% !important;
+}
+
+label {
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.custom-control {
+  line-height: 24px;
+}
+
+.has-warning .form-control,
+.has-warning .form-control:focus,
+.has-warning [type=text].form-control[readonly],
+.has-warning input.form-control[readonly],
+.has-warning input:not([type=checkbox]),
+.has-warning input:not([type=checkbox]):focus,
+.has-warning input[type=text][readonly] {
+  border-bottom: none;
+  box-shadow: inset 0 -2px 0 $brand-danger;
+}
+
+.has-warning .col-form-label,
+.has-warning .custom-control,
+.has-warning .form-check-label,
+.has-warning .form-control-feedback,
+.has-warning .form-control-label {
+  color: $brand-danger;
+}
+
+.has-danger .input-group-addon {
+  color: #a32900;
+  border-color: transparent;
+  background-color: transparent;
+}

@@ -1,9 +1,9 @@
 {
   "generator-fireloop": {
-    "version": "1.0.0-beta.2.3",
+    "version": "1.0.0-beta.2.4",
     "clients": {
-      "fireloop": {
-        "path": "./fireloop",
+      "api": {
+        "path": "./api",
         "type": "server"
       },
       "webapp": {

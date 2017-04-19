@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-
 import { UserActions } from '../../shared/sdk/actions/user'
+import { FormService } from '../../ui/form/ui-form.service';
 
 @Component({
   selector: 'app-auth-login',

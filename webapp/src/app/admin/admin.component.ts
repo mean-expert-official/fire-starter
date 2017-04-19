@@ -1,39 +1,67 @@
 import { Component } from '@angular/core';
-import { UIService } from '../ui/ui.service';
+import { Store } from '@ngrx/store';
+import { UserActions } from '../shared/sdk/actions/user';
+import { AccountApi } from '../shared/sdk/services';
+import { UiService, NavItem } from '../ui/ui.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-admin',
-  template: `
-    <nav class="navbar sticky-top admin-header" [class.sidebar-open]="uiService.sidebarOpen && uiService.isLargeScreen">
-      <h5 class="text-center mb-0">
-        <i class="fa fa-fw fa-lock" aria-hidden="true"></i>&nbsp; Admin
-      </h5>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
+  template: `<router-outlet></router-outlet>`,
   styleUrls: ['./admin.component.scss']
 
 })
 export class AdminComponent {
-  private sidebarNav: any = [
-    {
-      'name': 'Dashboard',
-      'link': '/admin/dashboard',
-      'icon': 'tachometer'
-    },
-    {
-      'name': 'Users',
-      'link': '/admin/users',
-      'icon': 'users'
-    },
-    {
-      'name': 'Roles',
-      'link': '/admin/roles',
-      'icon': 'tags'
-    },
-  ];
+  private authIcon;
+  private sidebarNav: NavItem[];
+  private subscriptions: Subscription[] = new Array<Subscription>();
 
-  constructor(public uiService: UIService) {
-    this.uiService.setSidebarNav(this.sidebarNav);
+  constructor(
+    private uiService: UiService,
+    private userApi: AccountApi,
+    private store: Store<any>,
+  ) {
+    this.subscriptions.push(this.store.select('auth').subscribe(
+      (res: any) => {
+        this.uiService.setSidebarNav([
+          {
+            'name': 'Dashboard',
+            'link': '/admin/dashboard',
+            'icon': 'tachometer'
+          },
+          {
+            'name': 'Auth',
+            'link': '/admin/auth',
+            'icon': this.getAuthIcon()
+          },
+          {
+            'name': 'Users',
+            'link': '/admin/users',
+            'icon': 'users'
+          },
+          {
+            'name': 'Roles',
+            'link': '/admin/roles',
+            'icon': 'tags'
+          },
+          {
+            'name': 'Controls',
+            'link': '/admin/controls',
+            'icon': 'ban'
+          },
+        ]);
+      }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
+
+  getAuthIcon() {
+    if (this.userApi.isAuthenticated()) {
+      return 'unlock'
+    } else {
+      return 'lock'
+    }
   }
 }

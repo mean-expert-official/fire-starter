@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { User } from '../models/User';
+import { Account } from '../models/Account';
 import { getUserById } from '../reducers/user';
 
 @Injectable()
-export class UserResolver implements Resolve<User> {
-  constructor(private store: Store<any>) {}
+export class UserResolver implements Resolve<Account> {
+  constructor(private store: Store<any>) { }
 
   public resolve(
     route: ActivatedRouteSnapshot

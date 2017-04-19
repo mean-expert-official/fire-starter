@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UIService } from '../../ui.service';
+import { UiService } from '../../ui.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,7 +8,7 @@ import { UIService } from '../../ui.service';
 })
 export class SidebarComponent {
 
-  constructor(public uiService: UIService) {
+  constructor(public uiService: UiService) {
 
   }
 

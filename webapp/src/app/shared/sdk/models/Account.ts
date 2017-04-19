@@ -1,48 +1,58 @@
 /* tslint:disable */
+import {
+  AccessToken,
+  Role
+} from '../index';
 
 declare var Object: any;
-export interface UserInterface {
+export interface AccountInterface {
+  "firstName": any;
+  "lastName": any;
   "realm"?: any;
   "username"?: any;
   "password": any;
-  "firstName": any;
-  "lastName": any;
   "email": any;
   "emailVerified"?: any;
   "verificationToken"?: any;
   "id"?: any;
-  accessTokens?: any[];
+  "createdAt"?: any;
+  "updatedAt"?: any;
+  accessTokens?: AccessToken[];
+  roles?: Role[];
 }
 
-export class User implements UserInterface {
+export class Account implements AccountInterface {
+  "firstName": any;
+  "lastName": any;
   "realm": any;
   "username": any;
   "password": any;
-  "firstName": any;
-  "lastName": any;
   "email": any;
   "emailVerified": any;
   "verificationToken": any;
   "id": any;
-  accessTokens: any[];
-  constructor(data?: UserInterface) {
+  "createdAt": any;
+  "updatedAt": any;
+  accessTokens: AccessToken[];
+  roles: Role[];
+  constructor(data?: AccountInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `User`.
+   * i.e. `Account`.
    */
   public static getModelName() {
-    return "User";
+    return "Account";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of User for dynamic purposes.
+  * This method creates an instance of Account for dynamic purposes.
   **/
-  public static factory(data: UserInterface): User{
-    return new User(data);
+  public static factory(data: AccountInterface): Account{
+    return new Account(data);
   }
   /**
   * @method getModelDefinition
@@ -53,9 +63,17 @@ export class User implements UserInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'User',
-      plural: 'Users',
+      name: 'Account',
+      plural: 'Accounts',
       properties: {
+        "firstName": {
+          name: 'firstName',
+          type: 'any'
+        },
+        "lastName": {
+          name: 'lastName',
+          type: 'any'
+        },
         "realm": {
           name: 'realm',
           type: 'any'
@@ -66,14 +84,6 @@ export class User implements UserInterface {
         },
         "password": {
           name: 'password',
-          type: 'any'
-        },
-        "firstName": {
-          name: 'firstName',
-          type: 'any'
-        },
-        "lastName": {
-          name: 'lastName',
           type: 'any'
         },
         "email": {
@@ -92,12 +102,25 @@ export class User implements UserInterface {
           name: 'id',
           type: 'any'
         },
+        "createdAt": {
+          name: 'createdAt',
+          type: 'any'
+        },
+        "updatedAt": {
+          name: 'updatedAt',
+          type: 'any'
+        },
       },
       relations: {
         accessTokens: {
           name: 'accessTokens',
-          type: 'any[]',
-          model: ''
+          type: 'AccessToken[]',
+          model: 'AccessToken'
+        },
+        roles: {
+          name: 'roles',
+          type: 'Role[]',
+          model: 'Role'
         },
       }
     }
