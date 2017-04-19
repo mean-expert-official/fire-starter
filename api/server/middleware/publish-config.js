@@ -1,6 +1,6 @@
 function createConfig() {
 
-  const baseUrl = process.env.API_BASE_URL || '//localhost:3000';
+  const baseUrl = process.env.API_BASE_URL || '//0.0.0.0:3000';
   const version = process.env.API_VERSION || 'api';
   const nodeEnv = process.env.NODE_ENV || 'development';
 

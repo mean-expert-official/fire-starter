@@ -1,0 +1,151 @@
+<div class="row align-items-center">
+  <div class="col-12 col-md-3 text-right">
+    <h5 [class]="activeContainer ? '' : 'text-danger'">Container:</h5>
+  </div>
+  <div class="col-12 col-md-3">
+    <div *ngIf="fileService.containers"
+         ngbDropdown
+         class="d-inline-block">
+      <button [class]="'btn btn-outline-' + (activeContainer ? 'info' : 'danger')"
+              id="containerDrop"
+              ngbDropdownToggle>{{ activeContainer || 'Select a Container' }} &nbsp; <i class="fa fa-lg fa-folder-o"></i></button>
+      <div class="dropdown-menu"
+           aria-labelledby="containerDrop">
+        <button *ngFor="let container of fileService.containers"
+                class="dropdown-item"
+                [class.active]="activeContainer === container.name"
+                (click)="activeContainer = container.name">
+                {{ container.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6">
+    <h4 class="text-center"
+        *ngIf="activeContainer">Add Files</h4>
+  </div>
+</div>
+<hr>
+<div *ngIf="activeContainer"
+     class="row align-items-center">
+  <div class="col-12 col-lg-7 mb-2">
+    <div ng2FileDrop
+         [ngClass]="{'file-over': hasBaseDropZoneOver}"
+         (fileOver)="fileOverBase($event)"
+         [uploader]="fileService.uploader"
+         class="card drop-zone">
+      <h5 class="text-primary">Drop Zone</h5>
+      <i class="text-primary fa fa-cloud-upload fa-3x"
+         aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="col-12 col-lg-5 mb-2">
+    <div class="row">
+      <div class="col-12">
+        <h5>Single Select</h5>
+        <input class="text-center"
+               type="file"
+               ng2FileSelect
+               [uploader]="fileService.uploader" />
+        <hr>
+      </div>
+      <div class="col-12">
+        <h5>Multiple Select</h5>
+        <input type="file"
+               ng2FileSelect
+               [uploader]="fileService.uploader"
+               multiple />
+      </div>
+    </div>
+  </div>
+</div>
+<hr *ngIf="activeContainer">
+<div *ngIf="fileService.uploader?.queue?.length"
+     class="row align-items-center justify-content-center">
+  <div class="col-12 col-lg-3">
+    <h5>Upload Queue</h5>
+    <p class="lead mb-0">
+      <strong>Files in Queue: <span [class.text-primary]="fileService.uploader?.queue?.length">{{ fileService.uploader?.queue?.length }}</span></strong>
+    </p>
+  </div>
+  <div class="col-3">
+    <p class="lead float-right"><strong>Upload Progress:</strong></p>
+  </div>
+  <div class="col-9 col-lg-6 pb-3">
+    <div class="progress">
+      <div class="progress-bar bg-success"
+           role="progressbar"
+           [ngStyle]="{ 'width': fileService.uploader.progress + '%' }"></div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-9">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Progress</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of fileService.uploader.queue">
+          <td><strong>{{ item?.file?.name }}</strong></td>
+          <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+          <td>
+            <div class="progress">
+              <div class="progress-bar bg-success"
+                   role="progressbar"
+                   [ngStyle]="{ 'width': item.progress + '%' }"></div>
+            </div>
+          </td>
+          <td class="text-center">
+            <span *ngIf="item.isSuccess"><i class="fa fa-fw fa-check"></i></span>
+            <span *ngIf="item.isCancel"><i class="fa fa-fw fa-ban"></i></span>
+            <span *ngIf="item.isError"><i class="fa fa-fw fa"></i></span>
+          </td>
+          <td nowrap>
+            <button type="button"
+                    class="btn btn-primary btn-sm"
+                    (click)="fileService.handleAction({ type: 'upload', payload: { file: item, uploadContainer: activeContainer }})"
+                    [disabled]="item.isReady || item.isUploading || item.isSuccess">
+              <span class="fa fa-fw fa-upload"></span>
+            </button>
+            <button type="button"
+                    class="btn btn-warning btn-sm"
+                    (click)="item.cancel()"
+                    [disabled]="!item.isUploading">
+              <span class="fa fa-fw fa-ban"></span>
+            </button>
+            <button type="button"
+                    class="btn btn-danger btn-sm"
+                    (click)="item.remove()">
+              <span class="fa fa-fw fa-trash"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 col-lg-3">
+    <button type="button"
+            class="btn btn-primary btn-sm btn-block"
+            (click)="fileService.handleAction({ type: 'uploadAll', payload: activeContainer })"
+            [disabled]="!fileService.uploader.getNotUploadedItems().length">
+      <span class="fa fa-fw fa-upload"></span> Upload All
+    </button>
+    <button type="button"
+            class="btn btn-warning btn-sm btn-block"
+            (click)="fileService.uploader.cancelAll()"
+            [disabled]="!fileService.uploader.isUploading">
+      <span class="fa fa-fw fa-ban"></span> Cancel All
+    </button>
+    <button type="button"
+            class="btn btn-danger btn-sm btn-block"
+            (click)="fileService.uploader.clearQueue()"
+            [disabled]="!fileService.uploader.queue.length">
+      <span class="fa fa-fw fa-trash"></span> Remove All
+    </button>
+  </div>
+</div>

@@ -2,17 +2,17 @@
 
 declare var Object: any;
 export interface ContainerInterface {
-  "name": any;
-  "id"?: any;
-  "createdAt"?: any;
-  "updatedAt"?: any;
+  "name": string;
+  "id"?: number;
+  "createdAt"?: Date;
+  "updatedAt"?: Date;
 }
 
 export class Container implements ContainerInterface {
-  "name": any;
-  "id": any;
-  "createdAt": any;
-  "updatedAt": any;
+  "name": string;
+  "id": number;
+  "createdAt": Date;
+  "updatedAt": Date;
   constructor(data?: ContainerInterface) {
     Object.assign(this, data);
   }
@@ -46,19 +46,19 @@ export class Container implements ContainerInterface {
       properties: {
         "name": {
           name: 'name',
-          type: 'any'
+          type: 'string'
         },
         "id": {
           name: 'id',
-          type: 'any'
+          type: 'number'
         },
         "createdAt": {
           name: 'createdAt',
-          type: 'any'
+          type: 'Date'
         },
         "updatedAt": {
           name: 'updatedAt',
-          type: 'any'
+          type: 'Date'
         },
       },
       relations: {

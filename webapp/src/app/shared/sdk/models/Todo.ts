@@ -2,21 +2,21 @@
 
 declare var Object: any;
 export interface TodoInterface {
-  "text": any;
-  "dueAt"?: any;
-  "done"?: any;
+  "text": string;
+  "dueAt"?: Date;
+  "done"?: boolean;
   "id"?: any;
-  "createdAt"?: any;
-  "updatedAt"?: any;
+  "createdAt"?: Date;
+  "updatedAt"?: Date;
 }
 
 export class Todo implements TodoInterface {
-  "text": any;
-  "dueAt": any;
-  "done": any;
+  "text": string;
+  "dueAt": Date;
+  "done": boolean;
   "id": any;
-  "createdAt": any;
-  "updatedAt": any;
+  "createdAt": Date;
+  "updatedAt": Date;
   constructor(data?: TodoInterface) {
     Object.assign(this, data);
   }
@@ -50,15 +50,15 @@ export class Todo implements TodoInterface {
       properties: {
         "text": {
           name: 'text',
-          type: 'any'
+          type: 'string'
         },
         "dueAt": {
           name: 'dueAt',
-          type: 'any'
+          type: 'Date'
         },
         "done": {
           name: 'done',
-          type: 'any',
+          type: 'boolean',
           default: false
         },
         "id": {
@@ -67,11 +67,11 @@ export class Todo implements TodoInterface {
         },
         "createdAt": {
           name: 'createdAt',
-          type: 'any'
+          type: 'Date'
         },
         "updatedAt": {
           name: 'updatedAt',
-          type: 'any'
+          type: 'Date'
         },
       },
       relations: {

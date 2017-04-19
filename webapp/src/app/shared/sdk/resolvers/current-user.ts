@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { User } from '../models/User';
+import { Account } from '../models/Account';
 import { getLoopbackAuthUser } from '../reducers/auth';
 
 @Injectable()
-export class CurrentUserResolver implements Resolve<User> {
-  constructor(private store: Store<any>) {}
+export class CurrentUserResolver implements Resolve<Account> {
+  constructor(private store: Store<any>) { }
 
   public resolve(
     route: ActivatedRouteSnapshot

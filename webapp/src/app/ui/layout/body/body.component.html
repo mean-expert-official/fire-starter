@@ -1,4 +1,10 @@
-<div class="main" [class.sidebar-open]="uiService.sidebarOpen && uiService.isLargeScreen">
+<div class="main"
+     [class.sidebar-open]="uiService.sidebarOpen">
+  <nav class="navbar sticky-top p-0">
+    <h6 class="text-primary mb-0">
+      <breadcrumb [useBootstrap]="true"></breadcrumb>
+    </h6>
+  </nav>
   <div class="container-fluid mt-3">
     <router-outlet></router-outlet>
   </div>

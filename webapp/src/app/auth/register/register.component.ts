@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store'
-
-import { UserActions } from '../../shared/sdk/actions/user'
+import { Store } from '@ngrx/store';
+import { UserActions } from '../../shared/sdk/actions/user';
 
 @Component({
   selector: 'app-auth-register',
@@ -61,8 +60,8 @@ export class RegisterComponent {
   constructor(private store: Store<any>) { }
 
   submit() {
-    this.credentials.username = this.credentials.email
-    this.store.dispatch(new UserActions.register({ credentials: this.credentials }))
+    this.credentials.username = this.credentials.email;
+    this.store.dispatch(new UserActions.register({ credentials: this.credentials }));
   }
 
 }

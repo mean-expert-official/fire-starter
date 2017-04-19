@@ -2,19 +2,19 @@
 
 declare var Object: any;
 export interface NoteInterface {
-  "title": any;
-  "content"?: any;
+  "title": string;
+  "content"?: string;
   "id"?: any;
-  "createdAt"?: any;
-  "updatedAt"?: any;
+  "createdAt"?: Date;
+  "updatedAt"?: Date;
 }
 
 export class Note implements NoteInterface {
-  "title": any;
-  "content": any;
+  "title": string;
+  "content": string;
   "id": any;
-  "createdAt": any;
-  "updatedAt": any;
+  "createdAt": Date;
+  "updatedAt": Date;
   constructor(data?: NoteInterface) {
     Object.assign(this, data);
   }
@@ -48,11 +48,11 @@ export class Note implements NoteInterface {
       properties: {
         "title": {
           name: 'title',
-          type: 'any'
+          type: 'string'
         },
         "content": {
           name: 'content',
-          type: 'any'
+          type: 'string'
         },
         "id": {
           name: 'id',
@@ -60,11 +60,11 @@ export class Note implements NoteInterface {
         },
         "createdAt": {
           name: 'createdAt',
-          type: 'any'
+          type: 'Date'
         },
         "updatedAt": {
           name: 'updatedAt',
-          type: 'any'
+          type: 'Date'
         },
       },
       relations: {

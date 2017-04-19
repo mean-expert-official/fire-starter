@@ -1,95 +1,9 @@
 $fa-font-path: '~font-awesome/fonts';
 $web-font-path: "https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed";
 @import './app/ui/styles/variables';
-@import './app/ui/styles/toasty';
-@import './app/ui/styles/sweetalert2';
 @import '~font-awesome/scss/font-awesome';
+@import './app/ui/styles/toasty';
+@import '~sweetalert2/src/sweetalert2';
 @import '~bootstrap/scss/bootstrap';
 @import './app/ui/styles/bootswatch';
-
-body {
-  @include transition(all 0.3s ease);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  color      : #222;
-  font-weight: 700;
-  text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-}
-
-a {
-  cursor: pointer;
-  @include ripple(#eee);
-}
-
-.btn {
-  cursor     : pointer;
-  font-family: 'Segoe UI', sans-serif;
-  font-weight: 700;
-}
-
-.card {
-  box-shadow: 0 1px 2px rgba(151,151,151,0.58);
-}
-
-.btn,
-.card-title,
-.modal-title {
-  text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-}
-
-.alert {
-  border-color: transparent;
-}
-
-.modal-title {
-  color: #fff;
-}
-
-.close {
-  outline: none !important;
-}
-
-.lead {
-  font-size: 18px;
-}
-
-formly-field-input {
-  width: 100%;
-}
-
-.form-control {
-  width: 100% !important;
-}
-
-label {
-  font-weight  : 700;
-  margin-bottom: 0;
-}
-
-.custom-control {
-  line-height: 24px;
-}
-
-.has-warning .form-control,
-.has-warning .form-control:focus,
-.has-warning [type=text].form-control[readonly],
-.has-warning input.form-control[readonly],
-.has-warning input:not([type=checkbox]),
-.has-warning input:not([type=checkbox]):focus,
-.has-warning input[type=text][readonly] {
-  border-bottom: none;
-  box-shadow   : inset 0 -2px 0 $brand-danger;
-}
-
-.has-warning .col-form-label,
-.has-warning .custom-control,
-.has-warning .form-check-label,
-.has-warning .form-control-feedback,
-.has-warning .form-control-label {
-  color: $brand-danger;
-}
+@import './app/ui/styles/custom';
