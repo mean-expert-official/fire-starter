@@ -26,7 +26,7 @@ import { UiService } from '../../ui/ui.service';
                     <button *ngIf="file.ext === 'wav'"
                             type="button"
                             class="btn btn-sm btn-primary"
-                            (click)="play(file)">
+                            (click)="fileService.play(file)">
                       <i class="fa fa-fw fa-play"></i>
                     </button>
                   </div>
@@ -37,7 +37,7 @@ import { UiService } from '../../ui/ui.service';
                               class="close"
                               data-dismiss="alert"
                               aria-label="Close"
-                              (click)="deleteFile(item.container.name, file)">
+                              (click)="fileService.deleteFile(item.container.name, file)">
                         <span aria-hidden="true">&times;</span>
                       </button>
                       <strong>{{ file.name }}</strong>
@@ -51,7 +51,7 @@ import { UiService } from '../../ui/ui.service';
                       class="btn btn-danger btn-sm"
                       placement="bottom"
                       ngbTooltip="Delete Container"
-                      (click)="delete(item)">
+                      (click)="fileService.delete(item)">
                 <i class="fa fa-fw fa-trash-o"></i>&nbsp;
               </button>
             </td>

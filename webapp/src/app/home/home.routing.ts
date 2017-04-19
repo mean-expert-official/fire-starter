@@ -7,7 +7,7 @@ import { TodoComponent } from './todo/todo.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NoteComponent } from './note/note.component';
 import { FileComponent } from '../files/file.component';
-import { UploadFormComponent } from '../files/form/upload-form.component';
+import { UploadFormComponent } from '../files/upload/upload-form.component';
 import { ContainerListComponent } from '../files/list/container-list.component';
 
 const routes: Routes = [

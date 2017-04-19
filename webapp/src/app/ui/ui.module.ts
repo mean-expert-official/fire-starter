@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule, FormlyBootstrapModule } from 'ng-formly';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2BreadcrumbModule } from 'ng2-breadcrumb/ng2-breadcrumb';
-import { Ng2TableModule } from 'ng2-table/ng2-table';
 
 import { BodyComponent } from './layout/body/body.component';
 import { CardComponent } from './card/card.component';
@@ -27,7 +26,6 @@ import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
     FormlyBootstrapModule,
     NgbModule,
     Ng2BreadcrumbModule.forRoot(),
-    Ng2TableModule
   ],
   declarations: [
     BodyComponent,
@@ -45,7 +43,6 @@ import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
     UiFormComponent,
     FormlyModule,
     FormlyBootstrapModule,
-    Ng2TableModule
   ],
   providers: [
 
