@@ -5,29 +5,7 @@ import { FormService } from '../../ui/form/ui-form.service';
 
 @Component({
   selector: 'app-auth-login',
-  template: `
-    <form>
-      <div class="form-group">
-        <input
-          [(ngModel)]="credentials.email"
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          placeholder="Email">
-      </div>
-      <div class="form-group">
-        <input
-          [(ngModel)]="credentials.password"
-          type="password"
-          class="form-control"
-          id="password"
-          name="password"
-          placeholder="Password">
-      </div>
-      <button type="submit"  (click)="submit()" class="btn btn-primary btn-block">Login</button>
-    </form>
-  `,
+  template: `<ui-form [config]="formConfig" [item]="credentials" (action)="submit()"></ui-form>`,
 })
 export class LoginComponent {
 
@@ -36,7 +14,42 @@ export class LoginComponent {
     password: null,
   }
 
-  constructor(private store: Store<any>) { }
+  public formConfig: {};
+
+  constructor(
+    private store: Store<any>,
+    private formService: FormService
+  ) {
+    this.formConfig = this.getFormConfig();
+  }
+
+  getFormConfig() {
+    return {
+      fields: this.getFormFields(),
+      showCancel: false,
+      action: 'login',
+      submitButtonText: 'Log In'
+    };
+  }
+
+  getFormFields() {
+    return [
+      this.formService.email('email', {
+        label: 'Email',
+        className: 'col-12',
+        addonLeft: {
+          class: 'fa fa-fw fa-envelope-o'
+        }
+      }),
+      this.formService.password('password', {
+        label: 'Password',
+        className: 'col-12',
+        addonLeft: {
+          class: 'fa fa-fw fa-key'
+        }
+      })
+    ];
+  }
 
   submit() {
     this.store.dispatch(new UserActions.login({ credentials: this.credentials }))

@@ -1,55 +1,20 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../shared/sdk/actions/user';
+import { FormService } from '../../ui/form/ui-form.service';
+import { Subscription } from 'rxjs/Subscription';
+import { UiService } from '../../ui/ui.service';
 
 @Component({
   selector: 'app-auth-register',
-  template: `
-    <form>
-      <div class="form-group">
-        <input
-          [(ngModel)]="credentials.email"
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          placeholder="Email">
-      </div>
-      <div class="form-group">
-        <input
-          [(ngModel)]="credentials.password"
-          type="password"
-          class="form-control"
-          id="password"
-          name="password"
-          placeholder="Password">
-      </div>
-      <div class="form-group">
-        <input
-          [(ngModel)]="credentials.firstName"
-          type="text"
-          class="form-control"
-          id="firstName"
-          name="firstName"
-          placeholder="First name">
-      </div>
-      <div class="form-group">
-        <input
-          [(ngModel)]="credentials.lastName"
-          type="text"
-          class="form-control"
-          id="lastName"
-          name="lastName"
-          placeholder="Last name">
-      </div>
-      <button type="submit"  (click)="submit()" class="btn btn-primary btn-block">Register</button>
-    </form>
-  `,
+  template: `<ui-form #uiForm [config]="formConfig" [item]="registration" (action)="submit()"></ui-form>`,
   styles: []
 })
 export class RegisterComponent {
 
-  public credentials = {
+  private subscriptions: Subscription[] = new Array<Subscription>();
+
+  public registration = {
     email: null,
     username: null,
     password: null,
@@ -57,11 +22,61 @@ export class RegisterComponent {
     lastName: null,
   }
 
-  constructor(private store: Store<any>) { }
+  public formConfig: {};
+
+  constructor(
+    private store: Store<any>,
+    private formService: FormService,
+    private uiService: UiService
+  ) {
+    this.formConfig = this.getFormConfig();
+  }
+
+  getFormConfig() {
+    return {
+      fields: this.getFormFields(),
+      showCancel: false,
+      action: 'register',
+      submitButtonText: 'Submit'
+    };
+  }
+
+  getFormFields() {
+    return [
+      this.formService.email('email', {
+        label: 'Email',
+        className: 'col-12',
+        addonLeft: {
+          class: 'fa fa-fw fa-envelope-o'
+        }
+      }),
+      this.formService.password('password', {
+        label: 'Password',
+        className: 'col-12',
+        addonLeft: {
+          class: 'fa fa-fw fa-key'
+        }
+      }),
+      this.formService.input('firstName', {
+        label: 'First Name',
+        className: 'col-12',
+        addonLeft: {
+          class: 'fa fa-fw fa-user-o'
+        }
+      }),
+      this.formService.input('lastName', {
+        label: 'Last Name',
+        className: 'col-12',
+        addonLeft: {
+          class: 'fa fa-fw fa-user-o'
+        }
+      })
+    ];
+  }
 
   submit() {
-    this.credentials.username = this.credentials.email;
-    this.store.dispatch(new UserActions.register({ credentials: this.credentials }));
+    this.registration.username = this.registration.email;
+    this.store.dispatch(new UserActions.register({ credentials: this.registration }));
   }
 
 }

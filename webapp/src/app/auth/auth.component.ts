@@ -2,26 +2,27 @@ import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FireLoopRef, Account, SDKToken } from '../shared/sdk/models';
 import { RealTime, AccountApi } from '../shared/sdk/services';
-import { UiService } from '../ui/ui.service';
+import { Store } from '@ngrx/store';
+import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   template: `
-    <app-card [icon]="userApi.isAuthenticated() ? 'unlock' : 'lock'" title="Auth Status">
-      <app-auth-status></app-auth-status>
-    </app-card>
-    <div *ngIf="!userApi.isAuthenticated()" class="row">
-      <div class="col-lg-6">
-        <app-card icon="sign-in" title="Login">
-          <app-auth-login (login)="processLogin($event)"></app-auth-login>
-        </app-card>
-      </div>
-      <div class="col-lg-6">
-        <app-card icon="registered" title="Register">
-          <app-auth-register (register)="processRegistration($event)"></app-auth-register>
-        </app-card>
-      </div>
+  <div class="row align-items-center justify-content-center">
+    <div class="col-12 col-lg-8">
+      <app-card [icon]="userApi.isAuthenticated() ? 'unlock' : 'lock'" title="Auth Status">
+        <app-auth-status></app-auth-status>
+      </app-card>
     </div>
+    <div class="col-12 col-lg-8">
+      <app-card icon="magic"
+                title="Auth Actions"
+                [nav]="nav">
+        <router-outlet></router-outlet>
+      </app-card>
+    </div>
+  </div>
   `,
   styles: []
 })
@@ -31,12 +32,17 @@ export class AuthComponent implements OnDestroy {
   public user: Account;
   private userRef: FireLoopRef<Account>;
   private token: any;
+  public nav: NavItem[];
 
   constructor(
     private uiService: UiService,
-    public userApi: AccountApi
+    public userApi: AccountApi,
+    public router: Router
   ) {
-
+    this.nav = [
+      { name: 'Login', link: '/home/auth/login', icon: 'sign-in' },
+      { name: 'Register', link: '/home/auth/register', icon: 'registered' }
+    ];
   }
 
   ngOnDestroy() {
@@ -53,16 +59,6 @@ export class AuthComponent implements OnDestroy {
       },
       (err: any) => {
         this.uiService.toastError('Login Failed', err.message || err.error.message);
-      }));
-  }
-
-  processRegistration(event: any) {
-    this.subscriptions.push(this.userApi.create(event).subscribe(
-      (token: any) => {
-        this.uiService.toastSuccess('Registration Success', 'You have registered successfully.');
-      },
-      (err: any) => {
-        this.uiService.toastError('Registration Failed', err.message || err.error.message);
       }));
   }
 

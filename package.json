@@ -2,6 +2,7 @@
   "name": "fire-starter",
   "version": "1.0.0",
   "description": "Starter kit for the fireloop.io platform",
+  "repository": "https://github.com/mean-expert-official/fire-starter",
   "scripts": {
     "install": "cd api/ && npm install && cd ../webapp && npm install && cd ..",
     "postinstall": "npm run build",

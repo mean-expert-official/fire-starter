@@ -21,36 +21,28 @@ export class AdminComponent {
     private userApi: AccountApi,
     private store: Store<any>,
   ) {
-    this.subscriptions.push(this.store.select('auth').subscribe(
-      (res: any) => {
-        this.uiService.setSidebarNav([
-          {
-            'name': 'Dashboard',
-            'link': '/admin/dashboard',
-            'icon': 'tachometer'
-          },
-          {
-            'name': 'Auth',
-            'link': '/admin/auth',
-            'icon': this.getAuthIcon()
-          },
-          {
-            'name': 'Users',
-            'link': '/admin/users',
-            'icon': 'users'
-          },
-          {
-            'name': 'Roles',
-            'link': '/admin/roles',
-            'icon': 'tags'
-          },
-          {
-            'name': 'Controls',
-            'link': '/admin/controls',
-            'icon': 'ban'
-          },
-        ]);
-      }));
+    this.uiService.setSidebarNav([
+      {
+        'name': 'Dashboard',
+        'link': '/admin/dashboard',
+        'icon': 'tachometer'
+      },
+      {
+        'name': 'Users',
+        'link': '/admin/users',
+        'icon': 'users'
+      },
+      {
+        'name': 'Roles',
+        'link': '/admin/roles',
+        'icon': 'tags'
+      },
+      {
+        'name': 'Controls',
+        'link': '/admin/controls',
+        'icon': 'ban'
+      },
+    ]);
   }
 
   ngOnDestroy() {

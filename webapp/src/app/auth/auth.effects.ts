@@ -1,71 +1,66 @@
 /* tslint:disable */
+import { get } from 'lodash';
 import { Inject, Injectable } from '@angular/core'
+import { Router } from '@angular/router';
 import { Action, Store } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable'
 import { of } from 'rxjs/observable/of';
 import { concat } from 'rxjs/observable/concat';
-
-import { UserActionTypes } from '../shared/sdk/actions/user'
-
+import { UiService, NavItem } from '../ui/ui.service';
+import { UserActionTypes } from '../shared/sdk/actions/user';
 
 @Injectable()
 export class AppAuthEffects {
 
+  constructor(
+    @Inject(Actions) public actions$: Actions,
+    private store: Store<any>,
+    private uiService: UiService,
+    private router: Router,
+  ) { }
+
   @Effect({ dispatch: false })
   protected registerSuccess: Observable<Action> = this.actions$
     .ofType(UserActionTypes.REGISTER_SUCCESS)
-    .map(toPayload)
-    .mergeMap((payload: any) => {
-        this.store.dispatch({
-          type: 'NOTIFY',
-          payload: { type: 'success', title: 'Registered', msg: 'You are registered' }
-        })
-        return Observable.of({})
-      }
-    );
+    .do((action) => {
+      this.uiService.alertSuccess({ title: 'Registration Success', text: get(action, 'payload.message') });
+    });
 
   @Effect({ dispatch: false })
   protected registerFail: Observable<Action> = this.actions$
     .ofType(UserActionTypes.REGISTER_FAIL)
-    .map(toPayload)
-    .mergeMap((payload) => {
-        this.store.dispatch({
-          type: 'NOTIFY',
-          payload: { type: 'error', title: 'Registration failed', msg: payload.message }
-        })
-        return Observable.of({})
-      }
-    );
+    .do((action) => {
+      this.uiService.alertError({ title: 'Registration Failure', text: get(action, 'payload.message') });
+    });
 
   @Effect({ dispatch: false })
   protected loginSuccess: Observable<Action> = this.actions$
     .ofType(UserActionTypes.LOGIN_SUCCESS)
-    .map(toPayload)
-    .mergeMap((payload: any) => {
-        this.store.dispatch({
-          type: 'NOTIFY',
-          payload: { type: 'success', title: 'Logged in', msg: 'You are logged in' }
-        })
-        return Observable.of({})
-      }
-    );
+    .do((action) => {
+      this.uiService.alertSuccess({ title: 'Login Success', text: get(action, 'payload.message') });
+    });
 
   @Effect({ dispatch: false })
   protected loginFail: Observable<Action> = this.actions$
     .ofType(UserActionTypes.LOGIN_FAIL)
-    .map(toPayload)
-    .mergeMap((payload) => {
-        this.store.dispatch({
-          type: 'NOTIFY',
-          payload: { type: 'error', title: 'Login failed', msg: payload.message }
-        })
-        return Observable.of({})
-      }
-    );
+    .do((action) => {
+      this.uiService.alertError({ title: 'Login Failure', text: get(action, 'payload.message') });
+    });
 
-  constructor(
-    @Inject(Actions) public actions$: Actions,
-    private store: Store<any>,
-  ) {}
+  @Effect({ dispatch: false })
+  protected logoutSuccess: Observable<Action> = this.actions$
+    .ofType(UserActionTypes.LOGOUT_SUCCESS)
+    .do((action) => {
+      this.uiService.alertSuccess({ title: 'Logout Success', text: get(action, 'payload.message') });
+      this.router.navigate(['/home/auth/login']);
+    });
+
+  @Effect({ dispatch: false })
+  protected logoutFail: Observable<Action> = this.actions$
+    .ofType(UserActionTypes.LOGOUT_FAIL)
+    .do((action) => {
+      this.uiService.alertError({ title: 'Logout Failure', text: get(action, 'payload.message') });
+    });
+
 }

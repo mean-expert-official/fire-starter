@@ -17,7 +17,7 @@ import { NavItem } from '../ui.service';
               <h4 class="card-title text-uppercase text-white mb-0">
                 <i *ngIf="icon" [class]="'fa fa-fw fa-' + icon"></i> {{ title }}
               </h4>
-              <hr *ngIf="createButton || subTitle">
+              <hr *ngIf="createButton || subTitle || nav">
             </div>
             <div class="col-12 col-md-5">
               <button *ngIf="createButton" [class]="createButton.class" (click)="action.emit($event)">

@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthComponent } from '../auth/auth.component';
+import { LoginComponent } from '../auth/login/login.component';
+import { RegisterComponent } from '../auth/register/register.component';
 import { TodoComponent } from './todo/todo.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NoteComponent } from './note/note.component';
@@ -17,7 +19,15 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'auth', component: AuthComponent },
+      {
+        path: 'auth',
+        component: AuthComponent,
+        children: [
+          { path: '', redirectTo: 'login', pathMatch: 'full' },
+          { path: 'login', component: LoginComponent },
+          { path: 'register', component: RegisterComponent },
+        ]
+      },
       {
         path: 'files',
         component: FileComponent,
@@ -30,6 +40,7 @@ const routes: Routes = [
       { path: 'todos', component: TodoComponent },
       { path: 'notes', component: NoteComponent },
       { path: 'notifications', component: NotificationsComponent },
+
     ]
   }
 ];

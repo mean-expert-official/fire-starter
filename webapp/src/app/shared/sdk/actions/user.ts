@@ -5,7 +5,7 @@ import { BaseLoopbackActionTypesFactory, BaseLoopbackActionsFactory } from './ba
 import { SDKToken, Account } from '../models';
 
 export const UserActionTypes =
-Object.assign(BaseLoopbackActionTypesFactory('User'), {
+Object.assign(BaseLoopbackActionTypesFactory('Account'), {
   /**
    * @author João Ribeiro <@JonnyBGod> <github:JonnyBGod>
    * @description
