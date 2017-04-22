@@ -8,7 +8,7 @@ import { UiService } from '../../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-todo',
+  selector: 'fire-todo',
   templateUrl: './todo.component.html',
 })
 export class TodoComponent implements OnDestroy {

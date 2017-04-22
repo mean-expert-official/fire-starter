@@ -6,15 +6,15 @@ import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-file',
+  selector: 'fire-file',
   template: `
-    <app-card icon="files-o"
+    <fire-card icon="files-o"
               title="Files"
               [createButton]="fileService.getCardButtons()"
               [nav]="nav"
               (action)="fileService.create()">
       <router-outlet></router-outlet>
-    </app-card>
+    </fire-card>
   `,
   styleUrls: ['./file.component.scss']
 })

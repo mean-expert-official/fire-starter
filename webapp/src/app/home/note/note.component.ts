@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-note',
+  selector: 'fire-note',
   template: `
-    <app-card icon="sticky-note-o" title="Notes" subTitle="A simple model with Create, Read, Update, Delete">
-      <app-note-list></app-note-list>
-    </app-card>
+    <fire-card icon="sticky-note-o" title="Notes" subTitle="A simple model with Create, Read, Update, Delete">
+      <fire-note-list></fire-note-list>
+    </fire-card>
   `,
   styles: []
 })

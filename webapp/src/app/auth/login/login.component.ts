@@ -4,7 +4,7 @@ import { UserActions } from '../../shared/sdk/actions/user'
 import { FormService } from '../../ui/form/ui-form.service';
 
 @Component({
-  selector: 'app-auth-login',
+  selector: 'fire-auth-login',
   template: `<ui-form [config]="formConfig" [item]="credentials" (action)="submit()"></ui-form>`,
 })
 export class LoginComponent {

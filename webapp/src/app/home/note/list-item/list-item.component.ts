@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Note } from '../../../shared/sdk/models/Note'
 
 @Component({
-  selector: 'app-note-list-item',
+  selector: 'fire-note-list-item',
   template: `
     <div class="row my-2">
       <div class="input-group">

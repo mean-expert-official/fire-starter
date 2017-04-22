@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NavItem } from '../ui.service';
 
 @Component({
-  selector: 'app-card',
+  selector: 'fire-card',
   styles: [`
     .nav-link {
       color: #fff;

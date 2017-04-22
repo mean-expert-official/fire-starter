@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { UiService } from '../../ui/ui.service';
 
 @Component({
-  selector: 'app-auth-register',
+  selector: 'fire-auth-register',
   template: `<ui-form #uiForm [config]="formConfig" [item]="registration" (action)="submit()"></ui-form>`,
   styles: []
 })

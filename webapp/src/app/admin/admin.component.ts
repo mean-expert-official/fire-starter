@@ -6,7 +6,7 @@ import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-admin',
+  selector: 'fire-admin',
   template: `<router-outlet></router-outlet>`,
   styleUrls: ['./admin.component.scss']
 

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { FileService } from '../file.service';
 
 @Component({
-  selector: 'app-upload-form',
+  selector: 'fire-upload-form',
   styleUrls: ['../file.component.scss'],
   templateUrl: './upload-form.component.html',
 })

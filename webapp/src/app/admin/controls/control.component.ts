@@ -8,7 +8,7 @@ import { UiService } from '../../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-control',
+  selector: 'fire-control',
   templateUrl: './control.component.html',
 })
 export class ControlComponent implements OnDestroy {

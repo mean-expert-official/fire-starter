@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'fire-layout',
   template: `
-    <app-header></app-header>
-    <app-sidebar></app-sidebar>
-    <app-body></app-body>
-    <app-footer></app-footer>
+    <fire-header></fire-header>
+    <fire-sidebar></fire-sidebar>
+    <fire-body></fire-body>
+    <fire-footer></fire-footer>
   `,
 })
 export class LayoutComponent {}

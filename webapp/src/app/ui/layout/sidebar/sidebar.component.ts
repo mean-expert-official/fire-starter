@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { UiService } from '../../ui.service';
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'fire-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })

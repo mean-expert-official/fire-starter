@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-todo-form',
+  selector: 'fire-todo-form',
   template: `
     <div class="modal-header bg-primary">
       <h4 class="modal-title">{{ title }}</h4>

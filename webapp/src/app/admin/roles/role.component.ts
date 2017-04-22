@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { sortBy, omit } from 'lodash';
 
 @Component({
-  selector: 'app-role',
+  selector: 'fire-role',
   templateUrl: './role.component.html',
 })
 export class RoleComponent implements OnDestroy {

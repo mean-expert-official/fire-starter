@@ -5,9 +5,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { DashCard } from '../../ui/ui.service';
 
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'fire-admin-dashboard',
   template: `
-    <app-card icon="tachometer" title="Dashboard">
+    <fire-card icon="tachometer" title="Dashboard">
       <div *ngIf="dashCards" class="row align-items-center justify-content-center">
         <div *ngFor="let item of dashCards" class="col-6 col-lg-4">
           <a class="dash-card" [routerLink]="item.link">
@@ -23,7 +23,7 @@ import { DashCard } from '../../ui/ui.service';
           </a>
         </div>
       </div>
-    </app-card>
+    </fire-card>
   `,
   styleUrls: ['../admin.component.scss']
 })

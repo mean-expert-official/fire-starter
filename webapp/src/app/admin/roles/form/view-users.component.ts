@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleService } from '../role.service';
 
 @Component({
-  selector: 'app-role-form',
+  selector: 'fire-role-form',
   template: `
     <div class="modal-header bg-primary">
       <h4 class="modal-title">{{ title }}</h4>
