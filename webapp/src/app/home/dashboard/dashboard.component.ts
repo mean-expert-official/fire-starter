@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { RealTime } from '../../shared/sdk/services/core/real.time';
-import { FireLoopRef, Todo, Note, Container } from '../../shared/sdk/models';
+import { TodoApi, NoteApi, ContainerApi } from '../../shared/sdk/services';
+import { Todo, Note, Container } from '../../shared/sdk/models';
 import { Subscription } from 'rxjs/Subscription';
 import { DashCard } from '../../ui/ui.service';
 
@@ -31,36 +31,29 @@ import { DashCard } from '../../ui/ui.service';
 export class DashboardComponent implements OnDestroy {
 
   public dashCards: DashCard[] = [];
-  public todos: Todo[] = new Array<Todo>();
-  private todoRef: FireLoopRef<Todo>;
-  public notes: Note[] = new Array<Note>();
-  private noteRef: FireLoopRef<Note>;
+  public todoCount: number;
+  public noteCount: number;
+  public containerCount: number;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
-    private rt: RealTime,
+    public todoApi: TodoApi,
+    public noteApi: NoteApi,
+    public containerApi: ContainerApi,
   ) {
-    this.subscriptions.push(
-      this.rt.onReady().subscribe(
-        (fire: any) => {
-          this.todoRef = this.rt.FireLoop.ref<Todo>(Todo);
-          this.subscriptions.push(this.todoRef.on('change').subscribe(
-            (todos: Todo[]) => {
-              this.todos = todos;
-              this.setDashCards();
-            }));
-          this.noteRef = this.rt.FireLoop.ref<Note>(Note);
-          this.subscriptions.push(this.noteRef.on('change').subscribe(
-            (notes: Note[]) => {
-              this.notes = notes
-              this.setDashCards();
-            }));
-        }));
+    this.subscriptions.push(this.todoApi.count().subscribe(
+      (todos: { count: number }) => {
+        this.todoCount = todos.count;
+        this.setDashCards();
+      }));
+    this.subscriptions.push(this.noteApi.count().subscribe(
+      (notes: { count: number }) => {
+        this.noteCount = notes.count;
+        this.setDashCards();
+      }));
   }
 
   ngOnDestroy() {
-    this.todoRef.dispose();
-    this.noteRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
@@ -70,13 +63,13 @@ export class DashboardComponent implements OnDestroy {
         'name': 'Todos',
         'link': '/home/todos',
         'icon': 'check-square-o',
-        'data': this.todos.length
+        'data': this.todoCount
       },
       {
         'name': 'Notes',
         'link': '/home/notes',
         'icon': 'sticky-note-o',
-        'data': this.notes.length
+        'data': this.noteCount
       }
     ]
   }

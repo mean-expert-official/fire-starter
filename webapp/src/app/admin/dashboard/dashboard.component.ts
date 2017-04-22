@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FireLoopRef, Account, Role, ACL } from '../../shared/sdk/models';
-import { RealTime } from '../../shared/sdk/services';
+import { Account, Role, ACL } from '../../shared/sdk/models';
+import { AccountApi, RoleApi, ACLApi } from '../../shared/sdk/services';
 import { Subscription } from 'rxjs/Subscription';
 import { DashCard } from '../../ui/ui.service';
 
@@ -33,40 +33,31 @@ export class DashboardComponent implements OnDestroy {
   public userCount: number;
   public roleCount: number;
   public controlCount: number;
-  private userRef: FireLoopRef<Account>;
-  private roleRef: FireLoopRef<Role>;
-  private controlRef: FireLoopRef<ACL>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
-    private rt: RealTime,
+    public accountApi: AccountApi,
+    public roleApi: RoleApi,
+    public controlApi: ACLApi,
   ) {
-    this.subscriptions.push(this.rt.onReady().subscribe(() => {
-      this.userRef = this.rt.FireLoop.ref<Account>(Account);
-      this.subscriptions.push(this.userRef.on('change').subscribe(
-        (users: Account[]) => {
-          this.userCount = users.length;
-          this.setDashCards();
-        }));
-      this.roleRef = this.rt.FireLoop.ref<Role>(Role);
-      this.subscriptions.push(this.roleRef.on('change').subscribe(
-        (roles: Role[]) => {
-          this.roleCount = roles.length;
-          this.setDashCards();
-        }));
-      this.controlRef = this.rt.FireLoop.ref<ACL>(ACL);
-      this.subscriptions.push(this.controlRef.on('change').subscribe(
-        (controls: ACL[]) => {
-          this.controlCount = controls.length;
-          this.setDashCards();
-        }));
-    }));
+    this.subscriptions.push(this.accountApi.count().subscribe(
+      (users: { count: number }) => {
+        this.userCount = users.count;
+        this.setDashCards();
+      }));
+    this.subscriptions.push(this.roleApi.count().subscribe(
+      (roles: { count: number }) => {
+        this.roleCount = roles.count;
+        this.setDashCards();
+      }));
+    this.subscriptions.push(this.controlApi.count().subscribe(
+      (controls: { count: number }) => {
+        this.controlCount = controls.count;
+        this.setDashCards();
+      }));
   }
 
   ngOnDestroy() {
-    this.userRef.dispose();
-    this.roleRef.dispose();
-    this.controlRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 

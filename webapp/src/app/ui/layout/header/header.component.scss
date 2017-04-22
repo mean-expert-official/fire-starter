@@ -3,7 +3,7 @@
 
 .navbar {
   background: $brand-danger;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.5);
   border-bottom: 3px solid lighten($brand-danger, 7%);
   left: 64px;
   right: 0;
@@ -55,7 +55,7 @@
     letter-spacing: -0.1px;
     line-height: 36px;
     margin-bottom: 0;
-    text-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
   }
 }
 

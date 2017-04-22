@@ -21,39 +21,41 @@ export class HomeComponent implements OnDestroy {
     private userApi: AccountApi,
     private store: Store<any>,
   ) {
-    this.uiService.setSidebarNav([
-      {
-        'name': 'Auth',
-        'link': '/home/auth',
-        'icon': this.getAuthIcon()
-      },
-      {
-        'name': 'Dashboard',
-        'link': '/home/dashboard',
-        'icon': 'tachometer'
-      },
-      {
-        'name': 'UI',
-        'link': '/home/ui',
-        'icon': 'object-group'
-      },
-      {
-        'name': 'Files',
-        'link': '/home/files',
-        'icon': 'files-o'
-      },
-      {
-        'name': 'Todos',
-        'link': '/home/todos',
-        'icon': 'check-square-o'
-      },
-      {
-        'name': 'Notes',
-        'link': '/home/notes',
-        'icon': 'sticky-note-o'
-      },
+    this.store.select('auth').subscribe(() => {
+      this.uiService.setSidebarNav([
+        {
+          'name': 'Auth',
+          'link': '/home/auth',
+          'icon': this.getAuthIcon()
+        },
+        {
+          'name': 'Dashboard',
+          'link': '/home/dashboard',
+          'icon': 'tachometer'
+        },
+        {
+          'name': 'UI',
+          'link': '/home/ui',
+          'icon': 'object-group'
+        },
+        {
+          'name': 'Files',
+          'link': '/home/files',
+          'icon': 'files-o'
+        },
+        {
+          'name': 'Todos',
+          'link': '/home/todos',
+          'icon': 'check-square-o'
+        },
+        {
+          'name': 'Notes',
+          'link': '/home/notes',
+          'icon': 'sticky-note-o'
+        },
+      ])
+    });
 
-    ]);
   }
 
   ngOnDestroy() {
