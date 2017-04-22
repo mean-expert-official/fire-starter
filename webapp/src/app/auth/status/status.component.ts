@@ -4,7 +4,7 @@ import { UserActions } from '../../shared/sdk/actions/user';
 import { AccountApi } from '../../shared/sdk/services';
 
 @Component({
-  selector: 'app-auth-status',
+  selector: 'fire-auth-status',
   template: `
     <div class="container">
       <div class="row align-items-center">

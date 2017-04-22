@@ -8,7 +8,7 @@ import { UiService } from '../../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-user',
+  selector: 'fire-user',
   templateUrl: './user.component.html',
 })
 export class UserComponent implements OnDestroy {

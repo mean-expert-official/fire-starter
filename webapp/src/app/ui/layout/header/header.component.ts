@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { UserActions } from '../../../shared/sdk/actions/user';
 
 @Component({
-  selector: 'app-header',
+  selector: 'fire-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

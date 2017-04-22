@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Note } from '../../../shared/sdk/models/Note'
 
 @Component({
-  selector: 'app-note-form',
+  selector: 'fire-note-form',
   template: `
     <form (submit)="submit()">
       <div class="input-group">

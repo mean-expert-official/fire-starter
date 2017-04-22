@@ -11,16 +11,16 @@ import { Router } from '@angular/router';
   template: `
   <div class="row align-items-center justify-content-center">
     <div class="col-12 col-lg-8">
-      <app-card [icon]="userApi.isAuthenticated() ? 'unlock' : 'lock'" title="Auth Status">
-        <app-auth-status></app-auth-status>
-      </app-card>
+      <fire-card [icon]="userApi.isAuthenticated() ? 'unlock' : 'lock'" title="Auth Status">
+        <fire-auth-status></fire-auth-status>
+      </fire-card>
     </div>
     <div class="col-12 col-lg-8">
-      <app-card icon="magic"
+      <fire-card icon="magic"
                 title="Auth Actions"
                 [nav]="nav">
         <router-outlet></router-outlet>
-      </app-card>
+      </fire-card>
     </div>
   </div>
   `,

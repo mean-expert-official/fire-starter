@@ -3,7 +3,7 @@ import { FileService } from '../file.service';
 import { UiService } from '../../ui/ui.service';
 
 @Component({
-  selector: 'app-container-list',
+  selector: 'fire-container-list',
   styleUrls: ['../file.component.scss'],
   template: `
   <div class="row">

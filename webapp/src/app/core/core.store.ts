@@ -3,11 +3,11 @@ import { StoreModule, provideStore, INITIAL_STATE  } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
-import { UserEffects } from './shared/sdk/effects/user';
-import { UsersReducer } from './shared/sdk/reducers/user';
-import { AppAuthEffects } from './auth/auth.effects';
-import { LoopbackAuthReducer } from './shared/sdk/reducers/auth';
-import { LoopbackAuthEffects } from './shared/sdk/effects/auth';
+import { UserEffects } from './../shared/sdk/effects/user';
+import { UsersReducer } from './../shared/sdk/reducers/user';
+import { AppAuthEffects } from './../auth/auth.effects';
+import { LoopbackAuthReducer } from './../shared/sdk/reducers/auth';
+import { LoopbackAuthEffects } from './../shared/sdk/effects/auth';
 
 @NgModule({
   imports: [
@@ -21,4 +21,4 @@ import { LoopbackAuthEffects } from './shared/sdk/effects/auth';
     EffectsModule.run(AppAuthEffects)
   ],
 })
-export class AppStoreModule { }
+export class CoreStoreModule { }

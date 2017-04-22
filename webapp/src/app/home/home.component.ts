@@ -6,7 +6,7 @@ import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-home',
+  selector: 'fire-home',
   template: `<router-outlet></router-outlet>`,
   styleUrls: ['./home.component.scss']
 

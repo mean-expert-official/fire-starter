@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { UiService } from '../../ui/ui.service';
 
 @Component({
-  selector: 'app-notifications',
+  selector: 'fire-notifications',
   template: `
-    <app-card title="Notifications" icon="comments-o">
+    <fire-card title="Notifications" icon="comments-o">
       <div class="row">
         <div class="col-12 mb-3">
           <h4>Toasty</h4>
@@ -30,7 +30,7 @@ import { UiService } from '../../ui/ui.service';
           </div>
         </div>
       </div>
-    </app-card>
+    </fire-card>
   `,
   styles: []
 })

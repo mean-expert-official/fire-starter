@@ -4,14 +4,14 @@ import { Note } from '../../../shared/sdk/models/Note';
 import { UiService } from '../../../ui/ui.service';
 
 @Component({
-  selector: 'app-note-list',
+  selector: 'fire-note-list',
   template: `
-    <app-note-form (create)="create($event)"></app-note-form>
+    <fire-note-form (create)="create($event)"></fire-note-form>
     <ul *ngIf="notes.length" class="list-unstyled mb-0 mt-3 px-3">
       <li *ngFor="let note of notes">
-        <app-note-list-item
+        <fire-note-list-item
           (update)="update($event)"
-          (remove)="remove($event)" [note]="note"></app-note-list-item>
+          (remove)="remove($event)" [note]="note"></fire-note-list-item>
       </li>
     </ul>
   `,
