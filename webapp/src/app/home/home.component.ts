@@ -25,14 +25,14 @@ export class HomeComponent implements OnDestroy {
       (res: any) => {
         this.uiService.setSidebarNav([
           {
-            'name': 'Dashboard',
-            'link': '/home/dashboard',
-            'icon': 'tachometer'
-          },
-          {
             'name': 'Auth',
             'link': '/home/auth',
             'icon': this.getAuthIcon()
+          },
+          {
+            'name': 'Dashboard',
+            'link': '/home/dashboard',
+            'icon': 'tachometer'
           },
           {
             'name': 'Files',

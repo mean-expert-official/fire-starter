@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FireLoopRef, Account, Role, ACL } from '../../shared/sdk/models';
-import { RealTime } from '../../shared/sdk/services/core/real.time';
+import { RealTime } from '../../shared/sdk/services';
 import { Subscription } from 'rxjs/Subscription';
 import { DashCard } from '../../ui/ui.service';
 
@@ -30,39 +30,37 @@ import { DashCard } from '../../ui/ui.service';
 
 export class DashboardComponent implements OnDestroy {
   public dashCards: DashCard[] = [];
-  public users: Account[] = new Array<Account>();
+  public userCount: number;
+  public roleCount: number;
+  public controlCount: number;
   private userRef: FireLoopRef<Account>;
-  public roles: Role[] = new Array<Role>();
   private roleRef: FireLoopRef<Role>;
-  public controls: ACL[] = new Array<ACL>();
   private controlRef: FireLoopRef<ACL>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private rt: RealTime,
   ) {
-    this.subscriptions.push(
-      this.rt.onReady().subscribe(
-        (fire: any) => {
-          this.userRef = this.rt.FireLoop.ref<Account>(Account);
-          this.subscriptions.push(this.userRef.on('change').subscribe(
-            (users: Account[]) => {
-              this.users = users;
-              this.setDashCards();
-            }));
-          this.roleRef = this.rt.FireLoop.ref<Role>(Role);
-          this.subscriptions.push(this.roleRef.on('change').subscribe(
-            (roles: Role[]) => {
-              this.roles = roles;
-              this.setDashCards();
-            }));
-          this.controlRef = this.rt.FireLoop.ref<ACL>(ACL);
-          this.subscriptions.push(this.controlRef.on('change').subscribe(
-            (controls: ACL[]) => {
-              this.controls = controls;
-              this.setDashCards();
-            }));
+    this.subscriptions.push(this.rt.onReady().subscribe(() => {
+      this.userRef = this.rt.FireLoop.ref<Account>(Account);
+      this.subscriptions.push(this.userRef.on('change').subscribe(
+        (users: Account[]) => {
+          this.userCount = users.length;
+          this.setDashCards();
         }));
+      this.roleRef = this.rt.FireLoop.ref<Role>(Role);
+      this.subscriptions.push(this.roleRef.on('change').subscribe(
+        (roles: Role[]) => {
+          this.roleCount = roles.length;
+          this.setDashCards();
+        }));
+      this.controlRef = this.rt.FireLoop.ref<ACL>(ACL);
+      this.subscriptions.push(this.controlRef.on('change').subscribe(
+        (controls: ACL[]) => {
+          this.controlCount = controls.length;
+          this.setDashCards();
+        }));
+    }));
   }
 
   ngOnDestroy() {
@@ -77,19 +75,19 @@ export class DashboardComponent implements OnDestroy {
       {
         name: 'Users',
         icon: 'users',
-        data: this.users.length,
+        data: this.userCount,
         link: '/admin/users'
       },
       {
         name: 'Roles',
         icon: 'tags',
-        data: this.roles.length,
+        data: this.roleCount,
         link: '/admin/roles'
       },
       {
         name: 'Controls',
         icon: 'ban',
-        data: this.controls.length,
+        data: this.controlCount,
         link: '/admin/controls'
       }
     ]

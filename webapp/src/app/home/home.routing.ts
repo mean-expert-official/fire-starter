@@ -17,8 +17,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
+      { path: '', redirectTo: 'auth', pathMatch: 'full' },
       {
         path: 'auth',
         component: AuthComponent,
@@ -28,6 +27,7 @@ const routes: Routes = [
           { path: 'register', component: RegisterComponent },
         ]
       },
+      { path: 'dashboard', component: DashboardComponent },
       {
         path: 'files',
         component: FileComponent,

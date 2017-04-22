@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../shared/sdk/actions/user'
+import { UserActions } from '../../shared/sdk/actions/user';
 import { FormService } from '../../ui/form/ui-form.service';
 
 @Component({
   selector: 'fire-auth-login',
-  template: `<ui-form [config]="formConfig" [item]="credentials" (action)="submit()"></ui-form>`,
+  template: `
+    <ui-form [config]="formConfig" [item]="credentials" (action)="submit()"></ui-form>
+  `,
 })
 export class LoginComponent {
 
