@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../shared/sdk/actions/user';
+import { UserActions } from '../../store/actions';
 import { FormService } from '../../ui/form/ui-form.service';
 import { Subscription } from 'rxjs/Subscription';
 import { UiService } from '../../ui/ui.service';
 
 @Component({
   selector: 'fire-auth-register',
-  template: `<ui-form #uiForm [config]="formConfig" [item]="registration" (action)="submit()"></ui-form>`,
+  template: `
+    <ui-form #uiForm [config]="formConfig" [item]="registration" (action)="submit()"></ui-form>
+  `,
   styles: []
 })
 export class RegisterComponent {

@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { UiModule } from '../../ui/ui.module';
 
 import { UserComponent } from './user.component';
-import { UserFormComponent } from './user-form.component';
+import { UserFormComponent } from './form/user-form.component';
 
 import { UserService } from './user.service';
 

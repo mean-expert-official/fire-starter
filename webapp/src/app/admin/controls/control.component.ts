@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FireLoopRef, ACL, Role } from '../../shared/sdk/models';
 import { RealTime } from '../../shared/sdk/services/core/real.time';
-import { ControlFormComponent } from './control-form.component';
+import { ControlFormComponent } from './form/control-form.component';
 import { ControlService } from './control.service';
 import { UiService } from '../../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';

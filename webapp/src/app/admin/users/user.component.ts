@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RealTime } from '../../shared/sdk/services/core/real.time';
 import { FireLoopRef, Account } from '../../shared/sdk/models';
-import { UserFormComponent } from './user-form.component';
+import { UserFormComponent } from './form/user-form.component';
 import { UserService } from './user.service';
 import { UiService } from '../../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';

@@ -3,8 +3,8 @@ import { StoreModule, provideStore, INITIAL_STATE  } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
-import { AuthEffects, UserEffects } from '../store/effects';
-import { AuthReducer, UsersReducer } from '../store/reducers';
+import { AuthEffects, UserEffects } from './effects';
+import { AuthReducer, UsersReducer } from './reducers';
 
 @NgModule({
   imports: [
@@ -17,4 +17,4 @@ import { AuthReducer, UsersReducer } from '../store/reducers';
     EffectsModule.run(UserEffects)
   ],
 })
-export class CoreStoreModule { }
+export class FireStoreModule { }

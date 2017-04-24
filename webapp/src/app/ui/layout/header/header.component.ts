@@ -3,7 +3,7 @@ import { UiService } from '../../ui.service';
 import { AccountApi } from '../../../shared/sdk/services';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../../shared/sdk/actions/user';
+import { UserActions } from '../../../store/actions';
 
 @Component({
   selector: 'fire-header',

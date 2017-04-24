@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { UiModule } from '../../ui/ui.module';
 
 import { ControlComponent } from './control.component';
-import { ControlFormComponent } from './control-form.component';
+import { ControlFormComponent } from './form/control-form.component';
 
 import { ControlService } from './control.service';
 

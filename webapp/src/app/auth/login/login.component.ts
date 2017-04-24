@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../shared/sdk/actions/user';
+import { UserActions } from '../../store/actions/user';
 import { FormService } from '../../ui/form/ui-form.service';
+import { AccountApi } from '../../shared/sdk/services';
 
 @Component({
   selector: 'fire-auth-login',
   template: `
-    <ui-form [config]="formConfig" [item]="credentials" (action)="submit()"></ui-form>
+    <ui-form *ngIf="!userApi.isAuthenticated()" [config]="formConfig" [item]="credentials" (action)="login()"></ui-form>
+    <button *ngIf="userApi.isAuthenticated()" class="btn btn-danger btn-block" (click)="logout()">Logout</button>
   `,
 })
 export class LoginComponent {
@@ -20,7 +22,8 @@ export class LoginComponent {
 
   constructor(
     private store: Store<any>,
-    private formService: FormService
+    private formService: FormService,
+    public userApi: AccountApi
   ) {
     this.formConfig = this.getFormConfig();
   }
@@ -53,7 +56,11 @@ export class LoginComponent {
     ];
   }
 
-  submit() {
+  login() {
     this.store.dispatch(new UserActions.login({ credentials: this.credentials }))
+  }
+
+  logout() {
+    this.store.dispatch(new UserActions.logout({}));
   }
 }
