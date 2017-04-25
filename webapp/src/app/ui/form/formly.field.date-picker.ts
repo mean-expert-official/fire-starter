@@ -6,7 +6,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 const now = new Date();
 
 @Component({
-  selector: 'ui-formly-field-datepicker',
+  selector: 'fire-ui-formly-field-datepicker',
   template: `
   <div class="form-group">
     <div class="input-group">
@@ -19,7 +19,7 @@ const now = new Date();
   <pre *ngIf="model">{{ d }}</pre>
   `,
 })
-export class FormlyFieldDatePicker extends Field implements OnChanges {
+export class FormlyFieldDatePickerComponent extends Field implements OnChanges {
   model: any = {};
   formControl: FormControl;
   date: NgbDateStruct;
@@ -40,7 +40,7 @@ export class FormlyFieldDatePicker extends Field implements OnChanges {
       day: now.getDate(),
       month: now.getMonth() + 1,
       year: now.getFullYear()
-    }
+    };
   }
 
 }

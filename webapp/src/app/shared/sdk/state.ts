@@ -17,11 +17,10 @@ export interface LoopbackStateInterface {
 };
 
 export const LoopbackReducer = {
-  loopbackAuth: reducers.LoopbackAuthReducer,
-  users: reducers.UsersReducer
+  loopbackAuth: reducers.LoopbackAuthReducer
 };
 
 export const LoopbackEffects = [
   EffectsModule.run(effects.LoopbackAuthEffects),
-  EffectsModule.run(effects.UserEffects)
+  EffectsModule.run(effects.AccountEffects)
 ];

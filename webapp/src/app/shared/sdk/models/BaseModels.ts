@@ -1,7 +1,11 @@
 /* tslint:disable */
-
+import { Action } from '@ngrx/store';
 import { AccessToken, AccessTokenInterface } from './AccessToken';
 export * from './AccessToken';
+
+export interface LoopbackAction extends Action {
+  meta?: any;
+}
 
 declare var Object: any;
 export interface LoopBackFilter {

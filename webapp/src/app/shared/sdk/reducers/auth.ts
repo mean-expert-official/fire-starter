@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import { Action } from '@ngrx/store';
 import { SDKToken, Account } from '../models';
 import { LoopbackAuthActionTypes } from '../actions/auth';
-import { UserActionTypes } from '../actions/user';
+import { AccountActionTypes } from '../actions/account';
 
 const initialState: SDKToken = {
   id: null,
@@ -25,7 +25,7 @@ const initialState: SDKToken = {
  */
 export function LoopbackAuthReducer(state = initialState, action: Action): SDKToken {
   switch (action.type) {
-    case UserActionTypes.LOGIN_SUCCESS:
+    case AccountActionTypes.LOGIN_SUCCESS:
     case LoopbackAuthActionTypes.SET_TOKEN:
     case LoopbackAuthActionTypes.LOAD_TOKEN_SUCCESS: {
       const token: SDKToken = action.payload;
@@ -43,8 +43,8 @@ export function LoopbackAuthReducer(state = initialState, action: Action): SDKTo
       return updateState;
     }
 
-    case UserActionTypes.LOGOUT_SUCCESS:
-    case UserActionTypes.LOGOUT_FAIL: {
+    case AccountActionTypes.LOGOUT_SUCCESS:
+    case AccountActionTypes.LOGOUT_FAIL: {
       return Object.assign({}, initialState);
     }
 
@@ -73,12 +73,12 @@ export function getLoopbackAuthToken() {
     .select((s) => s.loopbackAuth.id);
 }
 
-export function getLoopbackAuthUser() {
+export function getLoopbackAuthAccount() {
   return (state$: Observable<any>) => state$
     .select((s) => s.loopbackAuth.user);
 }
 
-export function getLoopbackAuthUserId() {
+export function getLoopbackAuthAccountId() {
   return (state$: Observable<any>) => state$
     .select((s) => s.loopbackAuth.userId);
 }

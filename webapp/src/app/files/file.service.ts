@@ -85,13 +85,14 @@ export class FileService implements OnDestroy {
         if (!items.length) {
           return;
         }
-        items.forEach((item: any) => this.handleAction({ type: 'upload', payload: { file: item, uploadContainer: event.payload } }));
+        items.forEach((item: any) =>
+          this.handleAction({ type: 'upload', payload: { file: item, uploadContainer: event.payload } }));
         break;
       case 'getFiles':
         this.subscriptions.push(this.containerApi
           .getFiles(event.payload).subscribe(
           (files: any) => files,
-          (err) => { this.uiService.toastError('Get Files Failed', err.message || err.error.message) }));
+          (err) => { this.uiService.toastError('Get Files Failed', err.message || err.error.message); }));
         break;
       case 'delete':
         this.subscriptions.push(this
@@ -148,7 +149,10 @@ export class FileService implements OnDestroy {
       `,
       confirmButtonText: 'Yes, Delete'
     };
-    this.uiService.alertError(question, () => this.handleAction({ type: 'deleteFile', payload: { container: container, file: file } }), () => { });
+    this.uiService.alertError(
+      question, () =>
+        this.handleAction({ type: 'deleteFile', payload: { container: container, file: file } }), () => {}
+      );
   }
 
   play(file: any) {
@@ -240,12 +244,12 @@ export class FileService implements OnDestroy {
 
   getFiles(container: any): Observable<any> {
     const apiConfig = window['apiConfig'];
-    let filesUrl = [apiConfig.baseUrl, apiConfig.version, 'Containers', container, 'files'].join('/');
+    const filesUrl = [apiConfig.baseUrl, apiConfig.version, 'Containers', container, 'files'].join('/');
     return this.containerApi.getFiles(container);
   }
 
   getFormFields(formType: string): any[] {
-    let fields = [
+    const fields = [
       this.formService.input('name', {
         label: 'Name',
         className: 'col-12',

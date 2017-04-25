@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   template: `
   <div class="row align-items-center justify-content-center">
     <div class="col-12 col-lg-8">
-      <fire-card [icon]="userApi.isAuthenticated() ? 'unlock' : 'lock'" title="Auth Status">
+      <fire-card [icon]="accountApi.isAuthenticated() ? 'unlock' : 'lock'" title="Auth Status">
         <fire-auth-status></fire-auth-status>
       </fire-card>
     </div>
@@ -36,7 +36,7 @@ export class AuthComponent implements OnDestroy {
 
   constructor(
     private uiService: UiService,
-    public userApi: AccountApi,
+    public accountApi: AccountApi,
     public router: Router
   ) {
     this.nav = [
@@ -50,9 +50,9 @@ export class AuthComponent implements OnDestroy {
   }
 
   processLogin(event: any) {
-    this.subscriptions.push(this.userApi.login(event).subscribe(
+    this.subscriptions.push(this.accountApi.login(event).subscribe(
       (token: SDKToken) => {
-        let sidebarNav = this.uiService.getSidebarNav();
+        const sidebarNav = this.uiService.getSidebarNav();
         sidebarNav[1].icon = 'unlock';
         this.uiService.setSidebarNav(sidebarNav);
         this.uiService.toastSuccess('Login Success', 'You have logged in successfully.');
@@ -63,9 +63,9 @@ export class AuthComponent implements OnDestroy {
   }
 
   processLogout(event: any) {
-    this.subscriptions.push(this.userApi.logout().subscribe(
+    this.subscriptions.push(this.accountApi.logout().subscribe(
       () => {
-        let sidebarNav = this.uiService.getSidebarNav();
+        const sidebarNav = this.uiService.getSidebarNav();
         sidebarNav[1].icon = 'lock';
         this.uiService.setSidebarNav(sidebarNav);
         this.uiService.toastSuccess('Logout Success', 'You have logged out successfully');

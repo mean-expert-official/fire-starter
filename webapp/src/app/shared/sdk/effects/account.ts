@@ -12,55 +12,53 @@ import { Injectable, Inject } from '@angular/core';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 
+import { LoopbackAction } from '../models/BaseModels';
 import { BaseLoopbackEffects } from './base';
 
-import { UserActionTypes, UserActions } from '../actions/user';
+import { AccountActionTypes, AccountActions } from '../actions/account';
 import { LoopbackErrorActions } from '../actions/error';
 import { AccountApi } from '../services/index';
 
 @Injectable()
-export class UserEffects extends BaseLoopbackEffects {
+export class AccountEffects extends BaseLoopbackEffects {
   /**
    * @author João Ribeiro <@JonnyBGod> <github:JonnyBGod>
    * @description
-   * User specific actions
+   * Account specific actions
    */
   @Effect()
-  protected login: Observable<Action> = this.actions$
-    .ofType(UserActionTypes.LOGIN)
-    .map(toPayload)
-    .mergeMap((payload) =>
-      this.user.login(payload.credentials, payload.include, payload.rememberMe)
-        .map((response) => new UserActions.loginSuccess(response))
+  protected login: Observable<LoopbackAction> = this.actions$
+    .ofType(AccountActionTypes.LOGIN)
+    .mergeMap((action: LoopbackAction) =>
+      this.account.login(action.payload.credentials, action.payload.include, action.payload.rememberMe)
+        .map((response) => new AccountActions.loginSuccess(response, action.meta))
         .catch((error) => concat(
-          of(new UserActions.loginFail(error)),
-          of(new LoopbackErrorActions.error(error))
+          of(new AccountActions.loginFail(error, action.meta)),
+          of(new LoopbackErrorActions.error(error, action.meta))
         ))
     );
 
   @Effect()
-  protected register: Observable<Action> = this.actions$
-    .ofType(UserActionTypes.REGISTER)
-    .map(toPayload)
-    .mergeMap((payload) =>
-      this.user.create(payload.credentials)
-        .map((response) => new UserActions.registerSuccess(response))
+  protected signup: Observable<LoopbackAction> = this.actions$
+    .ofType(AccountActionTypes.SIGNUP)
+    .mergeMap((action: LoopbackAction) =>
+      this.account.create(action.payload)
+        .map((response) => new AccountActions.signupSuccess(action.payload, response, action.meta))
         .catch((error) => concat(
-          of(new UserActions.registerFail(error)),
-          of(new LoopbackErrorActions.error(error))
+          of(new AccountActions.signupFail(error, action.meta)),
+          of(new LoopbackErrorActions.error(error, action.meta))
         ))
     );
 
   @Effect()
-  protected logout: Observable<Action> = this.actions$
-    .ofType(UserActionTypes.LOGOUT)
-    .map(toPayload)
-    .mergeMap((payload) =>
-      this.user.logout()
-        .map(() => new UserActions.logoutSuccess())
+  protected logout: Observable<LoopbackAction> = this.actions$
+    .ofType(AccountActionTypes.LOGOUT)
+    .mergeMap((action: LoopbackAction) =>
+      this.account.logout()
+        .map(() => new AccountActions.logoutSuccess(action.meta))
         .catch((error) => concat(
-          of(new UserActions.logoutFail()),
-          of(new LoopbackErrorActions.error(error))
+          of(new AccountActions.logoutFail()),
+          of(new LoopbackErrorActions.error(error, action.meta))
         ))
     );
 
@@ -86,8 +84,8 @@ export class UserEffects extends BaseLoopbackEffects {
 
   constructor(
     @Inject(Actions) public actions$: Actions,
-    @Inject(AccountApi) public user: AccountApi
+    @Inject(AccountApi) public account: AccountApi
   ) {
-    super(actions$, user, 'User', UserActionTypes);
+    super(actions$, account, 'Account', AccountActionTypes);
   }
 }

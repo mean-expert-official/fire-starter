@@ -24,6 +24,6 @@ export const LoopbackErrorActions = {
   error: class implements Action {
     public type = LoopbackErrorActionTypes.ERROR;
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
 };

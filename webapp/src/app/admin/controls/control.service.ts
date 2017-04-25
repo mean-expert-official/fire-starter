@@ -55,14 +55,14 @@ export class ControlService {
   }
 
   getFormFields(formType: string, options?: any): any[] {
-    let models = [];
-    let roles = [];
+    const models = [];
+    const roles = [];
     const defaultRoles = ['$authenticated', '$everyone', '$owner', '$unauthenticated'];
     models.push({ label: '*', value: '*' });
     defaultRoles.forEach((role: any) => (roles.push({ label: role, value: role })));
     this.models.forEach((model: any) => (models.push({ label: model, value: model })));
     options.roles.forEach((role: any) => (roles.push({ label: role.name, value: role.name })));
-    let fields = [
+    const fields = [
       this.formService.select('model', {
         label: 'Model',
         className: 'col-12 col-lg-6',

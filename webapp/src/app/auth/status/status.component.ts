@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../shared/sdk/actions/user';
-import { AccountApi } from '../../shared/sdk/services';
+import { AccountActions } from '../../shared/sdk/actions/account';
 
 @Component({
   selector: 'fire-auth-status',
@@ -28,10 +27,10 @@ import { AccountApi } from '../../shared/sdk/services';
 })
 export class StatusComponent {
 
-  public loggedIn: boolean = false;
+  public loggedIn = false;
   public user: any = {};
 
-  constructor(private store: Store<any>, public userApi: AccountApi) {
+  constructor(private store: Store<any>) {
     this.store.select('auth').subscribe(
       (res: any) => {
         if (res.id) {
@@ -45,6 +44,6 @@ export class StatusComponent {
   }
 
   submit() {
-    this.store.dispatch(new UserActions.logout({}));
+    this.store.dispatch(new AccountActions.logout({}));
   }
 }

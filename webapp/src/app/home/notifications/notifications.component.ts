@@ -42,7 +42,7 @@ export class NotificationsComponent {
     { alertType: 'toasty', label: 'Wait', type: 'wait', className: 'primary' },
     { alertType: 'toasty', label: 'Info', type: 'info', className: 'info' },
     { alertType: 'toasty', label: 'Error', type: 'error', className: 'danger' },
-  ]
+  ];
 
   public salButtons = [
     { alertType: 'sal', label: 'Success', type: 'success', className: 'success' },

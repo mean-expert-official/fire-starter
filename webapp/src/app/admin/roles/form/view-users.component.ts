@@ -24,7 +24,9 @@ import { RoleService } from '../role.service';
           <td>{{ row.user.firstName }}</td>
           <td>{{ row.user.lastName }}</td>
           <td>
-            <button type="button" class="btn btn-danger btn-block btn-sm" placement="bottom" ngbTooltip="Delete User" (click)="handleAction({type: 'deleteUserInit', payload: { user: row.user, role: role, mapping: row.mapping } })">
+            <button type="button" class="btn btn-danger btn-block btn-sm" placement="bottom"
+              ngbTooltip="Delete User"
+              (click)="handleAction({type: 'deleteUserInit', payload: { user: row.user, role: role, mapping: row.mapping } })">
               <i class="fa fa-fw fa-trash-o"></i>
             </button>
           </td>

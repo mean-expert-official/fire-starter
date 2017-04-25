@@ -11,7 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       </button>
     </div>
     <div class="modal-body">
-      <ui-form #uiForm [config]="formConfig" [item]="item" (action)="handleAction($event)"></ui-form>
+      <fire-ui-form #uiForm [config]="formConfig" [item]="item" (action)="handleAction($event)"></fire-ui-form>
     </div>
   `,
 })

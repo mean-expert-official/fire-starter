@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../shared/sdk/actions/user'
+import { AccountActions } from '../../shared/sdk/actions/account';
 import { FormService } from '../../ui/form/ui-form.service';
 
 @Component({
   selector: 'fire-auth-login',
-  template: `<ui-form [config]="formConfig" [item]="credentials" (action)="submit()"></ui-form>`,
+  template: `<fire-ui-form [config]="formConfig" [item]="credentials" (action)="submit()"></fire-ui-form>`,
 })
 export class LoginComponent {
 
   public credentials = {
     email: null,
     password: null,
-  }
+  };
 
   public formConfig: {};
 
@@ -52,6 +52,6 @@ export class LoginComponent {
   }
 
   submit() {
-    this.store.dispatch(new UserActions.login({ credentials: this.credentials }))
+    this.store.dispatch(new AccountActions.login({ credentials: this.credentials }));
   }
 }
