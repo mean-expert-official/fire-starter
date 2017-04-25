@@ -98,7 +98,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.create = class implements Action {
     public readonly type = actionTypes['CREATE'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   };
 
   /**
@@ -111,7 +111,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.createSuccess = class implements Action {
     public readonly type = actionTypes['CREATE_SUCCESS'];
 
-    constructor(public payload: T) { }
+    constructor(public payload: T, public meta?: any) { }
   }
   /**
    * @method createFail
@@ -123,7 +123,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.createFail = class implements Action {
     public readonly type = actionTypes['CREATE_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method createMany
@@ -135,7 +135,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.createMany = class implements Action {
     public readonly type = actionTypes['CREATE_MANY'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method createManySuccess
@@ -147,7 +147,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.createManySuccess = class implements Action {
     public readonly type = actionTypes['CREATE_MANY_SUCCESS'];
 
-    constructor(public payload: T[]) { }
+    constructor(public payload: T[], public meta?: any) { }
   }
   /**
    * @method createManyFail
@@ -159,7 +159,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.createManyFail = class implements Action {
     public readonly type = actionTypes['CREATE_MANY_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method findById
@@ -170,8 +170,11 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
    */
   actions.findById = class implements Action {
     public readonly type = actionTypes['FIND_BY_ID'];
+    public payload: {id: any, filter: LoopBackFilter};
 
-    constructor(public payload: {id: any, filter: LoopBackFilter}) { }
+    constructor(id: any, filter: LoopBackFilter, public meta?: any) {
+      this.payload = {id, filter};
+    }
   }
   /**
    * @method findByIdSuccess
@@ -183,7 +186,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.findByIdSuccess = class implements Action {
     public readonly type = actionTypes['FIND_BY_ID_SUCCESS'];
 
-    constructor(public payload: T) { }
+    constructor(public payload: T, public meta?: any) { }
   }
   /**
    * @method findByIdFail
@@ -195,7 +198,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.findByIdFail = class implements Action {
     public readonly type = actionTypes['FIND_BY_ID_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method find
@@ -207,7 +210,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.find = class implements Action {
     public readonly type = actionTypes['FIND'];
 
-    constructor(public payload: LoopBackFilter = {}) { }
+    constructor(public payload: LoopBackFilter = {}, public meta?: any) { }
   }
   /**
    * @method findSuccess
@@ -219,7 +222,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.findSuccess = class implements Action {
     public readonly type = actionTypes['FIND_SUCCESS'];
 
-    constructor(public payload: T[]) { }
+    constructor(public payload: T[], public meta?: any) { }
   }
   /**
    * @method findFail
@@ -231,7 +234,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.findFail = class implements Action {
     public readonly type = actionTypes['FIND_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method findOne
@@ -243,7 +246,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.findOne = class implements Action {
     public readonly type = actionTypes['FIND_ONE'];
 
-    constructor(public payload: LoopBackFilter = {}) { }
+    constructor(public payload: LoopBackFilter = {}, public meta?: any) { }
   }
   /**
    * @method findOneSuccess
@@ -255,7 +258,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.findOneSuccess = class implements Action {
     public readonly type = actionTypes['FIND_ONE_SUCCESS'];
 
-    constructor(public payload: T) { }
+    constructor(public payload: T, public meta?: any) { }
   }
   /**
    * @method findOneFail
@@ -267,7 +270,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.findOneFail = class implements Action {
     public readonly type = actionTypes['FIND_ONE_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method updateAll
@@ -278,8 +281,11 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
    */
   actions.updateAll = class implements Action {
     public readonly type = actionTypes['UPDATE_ALL'];
+    public payload: {where: any, data: any};
 
-    constructor(public payload: {where: any, data: any}) { }
+    constructor(where: any = {}, data: any, public meta?: any) {
+      this.payload = {where, data};
+    }
   }
   /**
    * @method updateAllSuccess
@@ -291,7 +297,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.updateAllSuccess = class implements Action {
     public readonly type = actionTypes['UPDATE_ALL_SUCCESS'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method updateAllFail
@@ -303,7 +309,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.updateAllFail = class implements Action {
     public readonly type = actionTypes['UPDATE_ALL_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method deleteById
@@ -315,7 +321,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.deleteById = class implements Action {
     public readonly type = actionTypes['DELETE_BY_ID'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method deleteByIdSuccess
@@ -327,7 +333,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.deleteByIdSuccess = class implements Action {
     public readonly type = actionTypes['DELETE_BY_ID_SUCCESS'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method deleteByIdFail
@@ -339,7 +345,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.deleteByIdFail = class implements Action {
     public readonly type = actionTypes['DELETE_BY_ID_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method updateAttributes
@@ -350,8 +356,11 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
    */
   actions.updateAttributes = class implements Action {
     public readonly type = actionTypes['UPDATE_ATTRIBUTES'];
+    public payload: {id: any, data: T};
 
-    constructor(public payload: {id: any, data: any}) { }
+    constructor(id: any, data: T, public meta?: any) {
+      this.payload = {id, data};
+    }
   }
   /**
    * @method updateAttributesSuccess
@@ -363,7 +372,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.updateAttributesSuccess = class implements Action {
     public readonly type = actionTypes['UPDATE_ATTRIBUTES_SUCCESS'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method updateAttributesFail
@@ -375,7 +384,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.updateAttributesFail = class implements Action {
     public readonly type = actionTypes['UPDATE_ATTRIBUTES_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method upsert
@@ -387,7 +396,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.upsert = class implements Action {
     public readonly type = actionTypes['UPSERT'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method upsertSuccess
@@ -399,7 +408,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.upsertSuccess = class implements Action {
     public readonly type = actionTypes['UPSERT_SUCCESS'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method upsertFail
@@ -411,7 +420,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.upsertFail = class implements Action {
     public readonly type = actionTypes['UPSERT_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method upsertWithWhere
@@ -422,8 +431,11 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
    */
   actions.upsertWithWhere = class implements Action {
     public readonly type = actionTypes['UPSERT_WITH_WHERE'];
+    public payload: {where: any, data: any};
 
-    constructor(public payload: {where: any, data: any}) { }
+    constructor(where: any = {}, data: any, public meta?: any) {
+      this.payload = {where, data};
+    }
   }
   /**
    * @method upsertWithWhereSuccess
@@ -435,7 +447,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.upsertWithWhereSuccess = class implements Action {
     public readonly type = actionTypes['UPSERT_WITH_WHERE_SUCCESS'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method upsertWithWhereFail
@@ -447,7 +459,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.upsertWithWhereFail = class implements Action {
     public readonly type = actionTypes['UPSERT_WITH_WHERE_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method replaceOrCreate
@@ -459,7 +471,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.replaceOrCreate = class implements Action {
     public readonly type = actionTypes['REPLACE_OR_CREATE'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method replaceOrCreateSuccess
@@ -471,7 +483,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.replaceOrCreateSuccess = class implements Action {
     public readonly type = actionTypes['REPLACE_OR_CREATE_SUCCESS'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method replaceOrCreateFail
@@ -483,7 +495,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.replaceOrCreateFail = class implements Action {
     public readonly type = actionTypes['REPLACE_OR_CREATE_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method replaceById
@@ -494,8 +506,11 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
    */
   actions.replaceById = class implements Action {
     public readonly type = actionTypes['REPLACE_BY_ID'];
+    public payload: {id: any, data: any};
 
-    constructor(public payload: {id: any, data: any}) { }
+    constructor(id: any, data: any = {}, public meta?: any) {
+      this.payload = {id, data};
+    }
   }
   /**
    * @method replaceByIdSuccess
@@ -507,7 +522,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.replaceByIdSuccess = class implements Action {
     public readonly type = actionTypes['REPLACE_BY_ID_SUCCESS'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method replaceByIdFail
@@ -519,7 +534,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.replaceByIdFail = class implements Action {
     public readonly type = actionTypes['REPLACE_BY_ID_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method patchOrCreate
@@ -531,7 +546,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.patchOrCreate = class implements Action {
     public readonly type = actionTypes['PATCH_OR_CREATE'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method patchOrCreateSuccess
@@ -543,7 +558,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.patchOrCreateSuccess = class implements Action {
     public readonly type = actionTypes['PATCH_OR_CREATE_SUCCESS'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method patchOrCreateFail
@@ -555,7 +570,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.patchOrCreateFail = class implements Action {
     public readonly type = actionTypes['PATCH_OR_CREATE_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method patchAttributes
@@ -566,8 +581,11 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
    */
   actions.patchAttributes = class implements Action {
     public readonly type = actionTypes['PATCH_ATTRIBUTES'];
+    public payload: {id: any, data: any};
 
-    constructor(public payload: {id: any, data: any}) { }
+    constructor(id: any, data: any = {}, public meta?: any) {
+      this.payload = {id, data};
+    }
   }
   /**
    * @method patchAttributesSuccess
@@ -579,7 +597,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.patchAttributesSuccess = class implements Action {
     public readonly type = actionTypes['PATCH_ATTRIBUTES_SUCCESS'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
   /**
    * @method patchAttributesFail
@@ -591,7 +609,7 @@ export function BaseLoopbackActionsFactory<T>(modelName: string, actionTypes: an
   actions.patchAttributesFail = class implements Action {
     public readonly type = actionTypes['PATCH_ATTRIBUTES_FAIL'];
 
-    constructor(public payload: any) { }
+    constructor(public payload: any, public meta?: any) { }
   }
 
   return actions;

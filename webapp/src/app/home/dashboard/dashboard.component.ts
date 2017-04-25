@@ -52,7 +52,7 @@ export class DashboardComponent implements OnDestroy {
           this.noteRef = this.rt.FireLoop.ref<Note>(Note);
           this.subscriptions.push(this.noteRef.on('change').subscribe(
             (notes: Note[]) => {
-              this.notes = notes
+              this.notes = notes;
               this.setDashCards();
             }));
         }));
@@ -78,7 +78,7 @@ export class DashboardComponent implements OnDestroy {
         'icon': 'sticky-note-o',
         'data': this.notes.length
       }
-    ]
+    ];
   }
 
 }

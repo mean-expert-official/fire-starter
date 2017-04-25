@@ -19,7 +19,7 @@ export class UploadFormComponent {
   public activeContainer: string;
   private subscriptions: Subscription[] = new Array<Subscription>();
   public uploadUrl: string = null;
-  public hasBaseDropZoneOver: boolean = false;
+  public hasBaseDropZoneOver = false;
 
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;

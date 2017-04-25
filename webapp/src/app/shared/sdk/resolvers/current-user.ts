@@ -5,7 +5,7 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Account } from '../models/Account';
-import { getLoopbackAuthUser } from '../reducers/auth';
+import { getLoopbackAuthAccount } from '../reducers/auth';
 
 @Injectable()
 export class CurrentUserResolver implements Resolve<Account> {
@@ -14,6 +14,6 @@ export class CurrentUserResolver implements Resolve<Account> {
   public resolve(
     route: ActivatedRouteSnapshot
   ): Observable<any> | Promise<any> | any {
-    return this.store.let(getLoopbackAuthUser());
+    return this.store.let(getLoopbackAuthAccount());
   }
 }

@@ -5,10 +5,10 @@ import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AuthComponent } from './auth.component'
-import { UiModule } from '../ui/ui.module'
-import { StatusComponent } from './status/status.component'
-import { AppAuthEffects } from './auth.effects'
+import { AuthComponent } from './auth.component';
+import { UiModule } from '../ui/ui.module';
+import { StatusComponent } from './status/status.component';
+import { AppAuthEffects } from './auth.effects';
 
 @NgModule({
   imports: [

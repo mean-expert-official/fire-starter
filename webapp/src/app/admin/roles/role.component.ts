@@ -28,7 +28,7 @@ export class RoleComponent implements OnDestroy {
     public roleService: RoleService,
     private rt: RealTime,
     private roleApi: RoleApi,
-    private userApi: AccountApi
+    private accountApi: AccountApi
   ) {
     this.subscriptions.push(this.rt.onReady().subscribe((fire: any) => {
       this.roleRef = this.rt.FireLoop.ref<Role>(Role);
@@ -64,13 +64,13 @@ export class RoleComponent implements OnDestroy {
     this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type, options ? options : '');
     switch (type) {
       case 'create':
-        this.modalRef.componentInstance.title = 'Create Role'
+        this.modalRef.componentInstance.title = 'Create Role';
         break;
       case 'update':
-        this.modalRef.componentInstance.title = 'Update Role'
+        this.modalRef.componentInstance.title = 'Update Role';
         break;
       case 'addUser':
-        this.modalRef.componentInstance.title = 'Add User to Role'
+        this.modalRef.componentInstance.title = 'Add User to Role';
         break;
       default:
         console.log('Unknown type', type);
@@ -106,15 +106,15 @@ export class RoleComponent implements OnDestroy {
     this.modalRef.componentInstance.title = `${role.name} Users`;
     this.modalRef.componentInstance.role = role;
     if (role.principals[0]) {
-      let principalList = [];
-      let principals = [];
+      const principalList = [];
+      const principals = [];
       role.principals.forEach((principal: any) => {
         principalList.push({ id: principal.principalId, mapping: principal.id });
       });
       principalList.forEach((principal: any) => {
-        this.subscriptions.push(this.userApi.findById(principal.id).subscribe(
+        this.subscriptions.push(this.accountApi.findById(principal.id).subscribe(
           (user: any) => {
-            principals.push({ user: user, mapping: principal.mapping })
+            principals.push({ user: user, mapping: principal.mapping });
           }));
       });
       this.modalRef.componentInstance.users = principals;
@@ -123,7 +123,7 @@ export class RoleComponent implements OnDestroy {
   }
 
   addUser(role: Role) {
-    let options = {
+    const options = {
       users: this.users,
       roles: this.roles
     };
@@ -192,11 +192,11 @@ export class RoleComponent implements OnDestroy {
         ));
         break;
       case 'addUser':
-        let mapping = {
+        const mapping = {
           principalType: 'USER',
           principalId: event.payload.user,
           roleId: event.payload.id
-        }
+        };
         this.subscriptions.push(this.roleApi.createPrincipals(event.payload.id, mapping).subscribe(
           () => {
             this.refresh();

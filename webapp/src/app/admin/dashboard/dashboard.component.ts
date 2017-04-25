@@ -92,7 +92,7 @@ export class DashboardComponent implements OnDestroy {
         data: this.controls.length,
         link: '/admin/controls'
       }
-    ]
+    ];
   }
 
 }

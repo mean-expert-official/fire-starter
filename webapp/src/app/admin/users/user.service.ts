@@ -38,7 +38,7 @@ export class UserService {
   }
 
   getFormFields(formType: string) {
-    let fields = [
+    const fields = [
       this.formService.email('email', {
         label: 'Email',
         className: 'col-12',

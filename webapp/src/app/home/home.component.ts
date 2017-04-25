@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../shared/sdk/actions/user';
+import { AccountActions } from '../shared/sdk/actions/account';
 import { AccountApi } from '../shared/sdk/services';
 import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -18,7 +18,7 @@ export class HomeComponent implements OnDestroy {
 
   constructor(
     private uiService: UiService,
-    private userApi: AccountApi,
+    private accountApi: AccountApi,
     private store: Store<any>,
   ) {
     this.subscriptions.push(this.store.select('auth').subscribe(
@@ -63,10 +63,10 @@ export class HomeComponent implements OnDestroy {
   }
 
   getAuthIcon() {
-    if (this.userApi.isAuthenticated()) {
-      return 'unlock'
+    if (this.accountApi.isAuthenticated()) {
+      return 'unlock';
     } else {
-      return 'lock'
+      return 'lock';
     }
   }
 }

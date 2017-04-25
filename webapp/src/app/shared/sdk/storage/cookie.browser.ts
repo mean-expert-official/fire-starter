@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-export interface CookieInterface { [key: string]: any }
+export interface CookieInterface { [key: string]: any; }
 /**
 * @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@mean-expert-official>
 * @module CookieBrowser
@@ -23,7 +23,7 @@ export class CookieBrowser {
    **/
   get(key: string): any {
     if (!this.cookies[key]) {
-      let cookie = window.document
+      const cookie = window.document
                          .cookie.split('; ')
                          .filter((item: any) => item.split('=')[0] === key).pop();
       if (!cookie) {
@@ -46,7 +46,7 @@ export class CookieBrowser {
    **/
   set(key: string, value: any, expires?: Date): void {
     this.cookies[key] = value;
-    let cookie = `${key}=${value}; path=/${expires ? `; expires=${ expires.toUTCString() }` : ''}`;
+    const cookie = `${key}=${value}; path=/${expires ? `; expires=${ expires.toUTCString() }` : ''}`;
     window.document.cookie = cookie;
   }
   /**

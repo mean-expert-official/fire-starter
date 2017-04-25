@@ -101,8 +101,8 @@ export class RoleService {
           }),
         ];
       case 'addUser':
-        let roles = [];
-        let users = [];
+        const roles = [];
+        const users = [];
         options.roles.forEach((role: any) => (roles.push({ label: role.name, value: role.id })));
         options.users.forEach((user: any) => (users.push({ label: user.email, value: user.id })));
         return [

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Note } from '../../../shared/sdk/models/Note'
+import { Note } from '../../../shared/sdk/models/Note';
 
 @Component({
   selector: 'fire-note-form',
@@ -17,6 +17,7 @@ import { Note } from '../../../shared/sdk/models/Note'
   `,
 })
 export class FormComponent {
+  @Output() create = new EventEmitter();
 
   public note: Note = new Note();
 
@@ -24,6 +25,4 @@ export class FormComponent {
     this.create.emit(this.note);
     this.note = new Note();
   }
-
-  @Output() create = new EventEmitter();
 }

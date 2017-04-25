@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnChanges } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { Container } from '../shared/sdk/models';
 import { FileService } from './file.service';
 import { UiService, NavItem } from '../ui/ui.service';

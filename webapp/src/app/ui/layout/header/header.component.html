@@ -32,14 +32,14 @@
               <i class="fa fa-fw fa-home"
                  aria-hidden="true"></i> &nbsp; Home
             </a>
-            <a *ngIf="userApi.isAuthenticated()"
+            <a *ngIf="accountApi.isAuthenticated()"
                class="dropdown-item text-center"
                routerLink="/admin"
                routerLinkActive="active">
               <i class="fa fa-fw fa-lock"
                  aria-hidden="true"></i> &nbsp; Admin
             </a>
-            <div *ngIf="userApi.isAuthenticated()"
+            <div *ngIf="accountApi.isAuthenticated()"
                  class="logout-section">
               <div class="dropdown-divider"></div>
               <a class="dropdown-item text-center"

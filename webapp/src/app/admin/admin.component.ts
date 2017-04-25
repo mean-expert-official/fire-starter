@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../shared/sdk/actions/user';
+import { AccountActions } from '../shared/sdk/actions/account';
 import { AccountApi } from '../shared/sdk/services';
 import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -11,14 +11,14 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./admin.component.scss']
 
 })
-export class AdminComponent {
+export class AdminComponent implements OnDestroy {
   private authIcon;
   private sidebarNav: NavItem[];
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private uiService: UiService,
-    private userApi: AccountApi,
+    private accountApi: AccountApi,
     private store: Store<any>,
   ) {
     this.uiService.setSidebarNav([
@@ -50,10 +50,10 @@ export class AdminComponent {
   }
 
   getAuthIcon() {
-    if (this.userApi.isAuthenticated()) {
-      return 'unlock'
+    if (this.accountApi.isAuthenticated()) {
+      return 'unlock';
     } else {
-      return 'lock'
+      return 'lock';
     }
   }
 }

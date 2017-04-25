@@ -4,8 +4,8 @@ import { ToastyModule } from 'ng2-toasty';
 
 import { UiModule } from './ui/ui.module';
 import { UiService } from './ui/ui.service';
-import { CoreModule } from "./core/core.module";
-import { ShellComponent } from "./core/shell/shell.component";
+import { CoreModule } from './core/core.module';
+import { ShellComponent } from './core/shell/shell.component';
 
 @NgModule({
   imports: [ BrowserModule, ToastyModule.forRoot(), UiModule, CoreModule ],

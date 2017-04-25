@@ -14,7 +14,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { LayoutComponent } from './layout/layout.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { UiFormComponent } from './form/ui-form.component';
-import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
+import { FormlyFieldDatePickerComponent } from './form/formly.field.date-picker';
 
 @NgModule({
   imports: [
@@ -35,7 +35,7 @@ import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
     LayoutComponent,
     SidebarComponent,
     UiFormComponent,
-    FormlyFieldDatePicker,
+    FormlyFieldDatePickerComponent,
   ],
   exports: [
     CardComponent,
