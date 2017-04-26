@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2BreadcrumbModule } from 'ng2-breadcrumb/ng2-breadcrumb';
 
 import { BodyComponent } from './layout/body/body.component';
-import { CardComponent } from './card/card.component';
+import { FireCardComponent } from './components/card/fire-card.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -29,7 +29,7 @@ import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
   ],
   declarations: [
     BodyComponent,
-    CardComponent,
+    FireCardComponent,
     FooterComponent,
     HeaderComponent,
     LayoutComponent,
@@ -38,7 +38,7 @@ import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
     FormlyFieldDatePicker,
   ],
   exports: [
-    CardComponent,
+    FireCardComponent,
     LayoutComponent,
     UiFormComponent,
     FormlyModule,

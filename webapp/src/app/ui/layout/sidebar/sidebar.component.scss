@@ -4,7 +4,7 @@
 .sidebar-wrapper {
   background: transparent radial-gradient(circle farthest-side at right bottom, $brand-primary 5%, $brand-warning 25%, lighten($brand-danger, 15%) 80%, darken($brand-danger, 3%) 98%) repeat scroll 0 0;
   border-right: 2px solid $brand-primary;
-  box-shadow: 1px 0 5px -1px rgba(0, 0, 0, 0.7);
+  box-shadow: 1px 0 3px -1px rgba(0, 0, 0, 0.7);
   position: fixed;
   width: 64px;
   height: 100%;

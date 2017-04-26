@@ -1,36 +1,34 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UiService } from '../../ui/ui.service';
+import { UiService } from '../../../ui/ui.service';
 
 @Component({
   selector: 'fire-notifications',
   template: `
-    <fire-card title="Notifications" icon="comments-o">
-      <div class="row">
-        <div class="col-12 mb-3">
-          <h4>Toasty</h4>
-          <hr>
-          <div class="row align-items-center justify-content-center">
-            <div *ngFor="let button of toastyButtons" class="col-12 col-md-6 col-lg-4">
-              <button type="button" class="btn btn-block btn-{{button.className}} mb-3" (click)="onClickService(button)">
-                {{button.label}}
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <h4>SweetAlert2</h4>
-          <hr>
-          <div class="row align-items-center justify-content-center">
-            <div *ngFor="let button of salButtons" class="col-12 col-md-6 col-lg-4">
-              <button type="button" class="btn btn-block btn-{{button.className}} mb-3" (click)="onClickService(button)">
-                {{button.label}}
-              </button>
-            </div>
+    <div class="row">
+      <div class="col-12 mb-3">
+        <h4>Toasty</h4>
+        <hr>
+        <div class="row align-items-center justify-content-center">
+          <div *ngFor="let button of toastyButtons" class="col-12 col-md-6 col-lg-4">
+            <button type="button" class="btn btn-block btn-{{button.className}} mb-3" (click)="onClickService(button)">
+              {{button.label}}
+            </button>
           </div>
         </div>
       </div>
-    </fire-card>
+      <div class="col-12">
+        <h4>SweetAlert2</h4>
+        <hr>
+        <div class="row align-items-center justify-content-center">
+          <div *ngFor="let button of salButtons" class="col-12 col-md-6 col-lg-4">
+            <button type="button" class="btn btn-block btn-{{button.className}} mb-3" (click)="onClickService(button)">
+              {{button.label}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   `,
   styles: []
 })
