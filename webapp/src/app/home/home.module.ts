@@ -9,7 +9,7 @@ import { UiModule } from '../ui/ui.module';
 import { AuthModule } from '../auth/auth.module';
 
 import { TodoModule } from './todo/todo.module';
-import { NotificationsModule } from './notifications/notifications.module';
+import { UiDemoModule } from './ui/ui-demo.module';
 import { NoteModule } from './note/note.module';
 import { FileModule } from '../files/file.module';
 
@@ -21,7 +21,7 @@ import { FileModule } from '../files/file.module';
     AuthModule,
     TodoModule,
     NoteModule,
-    NotificationsModule,
+    UiDemoModule,
     FileModule,
     HomeRoutingModule
   ],

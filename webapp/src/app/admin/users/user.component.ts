@@ -34,6 +34,7 @@ export class UserComponent implements OnDestroy {
           }).subscribe(
             (users: Account[]) => {
               this.users = users;
+              console.log(users)
             }));
         }));
   }

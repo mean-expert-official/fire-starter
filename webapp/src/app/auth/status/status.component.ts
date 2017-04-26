@@ -34,6 +34,6 @@ export class StatusComponent implements OnDestroy {
   }
 
   constructor(private store: Store<any>, public userApi: AccountApi) {
-    this.store.select('auth').subscribe(a => this.auth = a);
+    this.subscriptions.push(this.store.select('auth').subscribe(a => this.auth = a));
   }
 }

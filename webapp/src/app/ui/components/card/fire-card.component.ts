@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NavItem } from '../ui.service';
+import { NavItem } from '../../ui.service';
 
 @Component({
   selector: 'fire-card',
@@ -45,7 +45,7 @@ import { NavItem } from '../ui.service';
     </div>
   `,
 })
-export class CardComponent {
+export class FireCardComponent {
 
   @Input() icon;
   @Input() title;
