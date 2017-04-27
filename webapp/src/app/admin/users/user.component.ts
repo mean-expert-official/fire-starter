@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RealTime } from '../../shared/sdk/services/core/real.time';
-import { FireLoopRef, Account } from '../../shared/sdk/models';
+import { AccountApi } from '../../shared/sdk/services';
+import { Account } from '../../shared/sdk/models';
 import { UserFormComponent } from './form/user-form.component';
 import { UserService } from './user.service';
 import { UiService } from '../../ui/ui.service';
@@ -15,33 +15,29 @@ export class UserComponent implements OnDestroy {
 
   private modalRef;
   public users: Account[] = new Array<Account>();
-  private userRef: FireLoopRef<Account>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
     public uiService: UiService,
     public userService: UserService,
-    private rt: RealTime,
+    public userApi: AccountApi,
   ) {
-    this.subscriptions.push(
-      this.rt.onReady().subscribe(
-        () => {
-          this.userRef = this.rt.FireLoop.ref<Account>(Account);
-          this.subscriptions.push(this.userRef.on('change', {
-            include: 'roles',
-            order: 'email ASC'
-          }).subscribe(
-            (users: Account[]) => {
-              this.users = users;
-              console.log(users)
-            }));
-        }));
+    this.refresh();
   }
 
   ngOnDestroy() {
-    this.userRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
+
+  refresh() {
+    this.subscriptions.push(this.userApi.find({
+      include: 'roles',
+      order: 'email ASC'
+    }).subscribe(
+      (users: Account[]) => {
+        this.users = users;
+      }));
   }
 
   showDialog(type, item) {
@@ -76,8 +72,9 @@ export class UserComponent implements OnDestroy {
   handleAction(event) {
     switch (event.type) {
       case 'create':
-        this.subscriptions.push(this.userRef.create(event.payload).subscribe(
+        this.subscriptions.push(this.userApi.create(event.payload).subscribe(
           () => {
+            this.refresh();
             this.modalRef.close();
             this.uiService.toastSuccess('User Created', 'The User was created successfully.');
           }, (err) => {
@@ -87,8 +84,9 @@ export class UserComponent implements OnDestroy {
         ));
         break;
       case 'update':
-        this.subscriptions.push(this.userRef.upsert(event.payload).subscribe(
+        this.subscriptions.push(this.userApi.upsert(event.payload).subscribe(
           () => {
+            this.refresh();
             this.modalRef.close();
             this.uiService.toastSuccess('User Updated', 'The User was updated successfully.');
           }, (err) => {
@@ -98,8 +96,9 @@ export class UserComponent implements OnDestroy {
         ));
         break;
       case 'delete':
-        this.subscriptions.push(this.userRef.remove(event.payload).subscribe(
+        this.subscriptions.push(this.userApi.deleteById(event.payload.id).subscribe(
           () => {
+            this.refresh();
             this.uiService.toastSuccess('User Deleted', 'The User was deleted successfully.');
           },
           (err) => {

@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FireLoopRef, ACL, Role } from '../../shared/sdk/models';
-import { RealTime } from '../../shared/sdk/services/core/real.time';
+import { ACL, Role } from '../../shared/sdk/models';
+import { ACLApi, RoleApi } from '../../shared/sdk/services';
 import { ControlFormComponent } from './form/control-form.component';
 import { ControlService } from './control.service';
 import { UiService } from '../../ui/ui.service';
@@ -15,35 +15,32 @@ export class ControlComponent implements OnDestroy {
 
   private modalRef;
   public controls: ACL[] = new Array<ACL>();
-  private controlRef: FireLoopRef<ACL>;
   public roles: Role[] = new Array<Role>();
-  private roleRef: FireLoopRef<Role>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
     public uiService: UiService,
     public controlService: ControlService,
-    private rt: RealTime,
+    public controlApi: ACLApi,
+    public roleApi: RoleApi,
   ) {
-    this.subscriptions.push(
-      this.rt.onReady().subscribe(
-        (fire: any) => {
-          this.controlRef = this.rt.FireLoop.ref<ACL>(ACL);
-          this.subscriptions.push(this.controlRef.on('change').subscribe(
-            (controls: ACL[]) => {
-              this.controls = controls;
-            }));
-          this.roleRef = this.rt.FireLoop.ref<Role>(Role);
-          this.subscriptions.push(this.roleRef.on('change').subscribe(
-            (roles: Role[]) => {
-              this.roles = roles;
-            }));
-        }));
+    this.refresh();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
+
+  refresh() {
+    this.subscriptions.push(this.controlApi.find().subscribe(
+      (controls: ACL[]) => {
+        this.controls = controls;
+      }));
+    this.subscriptions.push(this.roleApi.find().subscribe(
+      (roles: Role[]) => {
+        this.roles = roles;
+      }));
   }
 
   showDialog(type, item, options?) {
@@ -79,8 +76,9 @@ export class ControlComponent implements OnDestroy {
   handleAction(event) {
     switch (event.type) {
       case 'create':
-        this.subscriptions.push(this.controlRef.create(event.payload).subscribe(
+        this.subscriptions.push(this.controlApi.create(event.payload).subscribe(
           () => {
+            this.refresh();
             this.modalRef.close();
             this.uiService.toastSuccess('Control Created', 'The Control was created successfully.');
           },
@@ -91,8 +89,9 @@ export class ControlComponent implements OnDestroy {
         ));
         break;
       case 'update':
-        this.subscriptions.push(this.controlRef.upsert(event.payload).subscribe(
+        this.subscriptions.push(this.controlApi.upsert(event.payload).subscribe(
           () => {
+            this.refresh();
             this.modalRef.close();
             this.uiService.toastSuccess('Control Updated', 'The Control was updated successfully.');
           },
@@ -103,8 +102,9 @@ export class ControlComponent implements OnDestroy {
         ));
         break;
       case 'delete':
-        this.subscriptions.push(this.controlRef.remove(event.payload).subscribe(
+        this.subscriptions.push(this.controlApi.deleteById(event.payload.id).subscribe(
           () => {
+            this.refresh();
             this.uiService.toastSuccess('Control Deleted', 'The Control was deleted successfully.');
           },
           (err) => {

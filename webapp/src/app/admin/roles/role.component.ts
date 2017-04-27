@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FireLoopRef, Role, Account } from '../../shared/sdk/models';
-import { RealTime, RoleApi, AccountApi } from '../../shared/sdk/services';
+import { Role, Account } from '../../shared/sdk/models';
+import { RoleApi, AccountApi } from '../../shared/sdk/services';
 import { RoleFormComponent } from './form/role-form.component';
 import { ViewUsersComponent } from './form/view-users.component';
 import { RoleService } from './role.service';
@@ -17,38 +17,32 @@ export class RoleComponent implements OnDestroy {
 
   private modalRef;
   public roles: Role[] = new Array<Role>();
-  private roleRef: FireLoopRef<Role>;
   public users: Account[] = new Array<Account>();
-  private userRef: FireLoopRef<Account>;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
     public uiService: UiService,
     public roleService: RoleService,
-    private rt: RealTime,
-    private roleApi: RoleApi,
-    private userApi: AccountApi
+    public roleApi: RoleApi,
+    public userApi: AccountApi
   ) {
-    this.subscriptions.push(this.rt.onReady().subscribe((fire: any) => {
-      this.roleRef = this.rt.FireLoop.ref<Role>(Role);
-      this.refresh();
-      this.userRef = this.rt.FireLoop.ref<Account>(Account);
-      this.subscriptions.push(this.userRef.on('change').subscribe(
-        (users: Account[]) => {
-          this.users = users;
-        }));
-    }));
+    this.refresh();
   }
 
   ngOnDestroy() {
-    this.roleRef.dispose();
-    this.userRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
   refresh(): void {
-    this.subscriptions.push(this.roleRef.on('change', {
+    this.subscriptions.push(this.userApi.find({
+      order: 'email ASC',
+      include: 'roles'
+    }).subscribe(
+      (users: Account[]) => {
+        this.users = users;
+      }));
+    this.subscriptions.push(this.roleApi.find({
       order: 'name ASC',
       include: 'principals'
     }).subscribe(
@@ -81,6 +75,7 @@ export class RoleComponent implements OnDestroy {
 
   create() {
     this.showDialog('create', new Role());
+    this.refresh();
   }
 
   update(role: Role) {
@@ -133,8 +128,9 @@ export class RoleComponent implements OnDestroy {
   handleAction(event) {
     switch (event.type) {
       case 'create':
-        this.subscriptions.push(this.roleRef.create(event.payload).subscribe(
+        this.subscriptions.push(this.roleApi.create(event.payload).subscribe(
           () => {
+            this.refresh();
             this.modalRef.close();
             this.uiService.toastSuccess('Role Created', 'The Role was created successfully.');
           },
@@ -145,8 +141,9 @@ export class RoleComponent implements OnDestroy {
         ));
         break;
       case 'update':
-        this.subscriptions.push(this.roleRef.upsert(event.payload).subscribe(
+        this.subscriptions.push(this.roleApi.upsert(event.payload).subscribe(
           () => {
+            this.refresh();
             this.modalRef.close();
             this.uiService.toastSuccess('Role Updated', 'The Role was updated successfully.');
           },
@@ -157,8 +154,9 @@ export class RoleComponent implements OnDestroy {
         ));
         break;
       case 'delete':
-        this.subscriptions.push(this.roleRef.remove(event.payload).subscribe(
+        this.subscriptions.push(this.roleApi.deleteById(event.payload.id).subscribe(
           () => {
+            this.refresh();
             this.uiService.toastSuccess('Role Deleted', 'The Role was deleted successfully.');
           },
           (err) => {
@@ -182,9 +180,9 @@ export class RoleComponent implements OnDestroy {
       case 'deleteUser':
         this.subscriptions.push(this.roleApi.destroyByIdPrincipals(event.payload.role.id, event.payload.mapping).subscribe(
           () => {
+            this.refresh();
             this.modalRef.close();
             this.uiService.toastSuccess('User Deleted', 'The user was deleted successfully.');
-            this.refresh();
           },
           (err) => {
             this.uiService.toastError('Delete User Failed', err.message || err.error.message);
@@ -196,7 +194,7 @@ export class RoleComponent implements OnDestroy {
           principalType: 'USER',
           principalId: event.payload.user,
           roleId: event.payload.id
-        }
+        };
         this.subscriptions.push(this.roleApi.createPrincipals(event.payload.id, mapping).subscribe(
           () => {
             this.refresh();

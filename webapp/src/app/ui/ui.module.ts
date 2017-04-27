@@ -43,6 +43,7 @@ import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
     UiFormComponent,
     FormlyModule,
     FormlyBootstrapModule,
+    NgbModule
   ],
   providers: [
 
