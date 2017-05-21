@@ -6,6 +6,7 @@ import { UiModule } from '../../ui/ui.module';
 
 import { ControlComponent } from './control.component';
 import { ControlFormComponent } from './form/control-form.component';
+import { ControlListComponent } from './list/control-list.component';
 
 import { ControlService } from './control.service';
 
@@ -18,6 +19,7 @@ import { ControlService } from './control.service';
   declarations: [
     ControlComponent,
     ControlFormComponent,
+    ControlListComponent,
   ],
   entryComponents: [
     ControlFormComponent,

@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { UiService } from '../../ui.service';
-import { AccountApi } from '../../../shared/sdk/services';
+import { AccountApi } from '../../../sdk/services';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../../store/actions';
+import { AccountActions } from '../../../sdk/actions';
 
 @Component({
   selector: 'fire-header',
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnDestroy {
   public appName = 'Fireloop Starter';
 
   public logout() {
-    this.store.dispatch(new UserActions.logout({}));
+    this.store.dispatch(new AccountActions.logout({}));
   }
 
 }

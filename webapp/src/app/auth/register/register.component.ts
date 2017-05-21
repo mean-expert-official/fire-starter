@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../store/actions';
-import { FormService } from '../../ui/form/ui-form.service';
+import { AccountActions } from '../../sdk/actions';
+import { FireFormService } from '../../ui/components/form/fire-form.service';
 import { Subscription } from 'rxjs/Subscription';
 import { UiService } from '../../ui/ui.service';
 
 @Component({
   selector: 'fire-auth-register',
   template: `
-    <ui-form #uiForm [config]="formConfig" [item]="registration" (action)="submit()"></ui-form>
+    <fire-form [config]="formConfig" [item]="registration" (action)="submit()"></fire-form>
   `,
   styles: []
 })
@@ -22,13 +22,13 @@ export class RegisterComponent {
     password: null,
     firstName: null,
     lastName: null,
-  }
+  };
 
   public formConfig: {};
 
   constructor(
     private store: Store<any>,
-    private formService: FormService,
+    private formService: FireFormService,
     private uiService: UiService
   ) {
     this.formConfig = this.getFormConfig();
@@ -78,7 +78,7 @@ export class RegisterComponent {
 
   submit() {
     this.registration.username = this.registration.email;
-    this.store.dispatch(new UserActions.register({ credentials: this.registration }));
+    this.store.dispatch(new AccountActions.signup(this.registration));
   }
 
 }

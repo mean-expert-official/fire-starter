@@ -4,15 +4,22 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'fire-control-form',
   template: `
-    <div class="modal-header bg-primary">
-      <h4 class="modal-title">{{ title }}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <ui-form #uiForm [config]="formConfig" [item]="item" (action)="handleAction($event)"></ui-form>
-    </div>
+  <div class="modal-header bg-primary">
+    <h4 class="modal-title">{{ title }}</h4>
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="handleAction({ type: 'cancel' })">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <fire-form *ngIf="formConfig"
+               [config]="formConfig"
+               [item]="item"
+               (action)="handleAction($event)">
+    </fire-form>
+  </div>
   `,
 })
 export class ControlFormComponent {

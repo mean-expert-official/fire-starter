@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../shared/sdk/actions/user';
-import { AccountApi } from '../shared/sdk/services';
 import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
+import { UserActions, RoleActions, ControlActions } from './state/admin.state';
 
 @Component({
   selector: 'fire-admin',
@@ -18,7 +17,6 @@ export class AdminComponent {
 
   constructor(
     private uiService: UiService,
-    private userApi: AccountApi,
     private store: Store<any>,
   ) {
     this.uiService.setSidebarNav([
@@ -43,17 +41,14 @@ export class AdminComponent {
         'icon': 'ban'
       },
     ]);
+
+    this.store.dispatch(new UserActions.readUsers({ include: 'roles' }));
+    this.store.dispatch(new RoleActions.readRoles({ include: 'principals' }));
+    this.store.dispatch(new ControlActions.readControls());
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
-  getAuthIcon() {
-    if (this.userApi.isAuthenticated()) {
-      return 'unlock'
-    } else {
-      return 'lock'
-    }
-  }
 }

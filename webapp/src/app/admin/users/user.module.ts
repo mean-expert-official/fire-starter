@@ -6,6 +6,8 @@ import { UiModule } from '../../ui/ui.module';
 
 import { UserComponent } from './user.component';
 import { UserFormComponent } from './form/user-form.component';
+import { UserListComponent } from './list/user-list.component';
+import { UserRoleListComponent } from './list/user-role-list.component';
 
 import { UserService } from './user.service';
 
@@ -18,6 +20,8 @@ import { UserService } from './user.service';
   declarations: [
     UserComponent,
     UserFormComponent,
+    UserListComponent,
+    UserRoleListComponent,
   ],
   entryComponents: [
     UserFormComponent,

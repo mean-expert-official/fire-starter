@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Container } from '../shared/sdk/models';
-import { RealTime, ContainerApi } from '../shared/sdk/services';
+import { Container } from '../sdk/models';
+import { RealTime, ContainerApi } from '../sdk/services';
 import { Subscription } from 'rxjs/Subscription';
-import { FormService } from '../ui/form/ui-form.service';
+import { FireFormService } from '../ui/components/form/fire-form.service';
 import { CardButton } from '../ui/ui.service';
 import { Observable } from 'rxjs/Observable';
 import { sortBy, split } from 'lodash';
@@ -27,7 +27,7 @@ export class FileService implements OnDestroy {
   private modalRef: any;
 
   constructor(
-    private formService: FormService,
+    private formService: FireFormService,
     public containerApi: ContainerApi,
     public uiService: UiService,
     private modal: NgbModal,

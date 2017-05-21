@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "./node_modules/.bin/ng",
-    "dev": "ng serve --progress false --proxy-config proxy.conf.json",
+    "dev": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod --output-path ../api/dist",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/cli": "^1.0.1",
+    "@angular/cli": "^1.0.4",
     "@angular/common": "^4.1.0",
     "@angular/compiler": "^4.1.0",
     "@angular/compiler-cli": "^4.1.0",
@@ -56,7 +56,7 @@
     "ngrx-store-freeze": "^0.1.6",
     "node-sass": "^4.5.2",
     "protractor": "~5.1.1",
-    "reselect": "^3.0.0",
+    "reselect": "^3.0.1",
     "rxjs": "^5.3.0",
     "socket.io-client": "^1.7.3",
     "sweetalert2": "^6.6.2",

@@ -1,119 +1,120 @@
-import { Component, OnDestroy } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ACL, Role } from '../../shared/sdk/models';
-import { ACLApi, RoleApi } from '../../shared/sdk/services';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
+import { Store, State } from '@ngrx/store';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ACL, Role, Account } from '../../sdk';
 import { ControlFormComponent } from './form/control-form.component';
 import { ControlService } from './control.service';
 import { UiService } from '../../ui/ui.service';
-import { Subscription } from 'rxjs/Subscription';
+import { ControlActions } from '../state/admin.state';
+import * as Controls from '../state/reducers/control.reducers';
 
 @Component({
   selector: 'fire-control',
-  templateUrl: './control.component.html',
+  template: `
+  <fire-card icon="ban"
+             cardTitle="Controls"
+             [createButton]="controlService.getCardButtons()"
+             [payload]="roles | async"
+             (action)="handleAction($event)">
+    <fire-control-list #fcl
+                       *ngIf="controls"
+                       [controls]="controls | async"
+                       [roles]="roles | async"
+                       (action)="handleAction($event)">
+    </fire-control-list>
+  </fire-card>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlComponent implements OnDestroy {
 
+  public admin: Observable<any>;
+  public controls: Observable<any>;
+  public roles: Observable<any>;
   private modalRef;
-  public controls: ACL[] = new Array<ACL>();
-  public roles: Role[] = new Array<Role>();
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
     public uiService: UiService,
     public controlService: ControlService,
-    public controlApi: ACLApi,
-    public roleApi: RoleApi,
+    private store: Store<any>,
   ) {
-    this.refresh();
+    this.admin = store.select('admin');
+    this.controls = this.admin.map((a) => {
+      return a.controls.ids.map((id) => a.controls.entities[id]);
+    });
+    this.roles = this.admin.map((a) => {
+      return a.roles.ids.map((id) => a.roles.entities[id]);
+    });
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
-  refresh() {
-    this.subscriptions.push(this.controlApi.find().subscribe(
-      (controls: ACL[]) => {
-        this.controls = controls;
-      }));
-    this.subscriptions.push(this.roleApi.find().subscribe(
-      (roles: Role[]) => {
-        this.roles = roles;
-      }));
-  }
-
-  showDialog(type, item, options?) {
-    this.modalRef = this.modal.open(ControlFormComponent, { size: 'lg' });
-    this.modalRef.componentInstance.item = item;
-    this.modalRef.componentInstance.formConfig = this.controlService.getFormConfig(type, options);
-    this.modalRef.componentInstance.title = (type === 'create') ? 'Create Control' : 'Update Control';
+  showDialog(type: any, item: any) {
+    switch (type) {
+      case 'create':
+        console.log(item);
+        this.modalRef = this.modal.open(ControlFormComponent, { size: 'sm' });
+        this.modalRef.componentInstance.item = item.control;
+        this.modalRef.componentInstance.formConfig = this.controlService.getFormConfig(type, item);
+        this.modalRef.componentInstance.title = 'Create Control';
+        break;
+      case 'update':
+        this.modalRef = this.modal.open(ControlFormComponent, { size: 'sm' });
+        this.modalRef.componentInstance.item = item.control;
+        this.modalRef.componentInstance.formConfig = this.controlService.getFormConfig(type, item);
+        this.modalRef.componentInstance.title = 'Update Control';
+        break;
+      default:
+        console.log('Unknown Type', type);
+        break;
+    }
     this.subscriptions.push(this.modalRef.componentInstance.action.subscribe(event => this.handleAction(event)));
   }
 
-  create() {
-    this.showDialog('create', new ACL(), { roles: this.roles });
-  }
-
-  update(control: ACL) {
-    this.showDialog('update', control, { roles: this.roles });
-  }
-
-  delete(control: ACL) {
-    const question = {
-      title: 'Delete Control',
-      html: `
-        <p class="lead">Are you sure you want to delete ACL
-          <span class="font-weight-bold font-italic">${control.id}</span>?
-        </p>
-      `,
-      confirmButtonText: 'Yes, Delete'
-    };
-    this.uiService.alertError(question, () => this.handleAction({ type: 'delete', payload: control }), () => { });
-  }
-
-
   handleAction(event) {
     switch (event.type) {
+      case 'cancel':
+        this.modalRef.close();
+        break;
+      case 'initCreate':
+        this.showDialog('create', { roles: event.payload, control: new ACL() });
+        break;
       case 'create':
-        this.subscriptions.push(this.controlApi.create(event.payload).subscribe(
-          () => {
-            this.refresh();
-            this.modalRef.close();
-            this.uiService.toastSuccess('Control Created', 'The Control was created successfully.');
-          },
-          (err) => {
-            this.modalRef.close();
-            this.uiService.toastError('Create Control Failed', err.message || err.error.message);
-          },
-        ));
+        this.store.dispatch(new ControlActions.createControl(event.payload));
+        this.modalRef.close();
+        break;
+      case 'initUpdate':
+        this.showDialog('update', event.payload);
         break;
       case 'update':
-        this.subscriptions.push(this.controlApi.upsert(event.payload).subscribe(
-          () => {
-            this.refresh();
-            this.modalRef.close();
-            this.uiService.toastSuccess('Control Updated', 'The Control was updated successfully.');
-          },
-          (err) => {
-            this.modalRef.close();
-            this.uiService.toastError('Update Control Failed', err.message || err.error.message);
-          },
-        ));
+        this.store.dispatch(new ControlActions.updateControl(event.payload));
+        this.modalRef.close();
+        break;
+      case 'initDelete':
+        const question = {
+          title: 'Delete Control',
+          html: `
+          <p class="lead">Are you sure you want to delete this control for the
+            <span class="font-weight-bold font-italic">${event.payload.control.model}</span> model?
+          </p>
+        `,
+          confirmButtonText: 'Yes, Delete'
+        };
+        this.uiService.alertError(question, () => this.handleAction({ type: 'delete', payload: event.payload.control }), () => { });
         break;
       case 'delete':
-        this.subscriptions.push(this.controlApi.deleteById(event.payload.id).subscribe(
-          () => {
-            this.refresh();
-            this.uiService.toastSuccess('Control Deleted', 'The Control was deleted successfully.');
-          },
-          (err) => {
-            this.uiService.toastError('Delete Control Failed', err.message || err.error.message);
-          },
-        ));
+        this.store.dispatch(new ControlActions.deleteControl(event.payload));
         break;
       default:
-        return console.log('Unknown event action', event);
+        console.log('Unknown Event Action', event);
+        break;
     }
   }
 

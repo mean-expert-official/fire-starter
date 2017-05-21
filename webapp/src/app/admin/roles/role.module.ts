@@ -6,7 +6,8 @@ import { UiModule } from '../../ui/ui.module';
 
 import { RoleComponent } from './role.component';
 import { RoleFormComponent } from './form/role-form.component';
-import { ViewUsersComponent } from './form/view-users.component';
+import { RoleListComponent } from './list/role-list.component';
+import { RoleUserListComponent } from './list/role-user-list.component';
 
 import { RoleService } from './role.service';
 
@@ -19,11 +20,11 @@ import { RoleService } from './role.service';
   declarations: [
     RoleComponent,
     RoleFormComponent,
-    ViewUsersComponent
+    RoleListComponent,
+    RoleUserListComponent,
   ],
   entryComponents: [
     RoleFormComponent,
-    ViewUsersComponent
   ],
   exports: [
     RoleComponent,

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
   selector: 'fire-home',
   template: `
   <fire-card icon="object-group"
-            title="User Interface"
+            cardTitle="User Interface"
             [nav]="nav">
     <router-outlet></router-outlet>
   </fire-card>

@@ -8,7 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthComponent } from './auth.component';
 import { UiModule } from '../ui/ui.module';
 import { StatusComponent } from './status/status.component';
-import { AuthEffects } from '../store/effects/auth';
+import { LoopbackAuthEffects } from '../sdk/effects/auth';
 
 @NgModule({
   imports: [
@@ -29,7 +29,7 @@ import { AuthEffects } from '../store/effects/auth';
     RegisterComponent,
   ],
   providers: [
-    AuthEffects,
+    LoopbackAuthEffects,
   ]
 })
 export class AuthModule { }

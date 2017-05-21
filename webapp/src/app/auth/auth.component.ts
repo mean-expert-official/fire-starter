@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FireLoopRef, Account, SDKToken } from '../shared/sdk/models';
-import { RealTime, AccountApi } from '../shared/sdk/services';
+import { FireLoopRef, Account, SDKToken } from '../sdk/models';
+import { RealTime, AccountApi } from '../sdk/services';
 import { Store } from '@ngrx/store';
 import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
   template: `
   <div class="row align-items-center justify-content-center">
     <div class="col-12 col-lg-8">
-      <fire-card [icon]="userApi.isAuthenticated() ? 'unlock' : 'lock'" title="Auth Status">
+      <fire-card [icon]="userApi.isAuthenticated() ? 'unlock' : 'lock'" cardTitle="Auth Status">
         <fire-auth-status></fire-auth-status>
       </fire-card>
     </div>
     <div class="col-12 col-lg-8">
       <fire-card icon="magic"
-                title="Auth Actions"
+                cardTitle="Auth Actions"
                 [nav]="nav">
         <router-outlet></router-outlet>
       </fire-card>

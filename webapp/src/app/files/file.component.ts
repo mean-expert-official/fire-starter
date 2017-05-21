@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnChanges } from '@angular/core';
 import { Router } from "@angular/router";
-import { Container } from '../shared/sdk/models';
+import { Container } from '../sdk/models';
 import { FileService } from './file.service';
 import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
   selector: 'fire-file',
   template: `
     <fire-card icon="files-o"
-              title="Files"
+              cardTitle="Files"
               [createButton]="fileService.getCardButtons()"
               [nav]="nav"
               (action)="fileService.create()">

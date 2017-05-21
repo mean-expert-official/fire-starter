@@ -1,13 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
-import { TodoApi, NoteApi, ContainerApi } from '../../shared/sdk/services';
-import { Todo, Note, Container } from '../../shared/sdk/models';
+import { TodoApi, NoteApi, ContainerApi } from '../../sdk/services';
+import { Todo, Note, Container } from '../../sdk/models';
 import { Subscription } from 'rxjs/Subscription';
 import { DashCard } from '../../ui/ui.service';
 
 @Component({
   selector: 'fire-home-dashboard',
   template: `
-  <fire-card icon="tachometer" title="Dashboard">
+  <fire-card icon="tachometer" cardTitle="Dashboard">
     <div *ngIf="dashCards" class="row align-items-center justify-content-center">
       <div *ngFor="let item of dashCards" class="col-6 col-lg-4">
         <a class="dash-card" [routerLink]="item.link">
@@ -17,7 +17,7 @@ import { DashCard } from '../../ui/ui.service';
               <div class="card-center">
                 <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>
               </div>
-              <h4><span class="badge badge-primary">{{ item.data | number }}</span></h4>
+              <h4><span class="badge badge-primary">{{ item.data | async }}</span></h4>
             </div>
           </div>
         </a>
@@ -63,13 +63,13 @@ export class DashboardComponent implements OnDestroy {
         'name': 'Todos',
         'link': '/home/todos',
         'icon': 'check-square-o',
-        'data': this.todoCount
+        'data': this.todoApi.count()
       },
       {
         'name': 'Notes',
         'link': '/home/notes',
         'icon': 'sticky-note-o',
-        'data': this.noteCount
+        'data': this.noteApi.count()
       }
     ]
   }

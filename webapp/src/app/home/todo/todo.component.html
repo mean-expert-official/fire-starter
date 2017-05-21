@@ -1,7 +1,7 @@
 <fire-card icon="check-square-o"
-          title="Todos"
-          [createButton]="todoService.getCardButtons()"
-          (action)="create()">
+           cardTitle="Todos"
+           [createButton]="todoService.getCardButtons()"
+           (action)="create()">
   <table *ngIf="todos.length"
          class="table table-striped table-sm"
          [class.table-responsive]="!uiService.isLargeScreen">

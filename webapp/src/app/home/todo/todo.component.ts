@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TodoApi } from '../../shared/sdk/services';
-import { Todo } from '../../shared/sdk/models';
+import { TodoApi } from '../../sdk/services';
+import { Todo } from '../../sdk/models';
 import { TodoFormComponent } from './todo-form.component';
 import { TodoService } from './todo.service';
 import { UiService } from '../../ui/ui.service';

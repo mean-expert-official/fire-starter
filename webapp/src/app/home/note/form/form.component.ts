@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Note } from '../../../shared/sdk/models/Note'
+import { Note } from '../../../sdk/models/Note'
 
 @Component({
   selector: 'fire-note-form',

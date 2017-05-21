@@ -1,213 +1,172 @@
-import { Component, OnDestroy } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Role, Account } from '../../shared/sdk/models';
-import { RoleApi, AccountApi } from '../../shared/sdk/services';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
+import { Store, State } from '@ngrx/store';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Role, Account } from '../../sdk';
 import { RoleFormComponent } from './form/role-form.component';
-import { ViewUsersComponent } from './form/view-users.component';
 import { RoleService } from './role.service';
 import { UiService } from '../../ui/ui.service';
-import { Subscription } from 'rxjs/Subscription';
+import { RoleActions, UserActions } from '../state/admin.state';
+import * as Roles from '../state/reducers/role.reducers';
 import { sortBy, omit } from 'lodash';
 
 @Component({
   selector: 'fire-role',
-  templateUrl: './role.component.html',
+  template: `
+  <fire-card icon="tags"
+             cardTitle="Roles"
+             [createButton]="roleService.getCardButtons()"
+             (action)="handleAction($event)">
+    <fire-role-list *ngIf="roles"
+                    [roles]="roles | async"
+                    [users]="users | async"
+                    (action)="handleAction($event)">
+    </fire-role-list>
+  </fire-card>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoleComponent implements OnDestroy {
 
   private modalRef;
-  public roles: Role[] = new Array<Role>();
-  public users: Account[] = new Array<Account>();
+  public admin;
+  public roles;
+  public users;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private modal: NgbModal,
     public uiService: UiService,
     public roleService: RoleService,
-    public roleApi: RoleApi,
-    public userApi: AccountApi
+    private store: Store<any>,
   ) {
-    this.refresh();
+    this.admin = store.select('admin');
+    this.users = this.admin.map((a) => {
+      return a.users.ids.map((id) => a.users.entities[id]);
+    });
+    this.roles = this.admin.map((a) => {
+      return a.roles.ids.map((id) => a.roles.entities[id]);
+    });
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
-  refresh(): void {
-    this.subscriptions.push(this.userApi.find({
-      order: 'email ASC',
-      include: 'roles'
-    }).subscribe(
-      (users: Account[]) => {
-        this.users = users;
-      }));
-    this.subscriptions.push(this.roleApi.find({
-      order: 'name ASC',
-      include: 'principals'
-    }).subscribe(
-      (roles: Role[]) => {
-        roles.forEach((role: any) => (role.principalCount = role.principals.length));
-        this.roles = roles;
-      }));
-  }
-
-  showDialog(type, item, options?): void {
-    this.modalRef = this.modal.open(RoleFormComponent, { size: 'sm' });
-    this.modalRef.componentInstance.item = item;
-    this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type, options ? options : '');
+  showDialog(type: any, item: any) {
     switch (type) {
       case 'create':
-        this.modalRef.componentInstance.title = 'Create Role'
+        this.modalRef = this.modal.open(RoleFormComponent, { size: 'sm' });
+        this.modalRef.componentInstance.item = item;
+        this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type);
+        this.modalRef.componentInstance.title = 'Create Role';
         break;
       case 'update':
-        this.modalRef.componentInstance.title = 'Update Role'
+        this.modalRef = this.modal.open(RoleFormComponent, { size: 'sm' });
+        this.modalRef.componentInstance.item = item;
+        this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type);
+        this.modalRef.componentInstance.title = 'Update Role';
         break;
-      case 'addUser':
-        this.modalRef.componentInstance.title = 'Add User to Role'
+      case 'viewPrincipals':
+        const allUsers: Array<Account> = item.users;
+        const filteredUserIds: Array<string> = item.role.principals.map(p => p.principalId);
+        this.modalRef = this.modal.open(RoleFormComponent, { size: 'lg' });
+        this.modalRef.componentInstance.item = item.role;
+        this.modalRef.componentInstance.items = allUsers.filter(u => filteredUserIds.indexOf(u.id) >= 0);
+        this.modalRef.componentInstance.title = `Principals for ${item.role.name}`;
+        break;
+      case 'addUserToRole':
+        this.modalRef = this.modal.open(RoleFormComponent, { size: 'sm' });
+        this.modalRef.componentInstance.item = item;
+        this.modalRef.componentInstance.formConfig = this.roleService.getFormConfig(type, item);
+        this.modalRef.componentInstance.title = 'Add User to Role';
         break;
       default:
-        console.log('Unknown type', type);
+        console.log('Unknown Type', type);
         break;
-    };
+    }
     this.subscriptions.push(this.modalRef.componentInstance.action.subscribe(event => this.handleAction(event)));
-  }
-
-  create() {
-    this.showDialog('create', new Role());
-    this.refresh();
-  }
-
-  update(role: Role) {
-    const nextRole = omit(role, ['principalCount', 'principals']);
-    this.showDialog('update', nextRole);
-  }
-
-  delete(role: Role) {
-    const question = {
-      title: 'Delete Role',
-      html: `
-        <p class="lead">Are you sure you want to delete the
-          <span class="font-weight-bold font-italic">${role.name}</span> role?
-        </p>
-      `,
-      confirmButtonText: 'Yes, Delete'
-    };
-    this.uiService.alertError(question, () => this.handleAction({ type: 'delete', payload: role }), () => { });
-  }
-
-  viewUsers(role: Role) {
-    this.modalRef = this.modal.open(ViewUsersComponent, { size: 'lg' });
-    this.modalRef.componentInstance.title = `${role.name} Users`;
-    this.modalRef.componentInstance.role = role;
-    if (role.principals[0]) {
-      let principalList = [];
-      let principals = [];
-      role.principals.forEach((principal: any) => {
-        principalList.push({ id: principal.principalId, mapping: principal.id });
-      });
-      principalList.forEach((principal: any) => {
-        this.subscriptions.push(this.userApi.findById(principal.id).subscribe(
-          (user: any) => {
-            principals.push({ user: user, mapping: principal.mapping })
-          }));
-      });
-      this.modalRef.componentInstance.users = principals;
-    };
-    this.subscriptions.push(this.modalRef.componentInstance.action.subscribe(event => this.handleAction(event)));
-  }
-
-  addUser(role: Role) {
-    let options = {
-      users: this.users,
-      roles: this.roles
-    };
-    this.showDialog('addUser', role, options);
   }
 
   handleAction(event) {
     switch (event.type) {
+      case 'cancel':
+        this.modalRef.close();
+        break;
+      case 'initCreate':
+        this.showDialog('create', new Account());
+        break;
       case 'create':
-        this.subscriptions.push(this.roleApi.create(event.payload).subscribe(
-          () => {
-            this.refresh();
-            this.modalRef.close();
-            this.uiService.toastSuccess('Role Created', 'The Role was created successfully.');
-          },
-          (err) => {
-            this.modalRef.close();
-            this.uiService.toastError('Create Role Failed', err.message || err.error.message);
-          },
-        ));
+        event.payload.roles = [];
+        this.store.dispatch(new RoleActions.createRole(event.payload));
+        this.modalRef.close();
+        break;
+      case 'initUpdate':
+        this.showDialog('update', event.payload);
         break;
       case 'update':
-        this.subscriptions.push(this.roleApi.upsert(event.payload).subscribe(
-          () => {
-            this.refresh();
-            this.modalRef.close();
-            this.uiService.toastSuccess('Role Updated', 'The Role was updated successfully.');
-          },
-          (err) => {
-            this.modalRef.close();
-            this.uiService.toastError('Update Role Failed', err.message || err.error.message);
-          },
-        ));
+        this.store.dispatch(new RoleActions.updateRole(event.payload));
+        this.modalRef.close();
+        break;
+      case 'initDelete':
+        const question = {
+          title: 'Delete Role',
+          html: `
+          <p class="lead">Are you sure you want to delete Role
+            <span class="font-weight-bold font-italic">${event.payload.email}</span>?
+          </p>
+        `,
+          confirmButtonText: 'Yes, Delete'
+        };
+        this.uiService.alertError(question, () => this.handleAction({ type: 'delete', payload: event.payload }), () => { });
         break;
       case 'delete':
-        this.subscriptions.push(this.roleApi.deleteById(event.payload.id).subscribe(
-          () => {
-            this.refresh();
-            this.uiService.toastSuccess('Role Deleted', 'The Role was deleted successfully.');
-          },
-          (err) => {
-            this.uiService.toastError('Delete Role Failed', err.message || err.error.message);
-          },
-        ));
+        this.store.dispatch(new RoleActions.deleteRole(event.payload));
         break;
-      case 'deleteUserInit':
-        const question = {
-          title: 'Delete User',
+      case 'viewPrincipals':
+        this.showDialog('viewPrincipals', event.payload);
+        break;
+      case 'initAddUserToRole':
+        this.showDialog('addUserToRole',
+          {
+            roleId: event.payload.role.id,
+            users: event.payload.users,
+            roles: event.payload.roles
+          });
+        break;
+      case 'addUserToRole':
+        event.payload.user = event.payload.users.filter(user => user.id === event.payload.userId)[0];
+        event.payload.role = event.payload.roles.filter(role => role.id === event.payload.roleId)[0];
+        event.payload.principal = Object.assign({}, {
+          principalType: 'USER',
+          principalId: event.payload.userId,
+          roleId: event.payload.roleId
+        });
+        this.store.dispatch(new UserActions.addUserToRole(event.payload));
+        this.modalRef.close();
+        break;
+      case 'initDeleteUserFromRole':
+        const question2 = {
+          title: 'Delete Role',
           html: `
-            <p class="lead">Are you sure you want to delete user
-              <span class="font-weight-bold font-italic">${event.payload.user.email}</span>
-              from the <span class="font-weight-bold font-italic">${event.payload.role.name}</span> role?
+            <p class="lead">Are you sure you want to remove user
+              <span class="font-weight-bold font-italic">${event.payload.user.email}</span> from the
+              <span class="font-weight-bold font-italic">${event.payload.role.name}</span> role?
             </p>
           `,
           confirmButtonText: 'Yes, Delete'
         };
-        this.uiService.alertError(question, () => this.handleAction({ type: 'deleteUser', payload: event.payload }), () => { });
+        this.uiService.alertError(question2, () => this.handleAction({ type: 'deleteUserFromRole', payload: event.payload }), () => { });
         break;
-      case 'deleteUser':
-        this.subscriptions.push(this.roleApi.destroyByIdPrincipals(event.payload.role.id, event.payload.mapping).subscribe(
-          () => {
-            this.refresh();
-            this.modalRef.close();
-            this.uiService.toastSuccess('User Deleted', 'The user was deleted successfully.');
-          },
-          (err) => {
-            this.uiService.toastError('Delete User Failed', err.message || err.error.message);
-          },
-        ));
-        break;
-      case 'addUser':
-        let mapping = {
-          principalType: 'USER',
-          principalId: event.payload.user,
-          roleId: event.payload.id
-        };
-        this.subscriptions.push(this.roleApi.createPrincipals(event.payload.id, mapping).subscribe(
-          () => {
-            this.refresh();
-            this.modalRef.close();
-            this.uiService.toastSuccess('User Added', 'The user was added successfully.');
-          },
-          (err) => {
-            this.uiService.toastError('Add User Failed', err.message || err.error.message);
-          },
-        ));
+      case 'deleteUserFromRole':
+        this.store.dispatch(new UserActions.deleteUserFromRole(event.payload));
+        this.modalRef.close();
         break;
       default:
-        return console.log('Unknown event action', event);
+        console.log('Unknown Event Action', event);
+        break;
     }
   }
 
