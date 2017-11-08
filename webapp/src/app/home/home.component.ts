@@ -1,7 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../shared/sdk/actions/user';
-import { AccountApi } from '../shared/sdk/services';
 import { UiService, NavItem } from '../ui/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -12,48 +10,53 @@ import { Subscription } from 'rxjs/Subscription';
 
 })
 export class HomeComponent implements OnDestroy {
-  private authIcon;
+
+  private authIcon: any = null;
+  private auth: any = {};
   private sidebarNav: NavItem[];
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
     private uiService: UiService,
-    private userApi: AccountApi,
     private store: Store<any>,
   ) {
-    this.uiService.setSidebarNav([
-      {
-        'name': 'Auth',
-        'link': '/home/auth',
-        'icon': this.getAuthIcon()
-      },
-      {
-        'name': 'Dashboard',
-        'link': '/home/dashboard',
-        'icon': 'tachometer'
-      },
-      {
-        'name': 'UI',
-        'link': '/home/ui',
-        'icon': 'object-group'
-      },
-      {
-        'name': 'Files',
-        'link': '/home/files',
-        'icon': 'files-o'
-      },
-      {
-        'name': 'Todos',
-        'link': '/home/todos',
-        'icon': 'check-square-o'
-      },
-      {
-        'name': 'Notes',
-        'link': '/home/notes',
-        'icon': 'sticky-note-o'
-      },
+    this.subscriptions.push(
+      this.store.select('auth').subscribe(a => {
+        this.auth = a;
+        this.uiService.setSidebarNav([
+          {
+            'name': 'Auth',
+            'link': '/home/auth',
+            'icon': this.getAuthIcon()
+          },
+          {
+            'name': 'Dashboard',
+            'link': '/home/dashboard',
+            'icon': 'tachometer'
+          },
+          {
+            'name': 'UI',
+            'link': '/home/ui',
+            'icon': 'object-group'
+          },
+          {
+            'name': 'Files',
+            'link': '/home/files',
+            'icon': 'files-o'
+          },
+          {
+            'name': 'Todos',
+            'link': '/home/todos',
+            'icon': 'check-square-o'
+          },
+          {
+            'name': 'Notes',
+            'link': '/home/notes',
+            'icon': 'sticky-note-o'
+          },
+        ]);
+      }));
 
-    ]);
   }
 
   ngOnDestroy() {
@@ -61,10 +64,11 @@ export class HomeComponent implements OnDestroy {
   }
 
   getAuthIcon() {
-    if (this.userApi.isAuthenticated()) {
-      return 'unlock'
-    } else {
+    if (!this.auth.id) {
       return 'lock'
+    } else {
+      return 'unlock'
     }
   }
+
 }

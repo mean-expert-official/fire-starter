@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Role } from '../../shared/sdk/models';
-import { SDKModels, RoleApi, Models } from '../../shared/sdk/services';
+import { Role } from '../../sdk/models';
+import { SDKModels, RoleApi, Models } from '../../sdk/services';
 import { Subscription } from 'rxjs/Subscription';
-import { FormService } from '../../ui/form/ui-form.service';
+import { FireFormService } from '../../ui/components/form/fire-form.service';
 import { Observable } from 'rxjs/Observable';
 import { sortBy } from 'lodash';
 
@@ -14,30 +14,31 @@ export class ControlService {
   roles: Role[];
 
   constructor(
-    private formService: FormService,
+    private formService: FireFormService,
     private sdkModels: SDKModels,
     private roleApi: RoleApi
   ) {
     this.getModels();
   }
 
-  getCardButtons(): { class: string, icon: string, text: string } {
+  getCardButtons() {
     return {
       class: 'btn btn-secondary btn-block float-right',
       icon: 'plus',
-      text: 'Create'
+      text: 'Create',
+      action: 'initCreate'
     };
   }
 
   getTableHeaders(): string[] {
     return [
+      'Actions',
       'Model',
       'Property',
       'Access Type',
       'Permission',
       'Principal Type',
       'Principal ID',
-      'Actions'
     ];
   }
 
@@ -55,13 +56,11 @@ export class ControlService {
   }
 
   getFormFields(formType: string, options?: any): any[] {
-    let models = [];
-    let roles = [];
     const defaultRoles = ['$authenticated', '$everyone', '$owner', '$unauthenticated'];
+    const models = this.models.map((model) => Object.assign({}, { label: model, value: model }));
+    const roles = options.roles.map((role: Role) => Object.assign({}, { label: role.name, value: role.name }));
     models.push({ label: '*', value: '*' });
-    defaultRoles.forEach((role: any) => (roles.push({ label: role, value: role })));
-    this.models.forEach((model: any) => (models.push({ label: model, value: model })));
-    options.roles.forEach((role: any) => (roles.push({ label: role.name, value: role.name })));
+    defaultRoles.forEach((role: any) => roles.push({ label: role, value: role }));
     let fields = [
       this.formService.select('model', {
         label: 'Model',

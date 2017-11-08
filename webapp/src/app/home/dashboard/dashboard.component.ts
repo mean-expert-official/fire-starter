@@ -1,13 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
-import { RealTime } from '../../shared/sdk/services/core/real.time';
-import { FireLoopRef, Todo, Note, Container } from '../../shared/sdk/models';
+import { TodoApi, NoteApi, ContainerApi } from '../../sdk/services';
+import { Todo, Note, Container } from '../../sdk/models';
 import { Subscription } from 'rxjs/Subscription';
 import { DashCard } from '../../ui/ui.service';
 
 @Component({
   selector: 'fire-home-dashboard',
   template: `
-  <fire-card icon="tachometer" title="Dashboard">
+  <fire-card icon="tachometer" cardTitle="Dashboard">
     <div *ngIf="dashCards" class="row align-items-center justify-content-center">
       <div *ngFor="let item of dashCards" class="col-6 col-lg-4">
         <a class="dash-card" [routerLink]="item.link">
@@ -17,7 +17,7 @@ import { DashCard } from '../../ui/ui.service';
               <div class="card-center">
                 <i [class]="'fa fa-fw fa-3x fa-' + item.icon"></i>
               </div>
-              <h4><span class="badge badge-primary">{{ item.data | number }}</span></h4>
+              <h4><span class="badge badge-primary">{{ item.data | async }}</span></h4>
             </div>
           </div>
         </a>
@@ -31,36 +31,29 @@ import { DashCard } from '../../ui/ui.service';
 export class DashboardComponent implements OnDestroy {
 
   public dashCards: DashCard[] = [];
-  public todos: Todo[] = new Array<Todo>();
-  private todoRef: FireLoopRef<Todo>;
-  public notes: Note[] = new Array<Note>();
-  private noteRef: FireLoopRef<Note>;
+  public todoCount: number;
+  public noteCount: number;
+  public containerCount: number;
   private subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
-    private rt: RealTime,
+    public todoApi: TodoApi,
+    public noteApi: NoteApi,
+    public containerApi: ContainerApi,
   ) {
-    this.subscriptions.push(
-      this.rt.onReady().subscribe(
-        (fire: any) => {
-          this.todoRef = this.rt.FireLoop.ref<Todo>(Todo);
-          this.subscriptions.push(this.todoRef.on('change').subscribe(
-            (todos: Todo[]) => {
-              this.todos = todos;
-              this.setDashCards();
-            }));
-          this.noteRef = this.rt.FireLoop.ref<Note>(Note);
-          this.subscriptions.push(this.noteRef.on('change').subscribe(
-            (notes: Note[]) => {
-              this.notes = notes
-              this.setDashCards();
-            }));
-        }));
+    this.subscriptions.push(this.todoApi.count().subscribe(
+      (todos: { count: number }) => {
+        this.todoCount = todos.count;
+        this.setDashCards();
+      }));
+    this.subscriptions.push(this.noteApi.count().subscribe(
+      (notes: { count: number }) => {
+        this.noteCount = notes.count;
+        this.setDashCards();
+      }));
   }
 
   ngOnDestroy() {
-    this.todoRef.dispose();
-    this.noteRef.dispose();
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
@@ -70,13 +63,13 @@ export class DashboardComponent implements OnDestroy {
         'name': 'Todos',
         'link': '/home/todos',
         'icon': 'check-square-o',
-        'data': this.todos.length
+        'data': this.todoApi.count()
       },
       {
         'name': 'Notes',
         'link': '/home/notes',
         'icon': 'sticky-note-o',
-        'data': this.notes.length
+        'data': this.noteApi.count()
       }
     ]
   }

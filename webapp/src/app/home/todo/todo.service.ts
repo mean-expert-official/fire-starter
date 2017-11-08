@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FireLoopRef, Todo } from '../../shared/sdk/models';
-import { RealTime } from '../../shared/sdk/services/core/real.time';
+import { FireLoopRef, Todo } from '../../sdk/models';
+import { RealTime } from '../../sdk/services/core/real.time';
 import { Subscription } from 'rxjs/Subscription';
-import { FormService } from '../../ui/form/ui-form.service';
+import { FireFormService } from '../../ui/components/form/fire-form.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class TodoService {
   public subscriptions: Subscription[] = new Array<Subscription>();
 
   constructor(
-    private formService: FormService,
+    private formService: FireFormService,
   ) {
 
   }

@@ -23,6 +23,10 @@
     ]
   },
   "properties": {
+    "id": {
+      "type": "string",
+      "id": true
+    },
     "firstName": {
       "type": "string",
       "required": true

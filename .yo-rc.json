@@ -8,8 +8,16 @@
       },
       "webapp": {
         "path": "./webapp",
-        "type": "ng2web"
+        "type": "ng2web",
+        "name": "webapp",
+        "sdkPath": "webapp\\src\\app\\sdk"
       }
+    },
+    "promptValues": {
+      "sdkFeatures": [
+        "Enable PubSub + IO + FireLoop functionality",
+        "Enable NGRX functionality"
+      ]
     }
   }
 }

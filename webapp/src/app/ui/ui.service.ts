@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ToastyService, ToastyConfig } from 'ng2-toasty';
 import { assign, noop } from 'lodash';
 import swal, { SweetAlertOptions } from 'sweetalert2';
@@ -208,7 +209,7 @@ export interface NavItem {
 export interface DashCard {
   name: string,
   icon: string,
-  data: number,
+  data: Observable<any>,
   link: string
 }
 

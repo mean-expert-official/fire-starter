@@ -6,11 +6,11 @@ import { FormlyModule, FormlyBootstrapModule } from 'ng-formly';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastyModule } from 'ng2-toasty';
 
-import { FormlyConfig } from './../ui/form/formly.config';
-import { FormService } from './../ui/form/ui-form.service';
+import { FormlyConfig } from './../ui/components/form/formly.config';
+import { FireFormService } from './../ui/components/form/fire-form.service';
 import { UiService } from './../ui/ui.service';
 
-import { SDKBrowserModule, LoopBackConfig } from './../shared/sdk';
+import { SDKBrowserModule, LoopBackConfig } from './../sdk';
 
 import { AuthModule } from './../auth/auth.module';
 
@@ -31,7 +31,7 @@ import { CoreRoutingModule } from './core.routing';
     CoreRoutingModule
   ],
   providers: [
-    FormService,
+    FireFormService,
     UiService,
     NgbActiveModal
   ]

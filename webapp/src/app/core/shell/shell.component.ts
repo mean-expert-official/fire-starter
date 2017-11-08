@@ -6,13 +6,11 @@ import { Component, OnInit } from '@angular/core';
     <fire-layout></fire-layout>
     <ng2-toasty [position]="'bottom-right'"></ng2-toasty>
   `,
-  styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

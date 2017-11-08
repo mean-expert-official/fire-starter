@@ -13,8 +13,8 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { LayoutComponent } from './layout/layout.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { UiFormComponent } from './form/ui-form.component';
-import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
+import { FireFormComponent } from './components/form/fire-form.component';
+import { FormlyFieldDatePicker } from './components/form/formly.field.date-picker'
 
 @NgModule({
   imports: [
@@ -30,19 +30,20 @@ import { FormlyFieldDatePicker } from './form/formly.field.date-picker'
   declarations: [
     BodyComponent,
     FireCardComponent,
+    FireFormComponent,
     FooterComponent,
     HeaderComponent,
     LayoutComponent,
     SidebarComponent,
-    UiFormComponent,
     FormlyFieldDatePicker,
   ],
   exports: [
     FireCardComponent,
+    FireFormComponent,
     LayoutComponent,
-    UiFormComponent,
     FormlyModule,
     FormlyBootstrapModule,
+    NgbModule
   ],
   providers: [
 

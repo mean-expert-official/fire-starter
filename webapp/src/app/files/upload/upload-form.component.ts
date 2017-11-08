@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Container } from '../../shared/sdk/models';
+import { Container } from '../../sdk/models';
 import { Subscription } from 'rxjs/Subscription';
 import { FileService } from '../file.service';
 

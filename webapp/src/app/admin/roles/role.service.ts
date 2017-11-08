@@ -1,40 +1,48 @@
+// import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { FireLoopRef, Role } from '../../shared/sdk/models';
-import { Subscription } from 'rxjs/Subscription';
-import { FormService } from '../../ui/form/ui-form.service';
+import { Role, Account } from '../../sdk';
+import { FireFormService } from '../../ui/components/form/fire-form.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class RoleService {
 
   constructor(
-    public formService: FormService,
-  ) { }
+    public formService: FireFormService,
+  ) {
+
+  }
 
   getCardButtons() {
     return {
       class: 'btn btn-secondary btn-block float-right',
       icon: 'plus',
-      text: 'Create'
+      text: 'Create',
+      action: 'initCreate'
     };
   }
 
-  getTableHeaders() {
-    return [
-      'Name',
-      'Description',
-      'Users',
-      'Actions',
-    ];
-  }
+  getTableHeaders(type: string) {
+    switch (type) {
+      case 'roles':
+        return [
+          'Actions',
+          'Role Name',
+          'Role Description',
+          'Principals',
+        ];
+      case 'usersInRole':
+        return [
+          'Actions',
+          'Email',
+          'First Name',
+          'Last Name',
+        ];
+      default:
+        console.log('Unknown Type', type);
+        break;
+    }
 
-  getUserTableHeaders() {
-    return [
-      'Email',
-      'First Name',
-      'Last Name',
-      'Actions'
-    ];
   }
 
   getFormConfig(formType: string, options?: any) {
@@ -44,24 +52,22 @@ export class RoleService {
           fields: this.getFormFields(formType),
           showCancel: true,
           action: 'create',
-        };
+        }
       case 'update':
         return {
           fields: this.getFormFields(formType),
           showCancel: true,
           action: 'update',
-        };
-      case 'addUser':
+        }
+      case 'addUserToRole':
         return {
           fields: this.getFormFields(formType, options),
           showCancel: true,
-          action: 'addUser',
-        };
+          action: 'addUserToRole',
+        }
       default:
-        console.log('Unknown type', formType);
-        break;
+        return console.log('Unknown formType', formType);
     }
-
   }
 
   getFormFields(formType: string, options?: any) {
@@ -69,64 +75,58 @@ export class RoleService {
       case 'create':
         return [
           this.formService.input('name', {
-            label: 'Name',
+            label: 'Role Name',
             className: 'col-12',
             addonLeft: {
               class: 'fa fa-fw fa-tag'
             }
           }),
           this.formService.input('description', {
-            label: 'Description',
+            label: 'Role Description',
             className: 'col-12',
             addonLeft: {
-              class: 'fa fa-fw fa-comment'
+              class: 'fa fa-fw fa-comment-o'
             }
           }),
         ];
       case 'update':
         return [
           this.formService.input('name', {
-            label: 'Name',
+            label: 'Role Name',
             className: 'col-12',
             addonLeft: {
               class: 'fa fa-fw fa-tag'
             }
           }),
           this.formService.input('description', {
-            label: 'Description',
+            label: 'Role Description',
             className: 'col-12',
             addonLeft: {
-              class: 'fa fa-fw fa-comment'
+              class: 'fa fa-fw fa-comment-o'
             }
           }),
         ];
-      case 'addUser':
-        let roles = [];
-        let users = [];
-        options.roles.forEach((role: any) => (roles.push({ label: role.name, value: role.id })));
-        options.users.forEach((user: any) => (users.push({ label: user.email, value: user.id })));
+      case 'addUserToRole':
+        const users = options.users.map((user: Account) => Object.assign({}, { label: user.email, value: user.id }));
+        const roles = options.roles.map((role: Role) => Object.assign({}, { label: role.name, value: role.id }));
         return [
-          this.formService.select('id', {
-            label: 'Role',
-            className: 'col-12',
-            addonLeft: {
-              class: 'fa fa-fw fa-tag'
-            },
-            options: roles
-          }),
-          this.formService.select('user', {
+          this.formService.select('userId', {
             label: 'User',
             className: 'col-12',
             addonLeft: {
               class: 'fa fa-fw fa-user'
             },
-            options: users
+            options: users,
+          }),
+          this.formService.select('roleId', {
+            label: 'Role',
+            className: 'col-12',
+            addonLeft: {
+              class: 'fa fa-fw fa-tag'
+            },
+            options: roles,
           }),
         ];
-      default:
-        console.log('Unknown type', formType);
-        break;
     }
   }
-
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NoteApi } from '../../../shared/sdk/services/custom/Note';
-import { Note } from '../../../shared/sdk/models/Note';
+import { Note, NoteApi } from '../../../sdk';
 import { UiService } from '../../../ui/ui.service';
 
 @Component({
@@ -9,9 +8,10 @@ import { UiService } from '../../../ui/ui.service';
     <fire-note-form (create)="create($event)"></fire-note-form>
     <ul *ngIf="notes.length" class="list-unstyled mb-0 mt-3 px-3">
       <li *ngFor="let note of notes">
-        <fire-note-list-item
-          (update)="update($event)"
-          (remove)="remove($event)" [note]="note"></fire-note-list-item>
+        <fire-note-list-item (update)="update($event)"
+                             (remove)="remove($event)"
+                             [note]="note">
+        </fire-note-list-item>
       </li>
     </ul>
   `,
